@@ -6,7 +6,7 @@ name: Node.js CI
 on:
   push:
     tags:
-      - release-production-*
+      - master
 
 jobs:
   deploy_to_firebase_hosting:
