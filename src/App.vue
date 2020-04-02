@@ -1,8 +1,12 @@
 <template>
   <v-app>
     <v-content>
-      <Navbar/>
-      <router-view></router-view>
+      <Navbar />
+      <v-container>
+        <v-row justify="center" align-content="center">
+          <router-view></router-view>
+        </v-row>
+      </v-container>
     </v-content>
   </v-app>
 </template>
