@@ -1,18 +1,11 @@
 <template>
   <div class="home">
-    <router-link to="/about">ABOUT</router-link>
-    <JapanMap />
+    <div class="mt-12">
+      <p class="display-3">COVID-19</p>
+      <p class="display-1">
+        日本国内における新型コロナウイルス感染症の情報を発信
+      </p>
+    </div>
+      
   </div>
 </template>
-
-<script>
-// @ is an alias to /src
-import JapanMap from '@/components/JapanMap.vue'
-
-export default {
-  name: 'Home',
-  components: {
-    JapanMap
-  }
-}
-</script>
