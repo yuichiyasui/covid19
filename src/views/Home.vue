@@ -1,17 +1,18 @@
 <template>
   <div class="home">
-    <HelloWorld />
+    <router-link to="/about">ABOUT</router-link>
+    <JapanMap />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import JapanMap from '@/components/JapanMap.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    JapanMap
   }
 }
 </script>
