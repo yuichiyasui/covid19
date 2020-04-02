@@ -9,4 +9,5 @@
     name: 'JapanMap',
     data: () => ({})
   }
+  
 </script>
