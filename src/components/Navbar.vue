@@ -102,6 +102,14 @@ export default {
           icon: "mdi-chart-bar",
           text: "性別・年代別"
         }
+        ,{
+          icon: "mdi-chart-bar",
+          text: "死亡者数"
+        }
+        ,{
+          icon: "mdi-chart-bar",
+          text: "退院者数"
+        }
       ],
       drawer: null,
       model: 1
@@ -120,6 +128,12 @@ export default {
       }
       if (i === 3) {
         this.$router.push("/gender");
+      }
+      if (i === 4) {
+        this.$router.push("/dead");
+      }
+      if (i === 5) {
+        this.$router.push("/discharge");
       }
       if (i === "home") {
         // 現在のパスが'/'なら、エラーが出るため何もしないようにしたい
