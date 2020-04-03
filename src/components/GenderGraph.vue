@@ -1,9 +1,3 @@
-<template>
-  <div>
-    <h1>男女別感染者数</h1>
-  </div>
-</template>
-
 <script>
 // ここでこのコンポーネントで使用するグラフの種類を定義する。今回はドーナツグラフなのでDoughnutとなる。
 import { Doughnut } from "vue-chartjs";
@@ -18,8 +12,8 @@ export default {
         // 表示するデータ
         datasets: [
           {
-            data: [10, 15, 6],
-            backgroundColor: ["#1e90ff", "#db7093", "#db7093"],
+            data: [45, 45, 10],
+            backgroundColor: ["#1e90ff", "#db7093", "#f5deb3"],
             borderColor: "transparent" // 線の色を透明可
           }
         ]
