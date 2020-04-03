@@ -12,7 +12,6 @@ export default new Vuex.Store({
   },
   mutations: {
     addMasterData(state, masterData) {
-      console.log("mutation:" + masterData)
       state.masterData = masterData;
     }
   },
