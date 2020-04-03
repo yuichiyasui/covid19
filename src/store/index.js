@@ -8,11 +8,11 @@ Vue.use(axios);
 
 export default new Vuex.Store({
   state: {
-    masterData: {}
+    masterData: ""
   },
   mutations: {
     addMasterData(state, masterData) {
-      state.masterData = masterData;
+      state.masterData = masterData.data;
     }
   },
   actions: {
