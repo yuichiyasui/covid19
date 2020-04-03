@@ -2,7 +2,7 @@
   <v-app>
     <v-content>
       <Navbar />
-      <v-container>
+      <v-container fluid fill-height>
         <v-row justify="center" align-content="center">
           <router-view></router-view>
         </v-row>
@@ -20,7 +20,13 @@ export default {
   components: {
     Navbar
   },
-
-  data: () => ({})
+  data: () => {
+    return {
+      masterData:{}
+    }
+  },
+  created () {
+   this.$store.dispatch("fetchMasterData");
+  }
 };
 </script>

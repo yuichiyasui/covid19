@@ -1,13 +1,13 @@
 <template>
     <v-col class="text-center">
-      <div id="regions_map_div"></div>
+      <div id="chart_div"></div>
+      <div id="read_text"></div>
     </v-col>
 </template>
 
 <script>
   export default {
-    name: 'JapanMap',
+    name: 'Chart',
     data: () => ({})
   }
-  
 </script>
