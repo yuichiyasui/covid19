@@ -20,7 +20,13 @@ export default {
   components: {
     Navbar
   },
-
-  data: () => ({})
+  data: () => {
+    return {
+      masterData:{}
+    }
+  },
+  created () {
+   this.$store.dispatch("fetchMasterData");
+  }
 };
 </script>
