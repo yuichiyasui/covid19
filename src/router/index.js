@@ -24,6 +24,16 @@ const routes = [
     path: '/map',
     name: 'Map',
     component: () => import('../views/Map.vue')
+  },
+  {
+    path: '/gender',
+    name: 'Gender',
+    component: () => import('../views/Gender.vue')
+  },
+  {
+    path: '/people',
+    name: 'People',
+    component: () => import('../views/People.vue')
   }
 ]
 

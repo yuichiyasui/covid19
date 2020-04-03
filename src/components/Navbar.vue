@@ -93,6 +93,14 @@ export default {
         {
           icon: "mdi-chart-bar",
           text: "各種グラフ"
+        },
+        {
+          icon: "mdi-chart-bar",
+          text: "感染者数"
+        },
+        {
+          icon: "mdi-chart-bar",
+          text: "性別・年代別"
         }
       ],
       drawer: null,
@@ -106,6 +114,12 @@ export default {
       }
       if (i === 1) {
         this.$router.push("/graph");
+      }
+      if (i === 2) {
+        this.$router.push("/people");
+      }
+      if (i === 3) {
+        this.$router.push("/gender");
       }
       if (i === "home") {
         // 現在のパスが'/'なら、エラーが出るため何もしないようにしたい

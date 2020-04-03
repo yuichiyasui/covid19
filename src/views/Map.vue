@@ -14,12 +14,17 @@
 import JapanMap from "@/components/JapanMap.vue";
 
 export default {
-  created(){
-     this.masterData = this.$store.state.masterData;
+  mounted(){
+     this.masterData = this.$store.state.masterData.data;
   },
   data() {
     return {
       masterData :{}
+    }
+  },
+  methods:{
+    toArray(){
+      this.masterData;
     }
   },
   name: "Home",
