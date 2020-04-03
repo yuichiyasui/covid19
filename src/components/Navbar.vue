@@ -8,12 +8,12 @@
       </h1>
       <v-spacer></v-spacer>
       <v-toolbar-items class="d-none d-sm-flex d-md-flex d-lg-flex">
-        <v-btn class="mr-2" text
+        <v-btn text
           ><router-link to="/" class="title font-weight-light white--text"
             >Home</router-link
           ></v-btn
         >
-        <v-btn class="mr-2" text
+        <v-btn text
           ><router-link to="/about" class="title font-weight-light white--text"
             >About</router-link
           ></v-btn
@@ -73,7 +73,7 @@
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title>{{ item.text}}</v-list-item-title>
+            <v-list-item-title>{{ item.text }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
