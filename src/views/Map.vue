@@ -102,11 +102,11 @@ export default {
       for (let j = 0; j < this.prefArray.length; j++) {
         if (pref === this.resultArray[j].name) {
           this.resultArray[j].addCount();
-          return console.log(this.resultArray[j].name + "にカウント");
+          return ;
         }
       }
       this.resultArray[48].addCount();
-      return console.log(this.resultArray[48].name + "にカウント");
+      return ;
     }
   }
 };
