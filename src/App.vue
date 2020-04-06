@@ -21,11 +21,8 @@ export default {
     Navbar
   },
   data: () => {
-    return {
-      masterData:{}
-    }
   },
-  created () {
+  beforeCreate () {
    this.$store.dispatch("fetchMasterData");
   }
 };
