@@ -20,8 +20,6 @@ export default {
   components: {
     Navbar
   },
-  data: () => {
-  },
   beforeCreate () {
    this.$store.dispatch("fetchMasterData");
   }

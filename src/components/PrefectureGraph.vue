@@ -1,4 +1,5 @@
 <script>
+// import { HorizontalBar } from "vue-chartjs";
 import { Bar } from "vue-chartjs";
 
 export default {
@@ -27,6 +28,7 @@ export default {
     },
   },
   name: "PrefectureGraph",
+  // extends: HorizontalBar,
   extends: Bar,
   mounted() {
     this.prefectureData = this.getPrefectureData;
@@ -34,13 +36,13 @@ export default {
       labels: this.getPrefectureName,
       datasets: [
         {
-          label: "Data",
+          label: "感染者数",
           backgroundColor: "#7979f8",
           data: this.getPrefectureCount,
         },
       ],
-    });
-  },
+    },{responsive:true, display:true, maintainAspectRatio: false});
+  }
 };
 </script>
 <style scoped></style>
