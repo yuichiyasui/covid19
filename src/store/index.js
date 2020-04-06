@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import PREF_ARRAY from "../assets/js/prefecture";
 
 Vue.use(Vuex);
 Vue.use(axios);
@@ -40,6 +41,33 @@ export default new Vuex.Store({
         .catch((e) => {
           alert(e);
         });
+    },
+  },
+  getters: {
+    getPrefectureData(state) {
+      var prefArray = PREF_ARRAY;
+      var resultArray = [];
+      var masterData = state.masterData;
+      for (let i = 0; i < prefArray.length; i++) {
+        var prefecture = { id: i, name: prefArray[i], count: 0 };
+        resultArray.push(prefecture);
+      }
+      for (let j = 0; j < masterData.length; j++) {
+        var pref = masterData[j].residence;
+        var isMatch = false; // マッチしてなかったらfalse
+        for (let i = 0; i < prefArray.length; i++) {
+          if (pref === resultArray[i].name) {
+            resultArray[i].count++;
+            isMatch = true; // マッチしたらtrue
+            break;
+          }
+        }
+        if (isMatch === false) {
+          // 47都道府県と不明のいずれにもマッチしなかった場合その他に追加
+          resultArray[48].count++;
+        }
+      }
+      return resultArray;
     },
   },
   modules: {},
