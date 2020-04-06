@@ -2,8 +2,10 @@
   <v-col>
     <v-card height="80vh" class="pa-3">
       <v-card-text>
-        <p class="display-1">マップを表示します</p>
-        <PrefectureGraph></PrefectureGraph>
+        <p class="display-1">都道府県別感染者数グラフ</p>
+        <div class="prefecture-graph">
+          <PrefectureGraph></PrefectureGraph>
+        </div>
       </v-card-text>
     </v-card>
   </v-col>
@@ -16,6 +18,19 @@ export default {
   components: {
     PrefectureGraph,
   },
-  data() {},
 };
 </script>
+
+<style scoped>
+.prefecture {
+  width: 500px;
+  height: 100vh;
+}
+.prefecture-graph {
+  position: absolute;
+  top: 60px;
+  left: 10px;
+  width: 500px;
+  height: 500px;
+}
+</style>

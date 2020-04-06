@@ -1,27 +1,46 @@
-<template>
-  <div class="graph">
-    <h1>PrefectureGraph</h1>
-    <table border="1">
-      <tr v-for="(pref, i) in getPrefectureData" v-bind:key="i">
-        <td v-text="pref.name"></td>
-        <td v-text="pref.count"></td>
-      </tr>
-    </table>
-  </div>
-</template>
-
 <script>
+import { Bar } from "vue-chartjs";
+
 export default {
-  name: "PrefectureGraph",
+  data() {
+    return {
+      prefectureData: [],
+    };
+  },
   computed: {
-    getPrefectureData() {
+    getPrefectureData: function () {
       return this.$store.getters.getPrefectureData;
     },
+    getPrefectureName: function () {
+      var prefectureNameArray = [];
+      this.prefectureData.forEach((element) => {
+        prefectureNameArray.push(element.name);
+      });
+      return prefectureNameArray;
+    },
+    getPrefectureCount: function () {
+      var prefectureCountArray = [];
+      this.prefectureData.forEach((element) => {
+        prefectureCountArray.push(element.count);
+      });
+      return prefectureCountArray;
+    },
+  },
+  name: "PrefectureGraph",
+  extends: Bar,
+  mounted() {
+    this.prefectureData = this.getPrefectureData;
+    this.renderChart({
+      labels: this.getPrefectureName,
+      datasets: [
+        {
+          label: "Data",
+          backgroundColor: "#7979f8",
+          data: this.getPrefectureCount,
+        },
+      ],
+    });
   },
 };
 </script>
-<style scoped>
-.graph {
-  color: red;
-}
-</style>
+<style scoped></style>
