@@ -16,13 +16,11 @@
 </template>
 
 <script>
-import Chart from "@/components/Chart.vue";
 import TransitionGraph from "@/components/TransitionGraph.vue";
 
 export default {
   name: "Home",
   components: {
-    Chart,
     TransitionGraph
   }
 };
