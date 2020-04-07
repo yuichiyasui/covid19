@@ -18,8 +18,8 @@ export default {
         region: "JP",
         resolution: "provinces",
         displayMode: "regions",
-        colorAxis: {colors:['white','red']},
-        magnifyingGlass:{enable: true, zoomFactor: 7.5}
+        colorAxis: {maxValue:500 ,colors:['white','yellow','red']},
+        keepAspectRatio:true,
       },
     };
   },
@@ -28,7 +28,7 @@ export default {
       return this.$store.getters.getPrefectureData;
     },
     convertChartData: function () {
-      var chartData = [["Region", "Data"]];
+      var chartData = [["都道府県名", "感染者数"]];
       this.getPrefectureData.forEach((element) => {
         if (element.name !== "不明" && element.name !== "その他") {
           var chartDataArray = [
