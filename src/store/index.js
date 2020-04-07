@@ -2,13 +2,15 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import PREF_ARRAY from "../assets/js/prefecture";
+import AGE_ARRAY from "../assets/js/age";
+import GENDER_ARRAY from "../assets/js/gender";
 
 Vue.use(Vuex);
 Vue.use(axios);
 
 export default new Vuex.Store({
   state: {
-    masterData: [],
+    masterData: []
   },
   mutations: {
     addMasterData(state, masterData) {
@@ -26,22 +28,22 @@ export default new Vuex.Store({
           gender: miniArray[6], //性別
           date: miniArray[7], // 確定日
           residence: miniArray[10], // 居住都道府県
-          status: status, // ステータス('退院' or '死亡' or '')
+          status: status // ステータス('退院' or '死亡' or '')
         };
         masterDataArray.push(rowData); // 加工した1行分のデータを配列に追加
       }
       state.masterData = masterDataArray; // 加工したデータ配列でstateを上書き
-    },
+    }
   },
   actions: {
     async fetchMasterData(context) {
       await axios
         .get("https://dl.dropboxusercontent.com/s/6mztoeb6xf78g5w/COVID-19.csv")
-        .then((response) => context.commit("addMasterData", response))
-        .catch((e) => {
+        .then(response => context.commit("addMasterData", response))
+        .catch(e => {
           alert(e);
         });
-    },
+    }
   },
   getters: {
     getPrefectureData(state) {
@@ -69,6 +71,56 @@ export default new Vuex.Store({
       }
       return resultArray;
     },
+    getAgeData(state) {
+      var ageArray = AGE_ARRAY;
+      var resultArray = [];
+      var masterData = state.masterData;
+      for (let i = 0; i < ageArray.length; i++) {
+        var age = { id: i, name: ageArray[i], count: 0 };
+        resultArray.push(age);
+      }
+      for (let j = 0; j < masterData.length; j++) {
+        var ageData = masterData[j].age;
+        var isMatch = false; // マッチしてなかったらfalse
+        for (let i = 0; i < ageArray.length; i++) {
+          if (ageData === resultArray[i].name) {
+            resultArray[i].count++;
+            isMatch = true; // マッチしたらtrue
+            break;
+          }
+        }
+        if (isMatch === false) {
+          // いずれにもマッチしなかった場合その他に追加
+          resultArray[10].count++;
+        }
+      }
+      return resultArray;
+    },
+    getGenderData(state) {
+      var genderArray = GENDER_ARRAY;
+      var resultArray = [];
+      var masterData = state.masterData;
+      for (let i = 0; i < genderArray.length; i++) {
+        var gender = { id: i, name: genderArray[i], count: 0 };
+        resultArray.push(gender);
+      }
+      for (let j = 0; j < masterData.length; j++) {
+        var genderData = masterData[j].gender;
+        var isMatch = false; // マッチしてなかったらfalse
+        for (let i = 0; i < genderArray.length; i++) {
+          if (genderData === resultArray[i].name) {
+            resultArray[i].count++;
+            isMatch = true; // マッチしたらtrue
+            break;
+          }
+        }
+        if (isMatch === false) {
+          // いずれにもマッチしなかった場合その他に追加
+          resultArray[4].count++;
+        }
+      }
+      return resultArray;
+    }
   },
-  modules: {},
+  modules: {}
 });
