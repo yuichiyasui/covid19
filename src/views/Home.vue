@@ -13,7 +13,8 @@
         <th>性別</th>
         <th>確定日</th>
         <th>居住都道府県</th>
-        <th>ステータス</th>
+        <th>死者合計</th>
+        <th>退院数</th>
       </tr>
     <tr v-for="(d, i) in this.$store.state.masterData" :key="i">
       <td >{{ i  + 1}}</td>
