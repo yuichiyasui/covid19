@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar app color="#FB8C00" dark fixed>
+    <v-app-bar app color="#F57C00" dark fixed>
       <h1>
         <router-link to="/" class="display-1 font-weight-thin white--text"
           >COVID-19</router-link
