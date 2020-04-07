@@ -24,8 +24,8 @@ export default new Vuex.Store({
           gender: miniArray[6], //性別
           date: miniArray[7], // 確定日
           residence: miniArray[10], // 居住都道府県
-          dead: miniArray[25], // 死者合計
-          discharge: miniArray[27], // 退院数
+          dead: miniArray[26], // 死者合計
+          discharge: miniArray[28], // 退院数
         };
         masterDataArray.push(rowData); // 加工した1行分のデータを配列に追加
       }
