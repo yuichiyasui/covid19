@@ -4,7 +4,8 @@
       <Navbar />
       <v-container fluid fill-height>
         <v-row justify="center" align-content="center">
-          <router-view></router-view>
+          <Loading v-show="loading"></Loading>
+          <router-view v-show="!loading"></router-view>
         </v-row>
       </v-container>
     </v-content>
@@ -12,16 +13,26 @@
 </template>
 
 <script>
-import Navbar from "./components/Navbar";
-
+import Loading from '@/components/Loading';
+import Navbar from "@/components/Navbar";
 export default {
   name: "App",
-
-  components: {
-    Navbar
+  data(){
+    return {
+      loading: true
+    }
   },
-  beforeCreate () {
-   this.$store.dispatch("fetchMasterData");
+  components: {
+    Navbar,
+    Loading
+  },
+  beforeCreate() {
+    this.$store.dispatch("fetchMasterData");
+  },
+  mounted(){
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000);
   }
 };
 </script>
