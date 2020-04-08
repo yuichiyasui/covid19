@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-  import LineChart from '../LineChart.js'
+  import LineChart from '../assets/js/LineChart.js'
   export default {
     components: {
       LineChart
