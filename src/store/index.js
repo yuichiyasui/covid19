@@ -28,7 +28,6 @@ export default new Vuex.Store({
           residence: miniArray[10], // 居住都道府県
           dead: miniArray[26], // 死者合計
           discharge: miniArray[28], // 退院数
-          status: status // ステータス('退院' or '死亡' or '')
         };
         masterDataArray.push(rowData); // 加工した1行分のデータを配列に追加
       }
