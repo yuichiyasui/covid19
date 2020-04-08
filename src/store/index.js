@@ -78,20 +78,25 @@ export default new Vuex.Store({
       for (let i = 0; i < ageArray.length; i++) {
         var age = { id: i, name: ageArray[i], count: 0 };
         resultArray.push(age);
+        console.log("resultArrayの名前" + resultArray[i].name);
       }
       for (let j = 0; j < masterData.length; j++) {
         var ageData = masterData[j].age;
         var isMatch = false; // マッチしてなかったらfalse
         for (let i = 0; i < ageArray.length; i++) {
-          if (ageData === resultArray[i].name) {
+          if (ageData == Number(resultArray[i].name)) {
+            console.log(resultArray[i].name);
             resultArray[i].count++;
             isMatch = true; // マッチしたらtrue
             break;
           }
-        }
-        if (isMatch === false) {
-          // いずれにもマッチしなかった場合その他に追加
-          resultArray[10].count++;
+          // "1-10,不明"
+          if (isMatch === false) {
+            if (ageData == resultArray[i].name) {
+              resultArray[i].count++;
+              break;
+            }
+          }
         }
       }
       return resultArray;

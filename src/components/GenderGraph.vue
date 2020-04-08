@@ -6,28 +6,16 @@ export default {
   extends: Doughnut,
   data() {
     return {
-      genderData: [],
-      datas: {
-        // 凡例とツールチップに表示するラベル
-        labels: this.getGenderName,
-        // 表示するデータ
-        datasets: [
-          {
-            data: this.getGenderCount,
-            backgroundColor: ["#1e90ff", "#db7093", "#f5deb3"],
-            borderColor: "transparent" // 線の色を透明可
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        legend: {
-          position: "bottom", // 配置の設定
-          labels: {
-            fontSize: 28
-          }
-        }
-      }
+      genderData: []
+      // options: {
+      //   responsive: true,
+      //   legend: {
+      //     position: "bottom", // 配置の設定
+      //     labels: {
+      //       fontSize: 28
+      //     }
+      //   }
+      // }
     };
   },
   computed: {
@@ -51,7 +39,21 @@ export default {
   },
   mounted() {
     this.genderData = this.getGenderData;
-    this.renderChart(this.datas, this.options);
+    this.renderChart(
+      {
+        labels: this.getGenderName,
+        // 表示するデータ
+        datasets: [
+          {
+            data: this.getGenderCount,
+            backgroundColor: ["#1e90ff", "#db7093", "#f5deb3"],
+            borderColor: "transparent" // 線の色を透明可
+          }
+        ]
+      },
+      { responsive: true, display: true, maintainAspectRatio: false }
+      // this.options
+    );
   }
 };
 </script>

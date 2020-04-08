@@ -6,26 +6,6 @@ export default {
   name: "AgeGraph",
   data() {
     return {
-      // options: {
-      //   scales: {
-      //     xAxes: [
-      //       {
-      //         scaleLabel: {
-      //           display: true,
-      //           labelString: "年代"
-      //         }
-      //       }
-      //     ],
-      //     yAxes: [
-      //       {
-      //         ticks: {
-      //           beginAtZero: true,
-      //           stepSize: 10
-      //         }
-      //       }
-      //     ]
-      //   }
-      // },
       ageData: []
     };
   },
@@ -88,9 +68,29 @@ export default {
             data: this.getAgeCount
           }
         ]
+        // options: {
+        //   scales: {
+        //     xAxes: [
+        //       {
+        //         scaleLabel: {
+        //           display: true,
+        //           labelString: "年代"
+        //         }
+        //       }
+        //     ],
+        //     yAxes: [
+        //       {
+        //         ticks: {
+        //           beginAtZero: true,
+        //           stepSize: 10
+        //         }
+        //       }
+        //     ]
+        //   }
+        // }
       },
       { responsive: true, display: true, maintainAspectRatio: false }
-      // this.options
+      //this.options
     );
   }
 };
