@@ -16,10 +16,19 @@
         <th>死者合計</th>
         <th>退院数</th>
       </tr>
-    <tr v-for="(d, i) in this.$store.state.masterData" :key="i">
-      <td >{{ i  + 1}}</td>
-      <td v-for="(key,j) of d" :key="j" >{{ key }}</td>
-    </tr>
+      <tr v-for="(d, i) in this.$store.state.masterData" :key="i">
+        <td>{{ i + 1 }}</td>
+        <td>{{ d.age }}</td>
+        <td>{{ d.gender }}</td>
+        <td>{{ $store.getters.dateToString(d.date) }}</td>
+        <td>{{ d.residence }}</td>
+        <td>{{ d.dead }}</td>
+        <td>{{ d.discharge }}</td>
+      </tr>
     </table>
   </div>
 </template>
+<script>
+export default {
+};
+</script>

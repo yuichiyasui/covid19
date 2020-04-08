@@ -10,7 +10,7 @@ Vue.use(axios);
 
 export default new Vuex.Store({
   state: {
-    masterData: []
+    masterData: [],
   },
   mutations: {
     addMasterData(state, masterData) {
@@ -20,7 +20,7 @@ export default new Vuex.Store({
       var masterDataArray = []; // 必要なデータだけを格納する配列
       for (var i = 0; i < bigArray.length; i++) {
         var miniArray = bigArray[i].split(","); // 1行の各項目を配列に格納
-        var arr = miniArray[39].split("/");   // yyyy/MM/ddを'/'で分割
+        var arr = miniArray[39].split("/"); // yyyy/MM/ddを'/'で分割
         var date = new Date(arr[0], arr[1] - 1, arr[2]); // yyyy,MM,ddでDateオブジェクトを生成
         var rowData = {
           // 必要な行だけ切り取って連想配列にする
@@ -34,17 +34,17 @@ export default new Vuex.Store({
         masterDataArray.push(rowData); // 加工した1行分のデータを配列に追加
       }
       state.masterData = masterDataArray; // 加工したデータ配列でstateを上書き
-    }
+    },
   },
   actions: {
     async fetchMasterData(context) {
       await axios
         .get("https://dl.dropboxusercontent.com/s/6mztoeb6xf78g5w/COVID-19.csv")
-        .then(response => context.commit("addMasterData", response))
-        .catch(e => {
+        .then((response) => context.commit("addMasterData", response))
+        .catch((e) => {
           alert(e);
         });
-    }
+    },
   },
   getters: {
     getPrefectureData(state) {
@@ -121,7 +121,12 @@ export default new Vuex.Store({
         }
       }
       return resultArray;
-    }
+    },
+    dateToString: () => (date) => {
+      return (
+        date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate()
+      );
+    },
   },
-  modules: {}
+  modules: {},
 });
