@@ -142,6 +142,36 @@ export default new Vuex.Store({
         date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate()
       );
     },
+    getDate(state, getters) {
+      var masterData = state.masterData;
+      var dateArray = [];
+      /** 2020年1月1日から今日の分まで生成して格納 */
+      for (var date = new Date(2020, 0, 1); date.getTime() < new Date().getTime(); date.setDate(date.getDate() + 1)) {
+        var dateObj = {
+          //日付をyyyy/MM/ddの形式に変更
+          date: date.toLocaleDateString(),
+          count: 0
+        };
+        dateArray.push(dateObj);
+      }
+      for(let i = 0; i < masterData.length; i++){
+        /*マスターデータの日付を2020/2/1形式に変更 */
+        masterData[i].date = getters.dateToString(masterData[i].date);
+      }
+      for (let i = 0; i < masterData.length; i++) {
+        /** マスターデータの日付が日付オブジェクトのいずれかの日付とマッチするかみていく(絶対にどこかでマッチする) */
+        for (let j = 0; dateArray.length; j++) {
+          /** もしマッチしたらその日付のカウンターにプラス1してfor文を終了(マッチしない場合はスルーして次の日付へ) */
+          if (masterData[i].date == dateArray[j].date) {
+            dateArray[j].count = dateArray[j].count++;
+            break;
+          }
+        }
+      }
+      console.log("データアレイ=" + dateArray[14].date);
+      console.log("マスター=" + masterData[0].date);
+      return dateArray;
+    }
   },
   modules: {},
 });

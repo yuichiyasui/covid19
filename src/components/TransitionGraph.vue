@@ -20,8 +20,8 @@
             }, 
           ]
         },
-        masterDate: this.$store.state.masterData,
-        getData: this.$store.getters.getDate
+
+        getData: this.$store.getters.getData
       }
     },
     
