@@ -69,6 +69,73 @@ export default new Vuex.Store({
       }
       return resultArray;
     },
+
+    // 修正後：masterData[i].dateがDate型である前提
+    // ただし、"日数(2020年1月1日から今日までの) + 全レコード数 × マッチするまでの日数"の回数だけfor文が呼ばれるため効率的にいいかは微妙
+    getDate(state) {
+      var masterData = state.masterData;
+      var dateArray = []; // 日別感染者数の集計結果を格納する配列
+      /** 日付とカウンターをプロパティにした日付オブジェクトを2020年1月1日から今日の分まで生成して配列に格納 */
+      for (var date = new Date(2020, 0, 1); date.getTime() < new Date().getTime(); date.setDate(date.getDate() + 1)) {
+        var dateObj = {
+          date: date, 
+          count: 0
+        };
+        dateArray.push(dateObj);
+      }
+      /** マスターデータを1行ずつみていく */
+      for (let i = 0; i < masterData.length; i++) {
+        /** マスターデータの日付が日付オブジェクトのいずれかの日付とマッチするかみていく(絶対にどこかでマッチする) */
+        for (let j = 0; dateArray.length; j++) {
+          /** もしマッチしたらその日付のカウンターにプラス1してfor文を終了(マッチしない場合はスルーして次の日付へ) */
+          if (masterData[i].date.getTime() === dateArray[j].date.getTime()) {
+            dateArray[j].count++;
+            break;
+          }
+        }
+      }
+      console.log(new Date(2020, 0, 1));
+      console.log(new Date().getTime());
+      return dateArray;
+    }
+
+    // getDate(state){
+    //   var masterData = state.masterData;
+    //   var totalDate = []; //counter付配列
+    //   // var first = true;
+    //   var b = [];
+
+    //   for (let i = 0; i < masterData.length; i++) {
+    //     var allDate = { id: i, name: masterData[i].date, count: 0 };
+    //     totalDate.push(allDate);
+    //   }
+    //   for(let i = 0; i < totalDate.length; i++){
+    //     // if(first){
+    //     //   b.push(totalDate[i]);
+    //     //   b[0].count++;
+    //     //   first = false;
+    //     // }
+
+    //     if(b === null){
+    //       b.push(totalDate[i - 1]);
+    //       b[i -1].count++;
+    //     }
+    //     // if(totalDate[i].name === allDate.name){
+    //     //   totalDate[i].count++;
+    //     // }
+    //   }
+    //       // if(totalDate[0].name !== allDate.name){
+    //       //   totalDate.push(allDate);
+    //       // }
+    //       // for(let j = 0; j < totalDate.length; j++){
+    //       //   if(totalDate[j].name === allDate.name){
+    //       //     totalDate[j].count++;
+    //       //   } else {
+    //       //       totalDate.push(allDate);
+    //       //     }
+    //       // }
+    //   return b;
+    // }
   },
   modules: {},
 });

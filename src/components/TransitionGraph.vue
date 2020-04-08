@@ -1,7 +1,6 @@
 <template>
   <div class="small">
     <line-chart :chart-data="infectedPerson"></line-chart>
-    <button @click="fillData()">Randomize</button>
   </div>
 </template>
 <script>
@@ -21,10 +20,12 @@
             }, 
           ]
         },
-        date: this.$store.state.masterData
+        masterDate: this.$store.state.masterData,
+        getData: this.$store.getters.getDate
       }
     },
+    
     mounted () {},
-    methods: {}
+    methods: {},
   }
 </script>
