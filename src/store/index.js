@@ -24,7 +24,7 @@ export default new Vuex.Store({
           // 必要な行だけ切り取って連想配列にする
           age: miniArray[5], // 年代
           gender: miniArray[6], //性別
-          date: miniArray[7], // 確定日
+          date: miniArray[39], // 確定日YYYY/MM/DD
           residence: miniArray[10], // 居住都道府県
           dead: miniArray[26], // 死者合計
           discharge: miniArray[28], // 退院数
@@ -91,6 +91,7 @@ export default new Vuex.Store({
         if (isMatch === false) {
           // いずれにもマッチしなかった場合その他に追加
           resultArray[10].count++;
+          console.log(ageData +"："+ typeof ageData)
         }
       }
       return resultArray;
