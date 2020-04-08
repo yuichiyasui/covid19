@@ -18,7 +18,7 @@
       </tr>
     <tr v-for="(d, i) in this.$store.state.masterData" :key="i">
       <td >{{ i  + 1}}</td>
-      <td v-for="(key,j) of d" :key="j">{{ key }}</td>
+      <td v-for="(key,j) of d" :key="j" >{{ key }}</td>
     </tr>
     </table>
   </div>

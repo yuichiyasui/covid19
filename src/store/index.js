@@ -20,11 +20,13 @@ export default new Vuex.Store({
       var masterDataArray = []; // 必要なデータだけを格納する配列
       for (var i = 0; i < bigArray.length; i++) {
         var miniArray = bigArray[i].split(","); // 1行の各項目を配列に格納
+        var arr = miniArray[39].split("/");   // yyyy/MM/ddを'/'で分割
+        var date = new Date(arr[0], arr[1] - 1, arr[2]); // yyyy,MM,ddでDateオブジェクトを生成
         var rowData = {
           // 必要な行だけ切り取って連想配列にする
           age: miniArray[5], // 年代
           gender: miniArray[6], //性別
-          date: miniArray[39], // 確定日YYYY/MM/DD
+          date: date, // 確定日YYYY/MM/DD
           residence: miniArray[10], // 居住都道府県
           dead: miniArray[26], // 死者合計
           discharge: miniArray[28], // 退院数
@@ -91,7 +93,6 @@ export default new Vuex.Store({
         if (isMatch === false) {
           // いずれにもマッチしなかった場合その他に追加
           resultArray[10].count++;
-          console.log(ageData +"："+ typeof ageData)
         }
       }
       return resultArray;
