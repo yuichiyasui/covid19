@@ -8,7 +8,8 @@ export const AGE_ARRAY = [
   "60",
   "70",
   "80",
-  "不明",
-  "その他"
+
+  "90",
+  "不明"
 ];
 export default AGE_ARRAY;
