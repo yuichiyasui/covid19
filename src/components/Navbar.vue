@@ -88,31 +88,31 @@ export default {
       items: [
         {
           icon: "mdi-map-marker",
-          text: "感染状況マップ"
+          text: "感染状況マップ",
         },
         {
           icon: "mdi-chart-bar",
-          text: "各種グラフ"
+          text: "各種グラフ",
         },
         {
           icon: "mdi-chart-bar",
-          text: "感染者数"
+          text: "感染者数",
         },
         {
           icon: "mdi-chart-bar",
-          text: "性別・年代別"
-        }
-        ,{
+          text: "性別・年代別",
+        },
+        {
           icon: "mdi-chart-bar",
-          text: "死亡者数"
-        }
-        ,{
+          text: "死亡者数",
+        },
+        {
           icon: "mdi-chart-bar",
-          text: "退院者数"
-        }
+          text: "退院者数",
+        },
       ],
       drawer: null,
-      model: 1
+      model: 1,
     };
   },
   methods: {
@@ -142,8 +142,8 @@ export default {
       if (i === "about") {
         this.$router.push("/about");
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
