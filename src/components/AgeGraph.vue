@@ -68,28 +68,27 @@ export default {
             data: this.getAgeCount
           }
         ]
-        // options: {
-        //   scales: {
-        //     xAxes: [
-        //       {
-        //         scaleLabel: {
-        //           display: true,
-        //           labelString: "年代"
-        //         }
-        //       }
-        //     ],
-        //     yAxes: [
-        //       {
-        //         ticks: {
-        //           beginAtZero: true,
-        //           stepSize: 10
-        //         }
-        //       }
-        //     ]
-        //   }
-        // }
       },
-      { responsive: true, display: true, maintainAspectRatio: false }
+      // {
+      //   options: {
+      //     scales: {
+      //       xAxes: [
+      //         {
+      //           scaleLabel: {
+      //             display: false,
+      //             labelString: "年代"
+      //           }
+      //         }
+      //       ]
+      //     }
+      //   }
+      // },
+      {
+        labelString: "年代",
+        responsive: true,
+        display: true,
+        maintainAspectRatio: false
+      }
       //this.options
     );
   }

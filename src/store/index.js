@@ -10,7 +10,7 @@ Vue.use(axios);
 
 export default new Vuex.Store({
   state: {
-    masterData: [],
+    masterData: []
   },
   mutations: {
     addMasterData(state, masterData) {
@@ -23,7 +23,7 @@ export default new Vuex.Store({
         "確定日YYYYMMDD",
         "居住都道府県",
         "死者合計",
-        "退院数",
+        "退院数"
       ];
       var colArray = bigArray[0].split(","); // 項目名だけを各項目ごとに分割して配列に格納
       var colIndexNumberArray = []; // 項目番号を格納する配列
@@ -44,22 +44,22 @@ export default new Vuex.Store({
           date: date, // 確定日YYYYMMDD
           residence: miniArray[colIndexNumberArray[3]], // 居住都道府県
           dead: miniArray[colIndexNumberArray[4]], // 死者合計
-          discharge: miniArray[colIndexNumberArray[5]], // 退院数
+          discharge: miniArray[colIndexNumberArray[5]] // 退院数
         };
         masterDataArray.push(rowData); // 加工した1行分のデータを配列に追加
       }
       state.masterData = masterDataArray; // 加工したデータ配列でstateを上書き
-    },
+    }
   },
   actions: {
     async fetchMasterData(context) {
       await axios
         .get("https://dl.dropboxusercontent.com/s/6mztoeb6xf78g5w/COVID-19.csv")
-        .then((response) => context.commit("addMasterData", response))
-        .catch((e) => {
+        .then(response => context.commit("addMasterData", response))
+        .catch(e => {
           alert(e);
         });
-    },
+    }
   },
   getters: {
     getPrefectureData(state) {
@@ -94,7 +94,6 @@ export default new Vuex.Store({
       for (let i = 0; i < ageArray.length; i++) {
         var age = { id: i, name: ageArray[i], count: 0 };
         resultArray.push(age);
-        console.log("resultArrayの名前" + resultArray[i].name);
       }
       for (let j = 0; j < masterData.length; j++) {
         var ageData = masterData[j].age;
@@ -142,11 +141,11 @@ export default new Vuex.Store({
       }
       return resultArray;
     },
-    dateToString: () => (date) => {
+    dateToString: () => date => {
       return (
         date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate()
       );
-    },
+    }
   },
-  modules: {},
+  modules: {}
 });

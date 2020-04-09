@@ -8,7 +8,6 @@ export const AGE_ARRAY = [
   "60",
   "70",
   "80",
-
   "90",
   "不明"
 ];
