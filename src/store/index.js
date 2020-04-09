@@ -190,6 +190,19 @@ export default new Vuex.Store({
       
   
       },
+      getDeadTransition(state){
+        //配列の中から死者数の値がある物を検出する
+        var newDate = state.masterData.filter(item => item.dead !=='')
+        //重複排除
+        let values = [];
+        const deadTransition = newDate.filter(e=>{ 
+          if(values.indexOf(e["dead"])=== -1){
+            values.push(e["dead"]);
+            return e;
+          }
+        });
+        return deadTransition
+      },
   },
 
   modules: {},
