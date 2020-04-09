@@ -13,26 +13,26 @@
 </template>
 
 <script>
-import Loading from '@/components/Loading';
+import Loading from "@/components/Loading";
 import Navbar from "@/components/Navbar";
 export default {
   name: "App",
-  data(){
+  data() {
     return {
-      loading: true
-    }
+      loading: true,
+    };
   },
   components: {
     Navbar,
-    Loading
+    Loading,
   },
   beforeCreate() {
     this.$store.dispatch("fetchMasterData");
   },
-  mounted(){
+  mounted() {
     setTimeout(() => {
       this.loading = false;
     }, 1000);
-  }
+  },
 };
 </script>

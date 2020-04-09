@@ -7,6 +7,9 @@ export default {
   data() {
     return {
       options: {
+        responsive: true,
+        display: true,
+        maintainAspectRatio: false,
         scales: {
           yAxes: [
             {
@@ -68,31 +71,20 @@ export default {
         datasets: [
           {
             label: "感染者数",
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(153, 102, 255, 0.2)",
-              "rgba(255, 159, 64, 0.2)",
-              "rgba(10, 200, 64, 0.2)",
-              "rgba(55, 80, 200, 0.2)",
-              "rgba(122, 122, 122, 0.2)",
-              "rgba(10, 50, 122, 0.2)",
-              "rgba(122, 10, 50, 0.2)",
-            ],
+            backgroundColor: "#F57C00",
             borderColor: [
-              "rgba(255, 99, 132, 1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)",
-              "rgba(153, 102, 255, 1)",
               "rgba(255, 159, 64, 1)",
-              "rgba(10, 200, 64, 1)",
-              "rgba(55, 80, 200, 1)",
-              "rgba(122, 122, 122, 1)",
-              "rgba(10, 50, 122, 1)",
-              "rgba(122, 10, 50, 1)",
+              "rgba(255, 159, 64, 1)",
+              "rgba(255, 159, 64, 1)",
+              "rgba(255, 159, 64, 1)",
+              "rgba(255, 159, 64, 1)",
+              "rgba(255, 159, 64, 1)",
+              "rgba(255, 159, 64, 1)",
+              "rgba(255, 159, 64, 1)",
+              "rgba(255, 159, 64, 1)",
+              "rgba(255, 159, 64, 1)",
+              "rgba(255, 159, 64, 1)",
+              "rgba(255, 159, 64, 1)",
             ],
             borderWidth: 1,
 
