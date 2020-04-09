@@ -6,7 +6,38 @@ export default {
   name: "AgeGraph",
   data() {
     return {
-      ageData: []
+      options: {
+        scales: {
+          yAxes: [
+            {
+              //y軸設定
+              display: true, //表示設定
+              scaleLabel: {
+                //軸ラベル設定
+                display: true, //表示設定
+                labelString: "感染者数", //ラベル
+                fontSize: 12, //フォントサイズ
+              },
+              ticks: {
+                //最大値最小値設定
+                min: 0, //最小値
+                max: 900, //最大値
+                fontSize: 12, //フォントサイズ
+                stepSize: 100, //軸間隔
+              },
+            },
+          ],
+          xAxes: [
+            {
+              scaleLabel: {
+                display: true,
+                labelString: "年代",
+              },
+            },
+          ],
+        },
+      },
+      ageData: [],
     };
   },
 
@@ -16,18 +47,18 @@ export default {
     },
     getAgeName: function() {
       var ageNameArray = [];
-      this.ageData.forEach(element => {
+      this.ageData.forEach((element) => {
         ageNameArray.push(element.name);
       });
       return ageNameArray;
     },
     getAgeCount: function() {
       var ageCountArray = [];
-      this.ageData.forEach(element => {
+      this.ageData.forEach((element) => {
         ageCountArray.push(element.count);
       });
       return ageCountArray;
-    }
+    },
   },
   mounted() {
     this.ageData = this.getAgeData;
@@ -48,7 +79,7 @@ export default {
               "rgba(55, 80, 200, 0.2)",
               "rgba(122, 122, 122, 0.2)",
               "rgba(10, 50, 122, 0.2)",
-              "rgba(122, 10, 50, 0.2)"
+              "rgba(122, 10, 50, 0.2)",
             ],
             borderColor: [
               "rgba(255, 99, 132, 1)",
@@ -61,13 +92,13 @@ export default {
               "rgba(55, 80, 200, 1)",
               "rgba(122, 122, 122, 1)",
               "rgba(10, 50, 122, 1)",
-              "rgba(122, 10, 50, 1)"
+              "rgba(122, 10, 50, 1)",
             ],
             borderWidth: 1,
 
-            data: this.getAgeCount
-          }
-        ]
+            data: this.getAgeCount,
+          },
+        ],
       },
       // {
       //   options: {
@@ -83,14 +114,13 @@ export default {
       //     }
       //   }
       // },
-      {
-        labelString: "年代",
-        responsive: true,
-        display: true,
-        maintainAspectRatio: false
-      }
-      //this.options
+      // {
+      //   responsive: true,
+      //   display: true,
+      //   maintainAspectRatio: false
+      // }
+      this.options
     );
-  }
+  },
 };
 </script>
