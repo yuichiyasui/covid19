@@ -1,17 +1,32 @@
-<template>
-  <div class="small">
-    <line-chart :chart-data="infectedPerson"></line-chart>
-  </div>
-</template>
+
 <script>
   import LineChart from '../assets/js/LineChart.js'
+
   export default {
-    components: {
-      LineChart
-    },
+    extends: LineChart,
     data () {
       return {
-        infectedPerson: {
+        chartData: []
+
+      }
+    },
+    computed: {
+      getDatas: function(){
+        return this.$store.getters.getDatas
+      },
+      getData: function(){
+        //日付
+        var date = [];
+        return date;
+      },
+      getCount: function(){
+        //日別の感染者数
+        var count = [];
+        return count;
+      }
+    },
+    mounted () {
+      this.renderChart( {
           labels: ["2020/04/01", "2020/04/01", "2020/04/01", "2020/04/01"],
           datasets: [
             {
@@ -20,12 +35,9 @@
             }, 
           ]
         },
-
-        getData: this.$store.getters.getData
-      }
+        { responsive: true, display: true, maintainAspectRatio: false }
+      )
     },
-    
-    mounted () {},
     methods: {},
   }
 </script>
