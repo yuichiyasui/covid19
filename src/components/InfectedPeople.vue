@@ -7,19 +7,19 @@
       </tr>
       <tr>
         <td>
-            {{ masterData.length }}
-            <tr>本日：+{{ masterData.length }}</tr>
-            <tr>昨日：+{{ masterData.length }}</tr>
+            {{ masterData.length }} 人
+            <tr>本日：+ {{ dates[dates.length - 1].count }} 人</tr>
+            <tr>昨日：+ {{ dates[dates.length - 2].count }} 人</tr>
         </td>
         <td>
-            {{ masterData.length }}
-            <tr>本日：+{{ masterData.length }}</tr>
-            <tr>昨日：+{{ masterData.length }}</tr>
+            不明
+            <tr>本日：+ 不明</tr>
+            <tr>昨日：+ 不明</tr>
         </td>
         <td>
-            {{ masterData.length }}
-            <tr>本日：+{{ masterData.length }}</tr>
-            <tr>昨日：+{{ masterData.length }}</tr>
+            不明
+            <tr>本日：+ 不明</tr>
+            <tr>昨日：+ 不明</tr>
         </td>
       </tr>
     </table>
@@ -29,8 +29,11 @@
 export default {
     data(){
         return {
-            masterData: this.$store.state.masterData
+            masterData: this.$store.state.masterData,
+            dates: this.$store.getters.getDates,
+            // maxDate: this.dates[99].count
+            
         }
-    }
+    },
 }
 </script>
