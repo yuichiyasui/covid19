@@ -18,7 +18,6 @@
         this.date.forEach(element => {
           dateArray.push(this.$store.getters.dateToString(element.date));
         });
-          console.log("dateArray=" + dateArray[1]);
         return dateArray;
       },
         //日別の感染者数

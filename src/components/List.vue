@@ -7,7 +7,7 @@
       <v-simple-table fixed-header height="50vh">
         <template v-slot:default>
           <thead>
-            <tr>
+            <tr class="table-header-color">
               <th class="text-center">No</th>
               <th class="text-center">年代</th>
               <th class="text-center">性別</th>
@@ -35,3 +35,11 @@
     </v-card-text>
   </v-card>
 </template>
+
+<style>
+.theme--light.v-data-table.v-data-table--fixed-header thead th{
+  background-color:#f57c00!important;
+  color:#ffffff!important;
+}
+
+</style>

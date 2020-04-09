@@ -1,10 +1,9 @@
 <template>
-  <v-card-text shaped width="200" class="ma-2">
-    <v-card-title>国内死亡者</v-card-title>
+  <div>
     <v-card-text>
       <h2>{{ totalDead }}人</h2>
     </v-card-text>
-  </v-card-text>
+  </div>
 </template>
 
 <script>
@@ -16,7 +15,7 @@ export default {
     };
   },
   computed: {
-    gettotalDate: function() {
+    gettotalDate: function () {
       return this.$store.getters.getDeadDeta;
     },
   },

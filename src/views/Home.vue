@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <v-col>
+  <v-row>
+    <v-col sm="6">
       <v-card outlined="false" class="pa-3 mb-4">
         <v-card-text>
           <v-card-title class="title-color">都道府県別感染者数</v-card-title>
@@ -10,19 +10,20 @@
         </v-card-text>
       </v-card>
     </v-col>
-    <v-col>
+    <v-col sm="6">
       <v-card outlined="false" class="pa-3 mb-4">
         <v-card-text>
-          <v-card-title class="title-color">日本国内感染者数分布マップ</v-card-title
+          <v-card-title class="title-color"
+            >日本国内感染者数分布マップ</v-card-title
           >
           <JapanMap />
         </v-card-text>
       </v-card>
     </v-col>
-    <v-col>
+    <v-col sm="6">
       <List />
     </v-col>
-    <v-col>
+    <v-col sm="6">
       <v-card outlined="false" class="pa-3 mb-4">
         <v-card-text>
           <v-card-title class="title-color">日本国内の状況</v-card-title>
@@ -30,7 +31,7 @@
         </v-card-text>
       </v-card>
     </v-col>
-    <v-col>
+    <v-col sm="6">
       <v-card outlined="false" class="pa-3 mb-4">
         <v-card-text>
           <v-card-title class="title-color">感染者推移グラフ</v-card-title>
@@ -40,37 +41,35 @@
         </v-card-text>
       </v-card>
     </v-col>
-    <v-col>
+    <v-col sm="6">
       <v-card outlined="false" class="pa-3 mb-4">
         <v-card-text>
-          <v-card-title class="title-color">男女別感染者グラフ</v-card-title
-          >
+          <v-card-title class="title-color">男女別感染者グラフ</v-card-title>
           <GenderGraph>
             <doughnut-chart></doughnut-chart>
           </GenderGraph>
         </v-card-text>
       </v-card>
     </v-col>
-    <v-col>
+    <v-col sm="6">
       <v-card outlined="false" class="pa-3 mb-4">
         <v-card-text>
-          <v-card-title class="title-color">年代別感染者グラフ</v-card-title
-          >
+          <v-card-title class="title-color">年代別感染者グラフ</v-card-title>
           <AgeGraph>
             <bar-chart></bar-chart>
           </AgeGraph>
         </v-card-text>
       </v-card>
     </v-col>
-    <v-col>
+    <v-col sm="6">
       <v-card outlined="false" class="pa-3 mb-4">
         <v-card-text>
-          <v-card-title class="title-color">死亡者数</v-card-title>
+          <v-card-title class="title-color">国内死亡者数</v-card-title>
           <totalDead></totalDead>
         </v-card-text>
       </v-card>
     </v-col>
-  </div>
+  </v-row>
 </template>
 
 <script>
