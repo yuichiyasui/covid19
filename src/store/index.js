@@ -94,14 +94,12 @@ export default new Vuex.Store({
       for (let i = 0; i < ageArray.length; i++) {
         var age = { id: i, name: ageArray[i], count: 0 };
         resultArray.push(age);
-        console.log("resultArrayの名前" + resultArray[i].name);
       }
       for (let j = 0; j < masterData.length; j++) {
         var ageData = masterData[j].age;
         var isMatch = false; // マッチしてなかったらfalse
         for (let i = 0; i < ageArray.length; i++) {
           if (ageData == Number(resultArray[i].name)) {
-            console.log(resultArray[i].name);
             resultArray[i].count++;
             isMatch = true; // マッチしたらtrue
             break;
@@ -147,34 +145,41 @@ export default new Vuex.Store({
         date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate()
       );
     },
-    getDate(state, getters) {
+    getDates(state) {
       var masterData = state.masterData;
-      var dateArray = [];
-      /** 2020年1月1日から今日の分まで生成して格納 */
-      for (var date = new Date(2020, 0, 1); date.getTime() < new Date().getTime(); date.setDate(date.getDate() + 1)) {
+      var dateArray = []; // 日別感染者数の集計結果を格納する配列
+      /** 日付とカウンターをプロパティにした日付オブジェクトを2020年1月1日から今日の分まで生成して配列に格納 */
+      var preToday = new Date();
+      var today = new Date(
+        preToday.getFullYear(),
+        preToday.getMonth(),
+        preToday.getDate(),
+        0,
+        0
+      );
+      var startDate = new Date(2020, 0, 1, 0, 0);
+      var ms = today.getTime() - startDate.getTime();
+      var endCount = ms / (1000 * 60 * 60 * 24) + 1;
+      for (let i = 1; i <= endCount; i++) {
+        var date = new Date(2020,0,i)
         var dateObj = {
-          //日付をyyyy/MM/ddの形式に変更
-          date: date.toLocaleDateString(),
-          count: 0
+          date: date,
+          count: 0,
         };
         dateArray.push(dateObj);
       }
-      for(let i = 0; i < masterData.length; i++){
-        /*マスターデータの日付を2020/2/1形式に変更 */
-        masterData[i].date = getters.dateToString(masterData[i].date);
-      }
+      masterData;
+      /** マスターデータを1行ずつみていく */
       for (let i = 0; i < masterData.length; i++) {
         /** マスターデータの日付が日付オブジェクトのいずれかの日付とマッチするかみていく(絶対にどこかでマッチする) */
         for (let j = 0; dateArray.length; j++) {
           /** もしマッチしたらその日付のカウンターにプラス1してfor文を終了(マッチしない場合はスルーして次の日付へ) */
-          if (masterData[i].date == dateArray[j].date) {
-            dateArray[j].count = dateArray[j].count++;
+          if (masterData[i].date.getTime() === dateArray[j].date.getTime()) {
+            dateArray[j].count++;
             break;
           }
         }
       }
-      console.log("データアレイ=" + dateArray[14].date);
-      console.log("マスター=" + masterData[0].date);
       return dateArray;
     },
     getDeadDeta(state){
