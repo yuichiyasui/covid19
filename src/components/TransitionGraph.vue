@@ -3,35 +3,42 @@
   import LineChart from '../assets/js/LineChart.js'
 
   export default {
+    name: "TransitionGraph",
     extends: LineChart,
     data () {
       return {
-        chartData: []
-
-      }
+        date: []
+      };
     },
+    //method
     computed: {
-      getDatas: function(){
-        return this.$store.getters.getDatas
-      },
-      getData: function(){
         //日付
-        var date = [];
-        return date;
+      getDate: function(){
+        var dateArray = [];
+        this.date.forEach(element => {
+          dateArray.push(this.$store.getters.dateToString(element.date));
+        });
+          console.log("dateArray=" + dateArray[1]);
+        return dateArray;
       },
-      getCount: function(){
         //日別の感染者数
-        var count = [];
-        return count;
+      getCount: function(){
+        var countArray = [];
+        this.date.forEach(element => {
+          countArray.push(element.count);
+        });
+        return countArray;
       }
     },
+    //mountのタイミング
     mounted () {
+      this.date = this.$store.getters.getDates;
       this.renderChart( {
-          labels: ["2020/04/01", "2020/04/01", "2020/04/01", "2020/04/01"],
+          labels: this.getDate,
           datasets: [
             {
               label: '感染者数',        
-              data: [2, 20, 200, 60]
+              data: this.getCount
             }, 
           ]
         },

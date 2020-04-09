@@ -184,10 +184,12 @@ export default new Vuex.Store({
     },
     getDeadDeta(state) {
       //配列の中から必要なdeadだけの配列を作成
-      const deadarray = state.masterData.map((x) => x.dead);
-      console.log(Math.max.apply(null, deadarray));
-      return Math.max.apply(null, deadarray);
-    },
+      const deadarray = state.masterData.map(x=> x.dead )
+      
+      return Math.max.apply(null, deadarray)
+      
+  
+      },
   },
 
   modules: {},
