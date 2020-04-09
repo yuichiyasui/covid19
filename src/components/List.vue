@@ -1,9 +1,9 @@
 <template>
-  <v-card>
+  <v-card outlined="false" class="pa-3 mb-4">
     <v-card-text>
-      <p class="title">
+      <v-card-title class="title-color">
         感染データ一覧
-      </p>
+      </v-card-title>
       <v-simple-table fixed-header height="50vh">
         <template v-slot:default>
           <thead>

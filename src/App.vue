@@ -3,7 +3,7 @@
     <v-content>
       <Navbar />
       <v-container fluid fill-height>
-        <v-row justify="center" align-content="center">
+        <v-row justify="center">
           <Loading v-show="loading"></Loading>
           <router-view v-show="!loading"></router-view>
         </v-row>

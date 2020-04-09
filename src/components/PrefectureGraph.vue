@@ -38,7 +38,7 @@ export default {
         datasets: [
           {
             label: "感染者数",
-            backgroundColor: "#7979f8",
+            backgroundColor: "#F57C00",
             data: this.getPrefectureCount
           }
         ]
