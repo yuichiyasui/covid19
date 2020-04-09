@@ -13,7 +13,7 @@
     computed: {
         //日付
       getDate: function(){
-        const dateArray = this.$store.getters.getDeadTransition.map(item => item.date)
+        const dateArray = this.$store.getters.getDeadTransition.map(item => item.date.toLocaleDateString())
          
         
         return dateArray;
@@ -34,7 +34,11 @@
           datasets: [
             {
               label: '死亡者数',        
-              data: this.getNumber
+              data: this.getNumber,
+               borderColor:"#f57c00",
+            backgroundColor: "rgba(255, 130, 3, 0.2)",
+            
+            radius: 3
             }, 
           ]
         },
