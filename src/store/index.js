@@ -161,7 +161,7 @@ export default new Vuex.Store({
       var ms = today.getTime() - startDate.getTime();
       var endCount = ms / (1000 * 60 * 60 * 24) + 1;
       for (let i = 1; i <= endCount; i++) {
-        var date = new Date(2020,0,i)
+        var date = new Date(2020, 0, i);
         var dateObj = {
           date: date,
           count: 0,
@@ -182,17 +182,13 @@ export default new Vuex.Store({
       }
       return dateArray;
     },
-    getDeadDeta(state){
+    getDeadDeta(state) {
       //配列の中から必要なdeadだけの配列を作成
-      const deadarray = state.masterData.map(x=> x.dead )
-      console.log(Math.max.apply(null, deadarray))
-      return Math.max.apply(null, deadarray)
-      
-  
-      },
+      const deadarray = state.masterData.map((x) => x.dead);
+      console.log(Math.max.apply(null, deadarray));
+      return Math.max.apply(null, deadarray);
+    },
   },
-  
 
-  
   modules: {},
 });
