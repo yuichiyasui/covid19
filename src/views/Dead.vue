@@ -1,24 +1,24 @@
 <template>
-  <v-col>
-    <v-card height="80vh" class="pa-3">
-      <v-card-text>
-        <p class="display-1">This is an about page</p>
-        <p>
-          日本国内における新型コロナウイルス感染症
-          (COVID-19)に関する情報サイトです。
-        </p>
-        <totalDead></totalDead>
-       
-      </v-card-text>
-    </v-card>
+
+ <v-col>
+    <p class="display-1">合計死者数</p>
+    <GenderGraph>
+      <totalDead></totalDead>
+    </GenderGraph>
+    <p class="display-1">感染者推移グラフ</p>
+    <TransitionDead>
+            <date-person-chart></date-person-chart>
+          </TransitionDead>
   </v-col>
 </template>
 
 <script>
 import TotalDead from "@/components/TotalDead";
+import TransitionDead from "@/components/TransitionDead"
 export default {
   components: {
     TotalDead,
+    TransitionDead
   },
 };
 

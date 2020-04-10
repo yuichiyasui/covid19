@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card-text>
-      <h2>{{ totalDead }}人</h2>
+      <div style="font-size: 98%"><font color="#f57c00"><h1>{{ totalDead }}人</h1></font></div>
     </v-card-text>
   </div>
 </template>
