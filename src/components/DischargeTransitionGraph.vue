@@ -10,7 +10,7 @@ export default {
     };
   },
   computed: {
-    countDischargeNum: function () {
+    countDischargeNum: function() {
       //storeからcsvデータを取得
       var masterDate = this.$store.state.masterData;
       // 日別毎の集計をするためのMapを宣言
@@ -34,7 +34,7 @@ export default {
       }
       return dischargeOfDayMap;
     },
-    getConfirmDate: function () {
+    getConfirmDate: function() {
       var dischargeConfirmDate = [];
       var entities = [];
       for (let i = 0; i < this.data.length; i++) {
@@ -52,7 +52,7 @@ export default {
       }
       return dischargeConfirmDate;
     },
-    getNumber: function () {
+    getNumber: function() {
       var dischargeNumber = [];
       var entities = [];
       for (let i = 0; i < this.data.length; i++) {
@@ -77,6 +77,9 @@ export default {
           {
             label: "退院者数",
             data: this.getNumber,
+            borderColor: "#f57c00",
+            backgroundColor: "rgba(255, 130, 3, 0.2)",
+            radius: 3,
           },
         ],
       },
