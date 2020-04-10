@@ -5,7 +5,7 @@ import { Bar } from "vue-chartjs";
 export default {
   data() {
     return {
-      prefectureData: []
+      prefectureData: [],
     };
   },
   computed: {
@@ -14,18 +14,18 @@ export default {
     },
     getPrefectureName: function() {
       var prefectureNameArray = [];
-      this.prefectureData.forEach(element => {
+      this.prefectureData.forEach((element) => {
         prefectureNameArray.push(element.name);
       });
       return prefectureNameArray;
     },
     getPrefectureCount: function() {
       var prefectureCountArray = [];
-      this.prefectureData.forEach(element => {
+      this.prefectureData.forEach((element) => {
         prefectureCountArray.push(element.count);
       });
       return prefectureCountArray;
-    }
+    },
   },
   name: "PrefectureGraph",
   // extends: HorizontalBar,
@@ -38,14 +38,16 @@ export default {
         datasets: [
           {
             label: "感染者数",
-            backgroundColor: "#F57C00",
-            data: this.getPrefectureCount
-          }
-        ]
+            backgroundColor: "rgba(255, 130, 3, 0.2)",
+            borderColor: "#f57c00",
+            borderWidth: 1,
+            data: this.getPrefectureCount,
+          },
+        ],
       },
       { responsive: true, display: true, maintainAspectRatio: false }
     );
-  }
+  },
 };
 </script>
 <style scoped></style>

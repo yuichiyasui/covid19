@@ -46,8 +46,13 @@ export default {
         datasets: [
           {
             data: this.getGenderCount,
-            backgroundColor: ["#1e90ff", "#db7093", "#F57C00"],
-            borderColor: "transparent", // 線の色を透明可
+            backgroundColor: [
+              "rgba(7, 12, 250, 0.2)",
+              "rgba(400, 5, 3, 0.2)",
+              "rgba(255, 130, 3, 0.2)",
+            ],
+            borderColor: ["#3407fa", "#fc0331", "#f57c00"],
+            borderWidth: 1,
           },
         ],
       },

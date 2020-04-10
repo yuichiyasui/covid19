@@ -24,7 +24,7 @@ export default {
               ticks: {
                 //最大値最小値設定
                 min: 0, //最小値
-                max: 900, //最大値
+                max: 1000, //最大値
                 fontSize: 12, //フォントサイズ
                 stepSize: 100, //軸間隔
               },
@@ -71,21 +71,8 @@ export default {
         datasets: [
           {
             label: "感染者数",
-            backgroundColor: "#F57C00",
-            borderColor: [
-              "rgba(255, 159, 64, 1)",
-              "rgba(255, 159, 64, 1)",
-              "rgba(255, 159, 64, 1)",
-              "rgba(255, 159, 64, 1)",
-              "rgba(255, 159, 64, 1)",
-              "rgba(255, 159, 64, 1)",
-              "rgba(255, 159, 64, 1)",
-              "rgba(255, 159, 64, 1)",
-              "rgba(255, 159, 64, 1)",
-              "rgba(255, 159, 64, 1)",
-              "rgba(255, 159, 64, 1)",
-              "rgba(255, 159, 64, 1)",
-            ],
+            backgroundColor: "rgba(255, 130, 3, 0.2)",
+            borderColor: "#f57c00",
             borderWidth: 1,
 
             data: this.getAgeCount,
