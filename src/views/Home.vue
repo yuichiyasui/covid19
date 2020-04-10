@@ -69,6 +69,24 @@
         </v-card-text>
       </v-card>
     </v-col>
+    <v-col sm="6">
+      <v-card outlined="false" class="pa-3 mb-4">
+        <v-card-text>
+          <v-card-title class="title-color">死亡者数推移</v-card-title>
+           <TransitionDead>
+            <date-person-chart></date-person-chart>
+          </TransitionDead>
+        </v-card-text>
+      </v-card>
+    </v-col>
+    <v-col sm="6">
+      <v-card outlined="false" class="pa-3 mb-4">
+        <v-card-text>
+          <v-card-title class="title-color">退院者数推移</v-card-title>
+           <DischargeTransitionGraph></DischargeTransitionGraph>
+        </v-card-text>
+      </v-card>
+    </v-col>
   </v-row>
 </template>
 
@@ -81,6 +99,8 @@ import InfectedPeople from "@/components/InfectedPeople.vue";
 import GenderGraph from "@/components/GenderGraph.vue";
 import AgeGraph from "@/components/AgeGraph.vue";
 import TotalDead from "@/components/TotalDead";
+import TransitionDead from "@/components/TransitionDead"
+import DischargeTransitionGraph from "@/components/DischargeTransitionGraph.vue";
 
 export default {
   components: {
@@ -92,6 +112,8 @@ export default {
     GenderGraph,
     AgeGraph,
     TotalDead,
+    TransitionDead,
+    DischargeTransitionGraph,
   },
 };
 </script>
