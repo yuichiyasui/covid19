@@ -1,30 +1,7 @@
 <template>
   <v-col>
     <v-row>
-      <v-col sm="6">
-        <v-card outlined="false" class="pa-3 mb-4">
-          <v-card-text>
-            <v-card-title class="title-color">都道府県別感染者数</v-card-title>
-            <div id="prefecture-graph-frame">
-              <PrefectureGraph></PrefectureGraph>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col sm="6">
-        <v-card outlined="false" class="pa-3 mb-4">
-          <v-card-text>
-            <v-card-title class="title-color"
-              >日本国内感染者数分布マップ</v-card-title
-            >
-            <JapanMap />
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col sm="6">
-        <List />
-      </v-col>
-      <v-col sm="6">
+      <v-col sm="3">
         <v-card outlined="false" class="pa-3 mb-4">
           <v-card-text>
             <v-card-title class="title-color">日本国内の状況</v-card-title>
@@ -32,7 +9,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col sm="6">
+      <v-col sm="5">
         <v-card outlined="false" class="pa-3 mb-4">
           <v-card-text>
             <v-card-title class="title-color">感染者推移グラフ</v-card-title>
@@ -42,7 +19,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col sm="6">
+      <v-col sm="4">
         <v-card outlined="false" class="pa-3 mb-4">
           <v-card-text>
             <v-card-title class="title-color">男女別感染者グラフ</v-card-title>
@@ -52,7 +29,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col sm="6">
+      <v-col sm="4">
         <v-card outlined="false" class="pa-3 mb-4">
           <v-card-text>
             <v-card-title class="title-color">年代別感染者グラフ</v-card-title>
@@ -62,15 +39,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col sm="6">
-        <v-card outlined="false" class="pa-3 mb-4">
-          <v-card-text>
-            <v-card-title class="title-color">国内死亡者数</v-card-title>
-            <totalDead></totalDead>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col sm="6">
+      <v-col sm="4">
         <v-card outlined="false" class="pa-3 mb-4">
           <v-card-text>
             <v-card-title class="title-color">死亡者数推移</v-card-title>
@@ -80,11 +49,34 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col sm="6">
+      <v-col sm="4">
         <v-card outlined="false" class="pa-3 mb-4">
           <v-card-text>
             <v-card-title class="title-color">退院者数推移</v-card-title>
             <DischargeTransitionGraph></DischargeTransitionGraph>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col sm="8">
+        <List />
+      </v-col>
+      <v-col sm="8">
+        <v-card outlined="false" class="pa-3 mb-4">
+          <v-card-text>
+            <v-card-title class="title-color">都道府県別感染者数</v-card-title>
+            <div id="prefecture-graph-frame">
+              <PrefectureGraph></PrefectureGraph>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col sm="4">
+        <v-card outlined="false" class="pa-3 mb-4">
+          <v-card-text>
+            <v-card-title class="title-color"
+              >日本国内感染者数分布マップ</v-card-title
+            >
+            <JapanMap />
           </v-card-text>
         </v-card>
       </v-col>
@@ -100,7 +92,6 @@ import TransitionGraph from "@/components/TransitionGraph.vue";
 import InfectedPeople from "@/components/InfectedPeople.vue";
 import GenderGraph from "@/components/GenderGraph.vue";
 import AgeGraph from "@/components/AgeGraph.vue";
-import TotalDead from "@/components/TotalDead";
 import TransitionDead from "@/components/TransitionDead";
 import DischargeTransitionGraph from "@/components/DischargeTransitionGraph.vue";
 import store from "../store";
@@ -114,7 +105,6 @@ export default {
     InfectedPeople,
     GenderGraph,
     AgeGraph,
-    TotalDead,
     TransitionDead,
     DischargeTransitionGraph
   },

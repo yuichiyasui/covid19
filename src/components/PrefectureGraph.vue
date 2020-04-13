@@ -1,6 +1,6 @@
 <script>
-// import { HorizontalBar } from "vue-chartjs";
-import { Bar } from "vue-chartjs";
+import { HorizontalBar } from "vue-chartjs";
+// import { Bar } from "vue-chartjs";
 
 export default {
   data() {
@@ -42,8 +42,8 @@ export default {
     }
   },
   name: "PrefectureGraph",
-  // extends: HorizontalBar,
-  extends: Bar,
+  extends: HorizontalBar,
+  // extends: Bar,
   mounted() {
     this.prefectureData = this.$store.getters.getPrefectureData;
     this.setChartData();
