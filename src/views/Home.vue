@@ -1,4 +1,5 @@
 <template>
+<v-col>
   <v-row>
     <v-col sm="6">
       <v-card outlined="false" class="pa-3 mb-4">
@@ -88,6 +89,7 @@
       </v-card>
     </v-col>
   </v-row>
+  </v-col>
 </template>
 
 <script>
