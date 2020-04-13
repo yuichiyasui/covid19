@@ -19,7 +19,7 @@ export default {
         resolution: "provinces",
         displayMode: "regions",
         colorAxis: {maxValue:500 ,colors:['white','yellow','red']},
-        keepAspectRatio:false,
+        keepAspectRatio:true,
       },
     };
   },

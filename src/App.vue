@@ -2,7 +2,7 @@
   <v-app>
     <v-content>
       <Navbar />
-      <v-container fluid fill-height class="px-7">
+      <v-container fluid fill-height class="px-3">
         <v-row justify="center">
           <Loading v-show="is_loading"></Loading>
           <router-view v-show="!is_loading"></router-view>
