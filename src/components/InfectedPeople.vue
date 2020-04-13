@@ -12,14 +12,14 @@
             <tr>昨日：+ {{ dates[dates.length - 2].count }} 人</tr>
         </td>
         <td>
-            不明
-            <tr>本日：+ 不明</tr>
-            <tr>昨日：+ 不明</tr>
+            {{ totalDischarge }} 人
+            <tr>本日：+ {{ todayDead[todayDead.length - 1].discharge }}</tr>
+            <tr>昨日：+ {{ todayDead[todayDead.length - 2].discharge }}</tr>
         </td>
         <td>
-            不明
-            <tr>本日：+ 不明</tr>
-            <tr>昨日：+ 不明</tr>
+            {{ totalDead }} 人 
+            <tr>本日：+ {{ todayDead[todayDead.length - 1].dead }}</tr>
+            <tr>昨日：+ {{ todayDead[todayDead.length - 2].dead }}</tr>
         </td>
       </tr>
     </table>
@@ -31,9 +31,24 @@ export default {
         return {
             masterData: this.$store.state.masterData,
             dates: this.$store.getters.getDates,
-            // maxDate: this.dates[99].count
+            totalDead: 0,
+            totalDischarge: 0,
+            todayDead: this.$store.getters.getDischargeTransition
             
         }
     },
+    computed: {
+    gettotalDate: function () {
+      return this.$store.getters.getDeadDeta;
+    },
+    gettotalDischarge: function () {
+      return this.$store.getters.getDischarge;
+    },
+  },
+
+  mounted() {
+    this.totalDead = this.gettotalDate;
+    this.totalDischarge = this.gettotalDischarge;
+  },
 }
 </script>

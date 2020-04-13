@@ -15,7 +15,6 @@ export default {
       const dateArray = this.$store.getters.getDischargeTransition.map((item) =>
         item.date.toLocaleDateString()
       );
-      console.log("ゲットデータ＝" + dateArray)
       return dateArray;
     },
       //日別の退院数
@@ -23,7 +22,6 @@ export default {
       const dischargeArray = this.$store.getters.getDischargeTransition.map(
         (item) => item.discharge
       );
-
       return dischargeArray;
     },
 
