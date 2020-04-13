@@ -92,10 +92,6 @@ export default {
         },
         {
           icon: "mdi-chart-bar",
-          text: "感染者数",
-        },
-        {
-          icon: "mdi-chart-bar",
           text: "性別・年代別",
         },
         {
@@ -117,15 +113,12 @@ export default {
         this.$router.push("/graph");
       }
       if (i === 1) {
-        this.$router.push("/people");
-      }
-      if (i === 2) {
         this.$router.push("/gender");
       }
-      if (i === 3) {
+      if (i === 2) {
         this.$router.push("/dead");
       }
-      if (i === 4) {
+      if (i === 3) {
         this.$router.push("/discharge");
       }
       if (i === "home") {
