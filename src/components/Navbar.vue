@@ -87,10 +87,6 @@ export default {
     return {
       items: [
         {
-          icon: "mdi-map-marker",
-          text: "感染状況マップ",
-        },
-        {
           icon: "mdi-chart-bar",
           text: "各種グラフ",
         },
@@ -118,21 +114,18 @@ export default {
   methods: {
     click(i) {
       if (i === 0) {
-        this.$router.push("/map");
-      }
-      if (i === 1) {
         this.$router.push("/graph");
       }
-      if (i === 2) {
+      if (i === 1) {
         this.$router.push("/people");
       }
-      if (i === 3) {
+      if (i === 2) {
         this.$router.push("/gender");
       }
-      if (i === 4) {
+      if (i === 3) {
         this.$router.push("/dead");
       }
-      if (i === 5) {
+      if (i === 4) {
         this.$router.push("/discharge");
       }
       if (i === "home") {

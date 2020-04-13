@@ -21,11 +21,6 @@ const routes = [
     component: () => import('../views/Graph.vue')
   },
   {
-    path: '/map',
-    name: 'Map',
-    component: () => import('../views/Map.vue')
-  },
-  {
     path: '/gender',
     name: 'Gender',
     component: () => import('../views/Gender.vue')
