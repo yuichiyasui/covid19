@@ -6,34 +6,28 @@ export default {
   data() {
     return {
       prefectureData: [],
+      options: { responsive: true, display: true, maintainAspectRatio: false }
     };
   },
   computed: {
-    getPrefectureData: function() {
-      return this.$store.getters.getPrefectureData;
-    },
     getPrefectureName: function() {
       var prefectureNameArray = [];
-      this.prefectureData.forEach((element) => {
+      this.prefectureData.forEach(element => {
         prefectureNameArray.push(element.name);
       });
       return prefectureNameArray;
     },
     getPrefectureCount: function() {
       var prefectureCountArray = [];
-      this.prefectureData.forEach((element) => {
+      this.prefectureData.forEach(element => {
         prefectureCountArray.push(element.count);
       });
       return prefectureCountArray;
-    },
+    }
   },
-  name: "PrefectureGraph",
-  // extends: HorizontalBar,
-  extends: Bar,
-  mounted() {
-    this.prefectureData = this.getPrefectureData;
-    this.renderChart(
-      {
+  methods: {
+    setChartData() {
+      this.chartData = {
         labels: this.getPrefectureName,
         datasets: [
           {
@@ -41,13 +35,26 @@ export default {
             backgroundColor: "rgba(255, 130, 3, 0.2)",
             borderColor: "#f57c00",
             borderWidth: 1,
-            data: this.getPrefectureCount,
-          },
-        ],
-      },
-      { responsive: true, display: true, maintainAspectRatio: false }
-    );
+            data: this.getPrefectureCount
+          }
+        ]
+      };
+    }
   },
+  name: "PrefectureGraph",
+  // extends: HorizontalBar,
+  extends: Bar,
+  mounted() {
+    this.prefectureData = this.$store.getters.getPrefectureData;
+    this.setChartData();
+    this.renderChart(this.chartData, this.options);
+  },
+  updated(){
+    console.info("beforeUpdate!!!!")
+    this.prefectureData = this.$store.getters.getPrefectureData;
+    this.setChartData();
+    this.renderChart(this.chartData, this.options);
+  }
 };
 </script>
 <style scoped></style>

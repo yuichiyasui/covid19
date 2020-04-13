@@ -4,8 +4,8 @@
       <Navbar />
       <v-container fluid fill-height class="px-7">
         <v-row justify="center">
-          <Loading v-show="loading"></Loading>
-          <router-view v-show="!loading"></router-view>
+          <Loading v-show="is_loading"></Loading>
+          <router-view v-show="!is_loading"></router-view>
         </v-row>
       </v-container>
     </v-content>
@@ -17,22 +17,27 @@ import Loading from "@/components/Loading";
 import Navbar from "@/components/Navbar";
 export default {
   name: "App",
-  data() {
-    return {
-      loading: true,
-    };
-  },
+  // data() {
+  //   return {
+  //     loading: true
+  //   };
+  // },
   components: {
     Navbar,
-    Loading,
+    Loading
   },
-  beforeCreate() {
-    this.$store.dispatch("fetchMasterData");
+  computed:{
+    is_loading(){
+      return this.$store.state.is_loading
+    }
   },
-  mounted() {
-    setTimeout(() => {
-      this.loading = false;
-    }, 1000);
-  },
+  // created() {
+  //   // this.$store.dispatch("fetchMasterData");
+  // },
+  // mounted() {
+  //   setTimeout(() => {
+  //     this.loading = false;
+  //   }, 1000);
+  // }
 };
 </script>
