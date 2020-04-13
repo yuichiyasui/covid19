@@ -19,6 +19,7 @@ export default new Vuex.Store({
       bigArray = masterData.data.split("\r\n"); // 1行ごとに分割して配列に格納
       var searchColArray = [
         // 取得する項目の一覧(これをもとにcolIndexNumberArrayに項目番号をセットする)
+        "通し",
         "年代",
         "性別",
         "確定日YYYYMMDD",
@@ -38,16 +39,17 @@ export default new Vuex.Store({
         var miniArray = bigArray[i].split(","); // 1行の各項目を配列に格納
         if (miniArray[colIndexNumberArray[0]] !== "") {
           // 空文字の行(年代の項目で判定)じゃなかった場合
-          var arr = miniArray[colIndexNumberArray[2]].split("/"); // yyyy/MM/ddを'/'で分割
+          var arr = miniArray[colIndexNumberArray[3]].split("/"); // yyyy/MM/ddを'/'で分割
           var date = new Date(arr[0], arr[1] - 1, arr[2]); // yyyy,MM,ddでDateオブジェクトを生成
           var rowData = {
             // 必要な行だけ切り取って連想配列にする
-            age: miniArray[colIndexNumberArray[0]], // 年代
-            gender: miniArray[colIndexNumberArray[1]], //性別
+            num: miniArray[colIndexNumberArray[0]], // 年代
+            age: miniArray[colIndexNumberArray[1]], // 年代
+            gender: miniArray[colIndexNumberArray[2]], //性別
             date: date, // 確定日YYYYMMDD
-            residence: miniArray[colIndexNumberArray[3]], // 居住都道府県
-            dead: miniArray[colIndexNumberArray[4]], // 死者合計
-            discharge: miniArray[colIndexNumberArray[5]] // 退院数
+            residence: miniArray[colIndexNumberArray[4]], // 居住都道府県
+            dead: miniArray[colIndexNumberArray[5]], // 死者合計
+            discharge: miniArray[colIndexNumberArray[6]] // 退院数
           };
           masterDataArray.push(rowData); // 加工した1行分のデータを配列に追加
         }

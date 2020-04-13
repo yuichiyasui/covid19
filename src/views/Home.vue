@@ -57,10 +57,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col sm="8">
-        <List />
-      </v-col>
-      <v-col sm="8">
+      <v-col sm="6">
         <v-card outlined="false" class="pa-3 mb-4">
           <v-card-text>
             <v-card-title class="title-color">都道府県別感染者数</v-card-title>
@@ -70,7 +67,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col sm="4">
+      <v-col sm="6">
         <v-card outlined="false" class="pa-3 mb-4">
           <v-card-text>
             <v-card-title class="title-color"
@@ -79,6 +76,9 @@
             <JapanMap />
           </v-card-text>
         </v-card>
+      </v-col>
+      <v-col sm="8">
+        <List />
       </v-col>
     </v-row>
   </v-col>

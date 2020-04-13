@@ -46,12 +46,23 @@ export default {
   // extends: Bar,
   mounted() {
     this.prefectureData = this.$store.getters.getPrefectureData;
-    this.setChartData();
-    this.renderChart(this.chartData, this.options);
-  },
-  updated(){
-    console.info("beforeUpdate!!!!")
-    this.prefectureData = this.$store.getters.getPrefectureData;
+    /** 感染者数が多い順に並べ替え */
+    this.prefectureData.sort(function(a, b) {
+      if (a.count < b.count) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+    /** その他と不明を最後尾に移動 */
+    var others = this.prefectureData.find(item =>item.name ==="その他")
+    var indexOfOthers = this.prefectureData.findIndex(item =>item.name ==="その他")
+    this.prefectureData.splice(indexOfOthers, 1)
+    this.prefectureData.push(others)
+    var unknown = this.prefectureData.find(item =>item.name ==="不明")
+    var indexOfUnknown = this.prefectureData.findIndex(item =>item.name ==="不明")
+    this.prefectureData.splice(indexOfUnknown, 1)
+    this.prefectureData.push(unknown)
     this.setChartData();
     this.renderChart(this.chartData, this.options);
   }

@@ -1,7 +1,7 @@
 <template>
-  <v-col class="text-center">
+  <div class="text-center mt-3 pa-0">
     <GChart type="GeoChart" :data="chartData" :options="chartOptions" />
-  </v-col>
+  </div>
 </template>
 
 <script>
@@ -19,7 +19,7 @@ export default {
         resolution: "provinces",
         displayMode: "regions",
         colorAxis: {maxValue:500 ,colors:['white','yellow','red']},
-        keepAspectRatio:true,
+        keepAspectRatio:false,
       },
     };
   },

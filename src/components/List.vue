@@ -18,8 +18,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(d, i) in $store.state.masterData" :key="i">
-              <td class="text-center">{{ i + 1 }}</td>
+            <tr v-for="(d, i) in masterData" :key="i">
+              <td class="text-center">{{ d.num }}</td>
               <td class="text-center">{{ d.age }}</td>
               <td class="text-center">{{ d.gender }}</td>
               <td class="text-center">
@@ -36,10 +36,34 @@
   </v-card>
 </template>
 
-<style>
-.theme--light.v-data-table.v-data-table--fixed-header thead th{
-  background-color:#f57c00!important;
-  color:#ffffff!important;
-}
+<script>
+export default {
+  data() {
+    return {
+      masterData: []
+    };
+  },
+  methods: {
+    sortByDate: function() {
+      var dataArray = this.$store.state.masterData.sort(function(a, b) {
+        if (a.date < b.date) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+      return dataArray;
+    }
+  },
+  mounted(){
+    this.masterData = this.sortByDate();
+  }
+};
+</script>
 
+<style>
+.theme--light.v-data-table.v-data-table--fixed-header thead th {
+  background-color: #f57c00 !important;
+  color: #ffffff !important;
+}
 </style>
