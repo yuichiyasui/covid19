@@ -11,7 +11,7 @@ Vue.use(axios);
 export default new Vuex.Store({
   state: {
     masterData: [],
-    is_loading:false
+    is_loading: false
   },
   mutations: {
     addMasterData(state, masterData) {
@@ -54,7 +54,7 @@ export default new Vuex.Store({
       }
       state.masterData = masterDataArray; // 加工したデータ配列でstateを上書き
     },
-    setIsLoading(state, isLoading){
+    setIsLoading(state, isLoading) {
       state.is_loading = isLoading;
     }
   },
@@ -192,6 +192,7 @@ export default new Vuex.Store({
     getDeadDeta(state) {
       //配列の中から必要なdeadだけの配列を作成
       const deadarray = state.masterData.map(x => x.dead);
+
       return Math.max.apply(null, deadarray);
     },
     getDeadTransition(state) {
@@ -226,5 +227,6 @@ export default new Vuex.Store({
       return dischargeTransition;
     }
   },
+
   modules: {}
 });
