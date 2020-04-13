@@ -191,8 +191,8 @@ export default new Vuex.Store({
       return Math.max.apply(null, deadarray)
       
   
-      },
-      getDeadTransition(state){
+    },
+    getDeadTransition(state){
         //配列の中から死者数の値がある物を検出する
         var newDate = state.masterData.filter(item => item.dead !=='')
         //重複排除
@@ -204,7 +204,28 @@ export default new Vuex.Store({
           }
         });
         return deadTransition
-      },
+    },
+    getDischarge(state) {
+      //配列の中から必要なdeadだけの配列を作成
+      const dischargeArray = state.masterData.map(x=> x.discharge )
+      
+      return Math.max.apply(null, dischargeArray)
+      
+  
+    },
+    getDischargeTransition(state){
+        //配列の中から死者数の値がある物を検出する
+        var newDate = state.masterData.filter(item => item.discharge !=='')
+        //重複排除
+        let values = [];
+        const dischargeTransition = newDate.filter(e=>{ 
+          if(values.indexOf(e["discharge"])=== -1){
+            values.push(e["discharge"]);
+            return e;
+          }
+        });
+        return dischargeTransition
+    },
   },
 
   modules: {},
