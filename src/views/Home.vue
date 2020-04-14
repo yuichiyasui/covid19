@@ -77,7 +77,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col sm="8">
+      <v-col sm="5">
         <List />
       </v-col>
     </v-row>

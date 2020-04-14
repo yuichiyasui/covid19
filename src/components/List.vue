@@ -4,7 +4,7 @@
       <v-card-title class="title-color">
         感染データ一覧
       </v-card-title>
-      <v-simple-table fixed-header height="50vh">
+      <v-simple-table fixed-header height="30vh">
         <template v-slot:default>
           <thead>
             <tr class="table-header-color">
@@ -13,8 +13,6 @@
               <th class="text-center">性別</th>
               <th class="text-center">確定日</th>
               <th class="text-center">居住都道府県</th>
-              <th class="text-center">死者合計</th>
-              <th class="text-center">退院数</th>
             </tr>
           </thead>
           <tbody>
@@ -26,8 +24,6 @@
                 {{ $store.getters.dateToString(d.date) }}
               </td>
               <td class="text-center">{{ d.residence }}</td>
-              <td class="text-center">{{ d.dead }}</td>
-              <td class="text-center">{{ d.discharge }}</td>
             </tr>
           </tbody>
         </template>
@@ -55,7 +51,7 @@ export default {
       return dataArray;
     }
   },
-  mounted(){
+  mounted() {
     this.masterData = this.sortByDate();
   }
 };
