@@ -166,7 +166,6 @@ export default new Vuex.Store({
         0,
         0
       );
-      console.log(today)
       var startDate = new Date(2020, 0, 1, 0, 0);
       var ms = today.getTime() - startDate.getTime();
       var endCount = ms / (1000 * 60 * 60 * 24) + 1;
@@ -190,7 +189,7 @@ export default new Vuex.Store({
             }
           }
         } catch (error) {
-          console.error(error)
+          console.error(error.name + ": " + error.message + "[this date: "+ masterData[i].date + "]")
           break;
         }
       }
