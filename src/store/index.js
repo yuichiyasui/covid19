@@ -22,7 +22,7 @@ export default new Vuex.Store({
         "通し",
         "年代",
         "性別",
-        "確定日YYYYMMDD",
+        "確定日",
         "居住都道府県",
         "死者合計",
         "退院数"
@@ -40,13 +40,13 @@ export default new Vuex.Store({
         if (miniArray[colIndexNumberArray[0]] !== "") {
           // 空文字の行(年代の項目で判定)じゃなかった場合
           var arr = miniArray[colIndexNumberArray[3]].split("/"); // yyyy/MM/ddを'/'で分割
-          var date = new Date(arr[0], arr[1] - 1, arr[2]); // yyyy,MM,ddでDateオブジェクトを生成
+          var date = new Date(arr[2], arr[0] - 1, arr[1]); // yyyy,MM,ddでDateオブジェクトを生成
           var rowData = {
             // 必要な行だけ切り取って連想配列にする
-            num: miniArray[colIndexNumberArray[0]], // 年代
+            num: miniArray[colIndexNumberArray[0]], // 通し
             age: miniArray[colIndexNumberArray[1]], // 年代
             gender: miniArray[colIndexNumberArray[2]], //性別
-            date: date, // 確定日YYYYMMDD
+            date: date, // 確定日
             residence: miniArray[colIndexNumberArray[4]], // 居住都道府県
             dead: miniArray[colIndexNumberArray[5]], // 死者合計
             discharge: miniArray[colIndexNumberArray[6]] // 退院数
