@@ -166,6 +166,7 @@ export default new Vuex.Store({
         0,
         0
       );
+      console.log(today)
       var startDate = new Date(2020, 0, 1, 0, 0);
       var ms = today.getTime() - startDate.getTime();
       var endCount = ms / (1000 * 60 * 60 * 24) + 1;
@@ -177,16 +178,20 @@ export default new Vuex.Store({
         };
         dateArray.push(dateObj);
       }
-      masterData;
       /** マスターデータを1行ずつみていく */
       for (let i = 0; i < masterData.length; i++) {
         /** マスターデータの日付が日付オブジェクトのいずれかの日付とマッチするかみていく(絶対にどこかでマッチする) */
-        for (let j = 0; dateArray.length; j++) {
-          /** もしマッチしたらその日付のカウンターにプラス1してfor文を終了(マッチしない場合はスルーして次の日付へ) */
-          if (masterData[i].date.getTime() === dateArray[j].date.getTime()) {
-            dateArray[j].count++;
-            break;
+        try {
+          for (let j = 0; dateArray.length; j++) {
+            /** もしマッチしたらその日付のカウンターにプラス1してfor文を終了(マッチしない場合はスルーして次の日付へ) */
+            if (masterData[i].date.getTime() === dateArray[j].date.getTime()) {
+              dateArray[j].count++;
+              break;
+            }
           }
+        } catch (error) {
+          console.error(error)
+          break;
         }
       }
       return dateArray;
@@ -194,7 +199,6 @@ export default new Vuex.Store({
     getDeadDeta(state) {
       //配列の中から必要なdeadだけの配列を作成
       const deadarray = state.masterData.map(x => x.dead);
-
       return Math.max.apply(null, deadarray);
     },
     getDeadTransition(state) {
