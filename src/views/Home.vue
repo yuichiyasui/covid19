@@ -2,7 +2,7 @@
   <v-col>
     <v-row>
       <v-col sm="3">
-        <v-card outlined="false" class="pa-3 mb-4">
+        <v-card outlined class="pa-3 mb-4">
           <v-card-text>
             <v-card-title class="title-color">日本国内の状況</v-card-title>
             <InfectedPeople />
@@ -10,7 +10,7 @@
         </v-card>
       </v-col>
       <v-col sm="5">
-        <v-card outlined="false" class="pa-3 mb-4">
+        <v-card outlined class="pa-3 mb-4">
           <v-card-text>
             <v-card-title class="title-color">感染者推移グラフ</v-card-title>
             <TransitionGraph>
@@ -20,7 +20,7 @@
         </v-card>
       </v-col>
       <v-col sm="4">
-        <v-card outlined="false" class="pa-3 mb-4">
+        <v-card outlined class="pa-3 mb-4">
           <v-card-text>
             <v-card-title class="title-color">男女別感染者グラフ</v-card-title>
             <GenderGraph>
@@ -30,7 +30,7 @@
         </v-card>
       </v-col>
       <v-col sm="4">
-        <v-card outlined="false" class="pa-3 mb-4">
+        <v-card outlined class="pa-3 mb-4">
           <v-card-text>
             <v-card-title class="title-color">年代別感染者グラフ</v-card-title>
             <AgeGraph>
@@ -40,7 +40,7 @@
         </v-card>
       </v-col>
       <v-col sm="4">
-        <v-card outlined="false" class="pa-3 mb-4">
+        <v-card outlined class="pa-3 mb-4">
           <v-card-text>
             <v-card-title class="title-color">死亡者数推移</v-card-title>
             <TransitionDead>
@@ -50,7 +50,7 @@
         </v-card>
       </v-col>
       <v-col sm="4">
-        <v-card outlined="false" class="pa-3 mb-4">
+        <v-card outlined class="pa-3 mb-4">
           <v-card-text>
             <v-card-title class="title-color">退院者数推移</v-card-title>
             <DischargeTransitionGraph></DischargeTransitionGraph>
@@ -58,7 +58,7 @@
         </v-card>
       </v-col>
       <v-col sm="6">
-        <v-card outlined="false" class="pa-3 mb-4">
+        <v-card outlined class="pa-3 mb-4">
           <v-card-text>
             <v-card-title class="title-color">都道府県別感染者数</v-card-title>
             <div id="prefecture-graph-frame">
@@ -68,7 +68,7 @@
         </v-card>
       </v-col>
       <v-col sm="6">
-        <v-card outlined="false" class="pa-3 mb-4">
+        <v-card outlined class="pa-3 mb-4">
           <v-card-text>
             <v-card-title class="title-color"
               >日本国内感染者数分布マップ</v-card-title

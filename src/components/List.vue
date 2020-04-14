@@ -1,5 +1,5 @@
 <template>
-  <v-card outlined="false" class="pa-3 mb-4">
+  <v-card outlined class="pa-3 mb-4">
     <v-card-text>
       <v-card-title class="title-color">
         感染データ一覧
