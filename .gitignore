@@ -6,8 +6,8 @@
 # yarn-error.log*
 # firebase-debug.log*
 
-# # Firebase cache
-# .firebase/
+# Firebase cache
+.firebase/
 
 # # Firebase config
 
@@ -76,5 +76,5 @@
 # *.sw?
 
 # .DS_Store
-# /dist
+/dist
 node_modules/
