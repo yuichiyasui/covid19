@@ -1,12 +1,13 @@
 <template>
-<div>
-    <div class="title">{{ title }}</div>
-</div>
+  <v-card>
+    <v-card-title>{{ title }}</v-card-title>
+    <v-card-text> </v-card-text>
+  </v-card>
 </template>
 <script>
 export default {
-    data:() => ({
-        title:"本サイトで利用しているデータについて"
-    })
-}
+  data: () => ({
+    title: "本サイトで利用しているデータについて"
+  })
+};
 </script>
