@@ -1,5 +1,4 @@
 <script>
-// import { HorizontalBar } from "vue-chartjs";
 import { Bar } from "vue-chartjs";
 
 export default {
@@ -7,7 +6,14 @@ export default {
     return {
       prefectureData: [],
       options: {
-        legend: { position: "top",reverse:true },
+        tooltips: {
+          callbacks: {
+            title: function(tooltipItem) {
+              return tooltipItem[0].xLabel.join('');  // 1文字ずつの配列になっているのを元通りに
+            }
+          }
+        },
+        legend: { position: "top", reverse: true },
         responsive: true,
         display: true,
         maintainAspectRatio: false, // アスペクト比を維持するかの設定
@@ -34,7 +40,7 @@ export default {
   methods: {
     setChartData() {
       this.chartData = {
-        labels: this.getPrefectureName.map((v)=>v.split("")), // 縦書きに加工
+        labels: this.getPrefectureName.map(v => v.split("")), // 縦書きに加工
         datasets: [
           {
             label: "感染者数",
@@ -48,7 +54,6 @@ export default {
     }
   },
   name: "PrefectureGraph",
-  // extends: HorizontalBar,
   extends: Bar,
   mounted() {
     this.prefectureData = this.$store.getters.getPrefectureData;
