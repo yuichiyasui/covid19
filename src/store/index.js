@@ -231,6 +231,7 @@ export default new Vuex.Store({
       });
       return dischargeTransition;
     },
+    /**退院数を日別に集計 */
     getDischargeDates(state) {
       var masterData = state.masterData;
       var dateArray = []; // 日別感染者数の集計結果を格納する配列
@@ -276,6 +277,7 @@ export default new Vuex.Store({
       }
       return dateArray;
     },
+    /**死者数を日別に集計 */
     getDeadDates(state) {
       var masterData = state.masterData;
       var dateArray = []; // 日別感染者数の集計結果を格納する配列
