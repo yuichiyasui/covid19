@@ -1,12 +1,18 @@
 <script>
-import { HorizontalBar } from "vue-chartjs";
-// import { Bar } from "vue-chartjs";
+// import { HorizontalBar } from "vue-chartjs";
+import { Bar } from "vue-chartjs";
 
 export default {
   data() {
     return {
       prefectureData: [],
-      options: { responsive: true, display: true, maintainAspectRatio: false }
+      options: {
+        legend: { position: "top",reverse:true },
+        responsive: true,
+        display: true,
+        maintainAspectRatio: false, // アスペクト比を維持するかの設定
+        scales: { xAxes: [{ ticks: { autoSkip: false } }] } // y軸は項目を表示する際に間引かない
+      }
     };
   },
   computed: {
@@ -28,7 +34,7 @@ export default {
   methods: {
     setChartData() {
       this.chartData = {
-        labels: this.getPrefectureName,
+        labels: this.getPrefectureName.map((v)=>v.split("")), // 縦書きに加工
         datasets: [
           {
             label: "感染者数",
@@ -42,8 +48,8 @@ export default {
     }
   },
   name: "PrefectureGraph",
-  extends: HorizontalBar,
-  // extends: Bar,
+  // extends: HorizontalBar,
+  extends: Bar,
   mounted() {
     this.prefectureData = this.$store.getters.getPrefectureData;
     /** 感染者数が多い順に並べ替え */
@@ -55,14 +61,18 @@ export default {
       }
     });
     /** その他と不明を最後尾に移動 */
-    var others = this.prefectureData.find(item =>item.name ==="その他")
-    var indexOfOthers = this.prefectureData.findIndex(item =>item.name ==="その他")
-    this.prefectureData.splice(indexOfOthers, 1)
-    this.prefectureData.push(others)
-    var unknown = this.prefectureData.find(item =>item.name ==="不明")
-    var indexOfUnknown = this.prefectureData.findIndex(item =>item.name ==="不明")
-    this.prefectureData.splice(indexOfUnknown, 1)
-    this.prefectureData.push(unknown)
+    var others = this.prefectureData.find(item => item.name === "その他");
+    var indexOfOthers = this.prefectureData.findIndex(
+      item => item.name === "その他"
+    );
+    this.prefectureData.splice(indexOfOthers, 1);
+    this.prefectureData.push(others);
+    var unknown = this.prefectureData.find(item => item.name === "不明");
+    var indexOfUnknown = this.prefectureData.findIndex(
+      item => item.name === "不明"
+    );
+    this.prefectureData.splice(indexOfUnknown, 1);
+    this.prefectureData.push(unknown);
     this.setChartData();
     this.renderChart(this.chartData, this.options);
   }

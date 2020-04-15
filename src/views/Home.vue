@@ -1,17 +1,17 @@
 <template>
   <v-col>
     <v-row>
-      <v-col sm="3">
+      <v-col sm="2">
         <v-card outlined class="pa-3 mb-4">
-          <v-card-text>
+          <v-card-text class="pa-0">
             <v-card-title class="title-color">日本国内の状況</v-card-title>
             <InfectedPeople />
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col sm="5">
+      <v-col sm="6">
         <v-card outlined class="pa-3 mb-4">
-          <v-card-text>
+          <v-card-text class="pa-0">
             <v-card-title class="title-color">感染者推移グラフ</v-card-title>
             <TransitionGraph>
               <date-person-chart></date-person-chart>
@@ -21,7 +21,7 @@
       </v-col>
       <v-col sm="4">
         <v-card outlined class="pa-3 mb-4">
-          <v-card-text>
+          <v-card-text class="pa-0">
             <v-card-title class="title-color">男女別感染者グラフ</v-card-title>
             <GenderGraph>
               <doughnut-chart></doughnut-chart>
@@ -31,7 +31,7 @@
       </v-col>
       <v-col sm="4">
         <v-card outlined class="pa-3 mb-4">
-          <v-card-text>
+          <v-card-text class="pa-0">
             <v-card-title class="title-color">年代別感染者グラフ</v-card-title>
             <AgeGraph>
               <bar-chart></bar-chart>
@@ -41,7 +41,7 @@
       </v-col>
       <v-col sm="4">
         <v-card outlined class="pa-3 mb-4">
-          <v-card-text>
+          <v-card-text class="pa-0">
             <v-card-title class="title-color">死亡者数推移</v-card-title>
             <TransitionDead>
               <date-person-chart></date-person-chart>
@@ -51,33 +51,26 @@
       </v-col>
       <v-col sm="4">
         <v-card outlined class="pa-3 mb-4">
-          <v-card-text>
+          <v-card-text class="pa-0">
             <v-card-title class="title-color">退院者数推移</v-card-title>
             <DischargeTransitionGraph></DischargeTransitionGraph>
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col sm="6">
+      <v-col sm="4">
         <v-card outlined class="pa-3 mb-4">
-          <v-card-text>
+          <v-card-text class="pa-0">
             <v-card-title class="title-color">都道府県別感染者数</v-card-title>
             <div id="prefecture-graph-frame">
-              <PrefectureGraph></PrefectureGraph>
+              <PrefectureGraph style="width:1000px;"></PrefectureGraph>
             </div>
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col sm="6">
-        <v-card outlined class="pa-3 mb-4">
-          <v-card-text>
-            <v-card-title class="title-color"
-              >日本国内感染者数分布マップ</v-card-title
-            >
-            <JapanMap />
-          </v-card-text>
-        </v-card>
+      <v-col sm="4">
+        <JapanMap />
       </v-col>
-      <v-col sm="5">
+      <v-col sm="4">
         <List />
       </v-col>
     </v-row>
@@ -117,10 +110,10 @@ export default {
 
 <style>
 #prefecture-graph-frame {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  overflow-x: auto;
+  max-width: 100vw;
 }
+
 .theme--light.v-card.v-card--outlined {
   border: thin solid #f57c00;
   border-width: 2px;

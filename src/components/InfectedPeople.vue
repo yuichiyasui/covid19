@@ -2,7 +2,7 @@
   <v-card-text>
     <div class="mb-7">
       <div class="subtitle-1 title-color">感染者数</div>
-      <span class="font-weight-bold display-1">{{ masterData.length }} </span>人
+      <span class="font-weight-bold display-1">{{ masterData.length.toLocaleString() }} </span>人
       <div class="body-2">本日：+ {{ dates[dates.length - 1].count }} 人</div>
       <div class="body-2">昨日：+ {{ dates[dates.length - 2].count }} 人</div>
     </div>
