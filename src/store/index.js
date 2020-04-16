@@ -4,14 +4,46 @@ import axios from "axios";
 import PREF_ARRAY from "../assets/js/prefecture";
 import AGE_ARRAY from "../assets/js/age";
 import GENDER_ARRAY from "../assets/js/gender";
+import InfectedPeople from './modules/infectedPeople';
+import ageGraph from './modules/ageGraph';
+import ageDayDraoh from './modules/ageDayDraoh';
+import chart from './modules/chart';
+import dischargeTransitionGraph from './modules/dischargeTransitionGraph';
+import genderGraph from './modules/genderGraph';
+import IndividualPrefectureGraph from './modules/IndividualPrefectureGraph';
 import infectedPeople from './modules/infectedPeople';
+import japanMap from './modules/japanMap';
+import list from './modules/list';
+import loading from './modules/loading';
+import navbar from './modules/navbar';
+import prefectureGraph from './modules/prefectureGraph';
+import totalDead from './modules/totalDead';
+import transitionDead from './modules/transitionDead';
+import transitionGraph from './modules/transitionGraph';
+
 
 Vue.use(Vuex);
 Vue.use(axios);
 
 export default new Vuex.Store({
   modules: {
-    infectedPeople
+    InfectedPeople,
+    ageGraph,
+    ageDayDraoh,
+    chart,
+    dischargeTransitionGraph,
+    genderGraph,
+    IndividualPrefectureGraph,
+    infectedPeople,
+    japanMap,
+    list,
+    loading,
+    navbar,
+    prefectureGraph,
+    totalDead,
+    transitionDead,
+    transitionGraph
+
   },
   state: {
     masterData: [],
