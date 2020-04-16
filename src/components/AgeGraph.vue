@@ -25,7 +25,7 @@ export default {
               ticks: {
                 //最大値最小値設定
                 min: 0, //最小値
-                max: 1500, //最大値
+                // max: 1500, //最大値
                 fontSize: 12, //フォントサイズ
                 stepSize: 100 //軸間隔
               }

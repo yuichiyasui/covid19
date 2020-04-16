@@ -189,7 +189,14 @@ export default new Vuex.Store({
             }
           }
         } catch (error) {
-          console.error(error.name + ": " + error.message + "[this date: "+ masterData[i].date + "]")
+          console.error(
+            error.name +
+              ": " +
+              error.message +
+              "[this date: " +
+              masterData[i].date +
+              "]"
+          );
           break;
         }
       }
@@ -252,7 +259,7 @@ export default new Vuex.Store({
         var dateObj = {
           date: date,
           todayDischarge: 0,
-          totalDischarge: 0,
+          totalDischarge: 0
         };
         dateArray.push(dateObj);
       }
@@ -264,14 +271,25 @@ export default new Vuex.Store({
           for (let j = 0; dateArray.length; j++) {
             /** もしマッチしたらその日付のカウンターにプラス1してfor文を終了(マッチしない場合はスルーして次の日付へ) */
             if (masterData[i].date.getTime() === dateArray[j].date.getTime()) {
-              dateArray[j].todayDischarge = Number(dateArray[j].todayDischarge) + Number(masterData[i].discharge);
+              dateArray[j].todayDischarge =
+                Number(dateArray[j].todayDischarge) +
+                Number(masterData[i].discharge);
               //totalDischargeを増やしていきたい
-              dateArray[j].totalDischarge = Number(dateArray[j - 1].totalDischarge) + Number(masterData[i].discharge);
+              dateArray[j].totalDischarge =
+                Number(dateArray[j - 1].totalDischarge) +
+                Number(masterData[i].discharge);
               break;
             }
           }
         } catch (error) {
-          console.error(error.name + ": " + error.message + "[this date: "+ masterData[i].date + "]")
+          console.error(
+            error.name +
+              ": " +
+              error.message +
+              "[this date: " +
+              masterData[i].date +
+              "]"
+          );
           break;
         }
       }
@@ -298,7 +316,7 @@ export default new Vuex.Store({
         var dateObj = {
           date: date,
           todayDead: 0,
-          totalDead: 0,
+          totalDead: 0
         };
         dateArray.push(dateObj);
       }
@@ -310,18 +328,119 @@ export default new Vuex.Store({
           for (let j = 0; dateArray.length; j++) {
             /** もしマッチしたらその日付のカウンターにプラス1してfor文を終了(マッチしない場合はスルーして次の日付へ) */
             if (masterData[i].date.getTime() === dateArray[j].date.getTime()) {
-              dateArray[j].todayDead = Number(dateArray[j].todayDead) + Number(masterData[i].dead);
-              dateArray[j].totalDead = Number(dateArray[j - 1].totalDead) + Number(masterData[i].dead);
+              dateArray[j].todayDead =
+                Number(dateArray[j].todayDead) + Number(masterData[i].dead);
+              dateArray[j].totalDead =
+                Number(dateArray[j - 1].totalDead) + Number(masterData[i].dead);
               break;
             }
           }
         } catch (error) {
-          console.error(error.name + ": " + error.message + "[this date: "+ masterData[i].date + "]")
+          console.error(
+            error.name +
+              ": " +
+              error.message +
+              "[this date: " +
+              masterData[i].date +
+              "]"
+          );
           break;
         }
       }
       return dateArray;
     },
+    getAgeDay(state) {
+      // 日別のデータを格納する配列
+      var dateArray = [];
+      /** 日付とカウンターをプロパティにした日付オブジェクトを2020年1月1日から今日の分まで生成して配列に格納 */
+      var preToday = new Date();
+      var today = new Date(
+        preToday.getFullYear(),
+        preToday.getMonth(),
+        preToday.getDate(),
+        0,
+        0
+      );
+      var startDate = new Date(2020, 0, 1, 0, 0);
+      var ms = today.getTime() - startDate.getTime();
+      var endCount = ms / (1000 * 60 * 60 * 24) + 1;
+      for (let i = 1; i <= endCount; i++) {
+        var date = new Date(2020, 0, i);
+        var dateObj = {
+          date: date,
+          count: 0
+        };
+        dateArray.push(dateObj);
+      }
+
+      //年代別の配列
+      var ageArray = AGE_ARRAY;
+      //全ての結果の配列
+      var resultArray = [];
+      for (let i = 0; i < ageArray.length; i++) {
+        var age = { id: i, name: ageArray[i], date: dateArray };
+        resultArray.push(age);
+      }
+      var masterData = state.masterData;
+      /** マスターデータを1行ずつみていく */
+      for (let i = 0; i < masterData.length; i++) {
+        var ageData = masterData[i].age;
+        var isMatch = false; // マッチしてなかったらfalse
+        for (let j = 0; j < ageArray.length; j++) {
+          if (ageData == Number(resultArray[j].name)) {
+            isMatch = true; // マッチしたらtrue
+            try {
+              for (let k = 0; dateArray.length; k++) {
+                /** もしマッチしたらその日付のカウンターにプラス1してfor文を終了(マッチしない場合はスルーして次の日付へ) */
+                if (
+                  masterData[i].date.getTime() === dateArray[k].date.getTime()
+                ) {
+                  dateArray[k].count++;
+                  break;
+                }
+              }
+            } catch (error) {
+              console.error(
+                error.name +
+                  ": " +
+                  error.message +
+                  "[this date: " +
+                  masterData[i].date +
+                  "]"
+              );
+              break;
+            }
+          }
+          // "1-10,不明"
+          if (isMatch === false) {
+            if (ageData == resultArray[j].name) {
+              try {
+                for (let k = 0; dateArray.length; k++) {
+                  /** もしマッチしたらその日付のカウンターにプラス1してfor文を終了(マッチしない場合はスルーして次の日付へ) */
+                  if (
+                    masterData[i].date.getTime() === dateArray[k].date.getTime()
+                  ) {
+                    dateArray[k].count++;
+                    break;
+                  }
+                }
+              } catch (error) {
+                console.error(
+                  error.name +
+                    ": " +
+                    error.message +
+                    "[this date: " +
+                    masterData[i].date +
+                    "]"
+                );
+                break;
+              }
+            }
+          }
+        }
+      }
+      return resultArray;
+    }
   },
 
   modules: {}
