@@ -102,6 +102,10 @@ export default {
           icon: "mdi-chart-bar",
           text: "退院者数",
         },
+        {
+          icon: "mdi-chart-bar",
+          text: "都道府県別グラフ",
+        },
       ],
       drawer: null,
       model: 1,
@@ -120,6 +124,9 @@ export default {
       }
       if (i === 3) {
         this.$router.push("/discharge");
+      }
+      if (i === 4) {
+        this.$router.push("/prefecture");
       }
       if (i === "home") {
         // 現在のパスが'/'なら、エラーが出るため何もしないようにしたい
