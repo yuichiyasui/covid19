@@ -39,6 +39,9 @@ export default {
       totalDead: 0,
       todayDead: 0,
       yesterdayDead: 0,
+      momo: this.$store.state.infectedPeople.count,
+      momono: 0,
+      momoaction: 0
     };
   },
   computed: {
@@ -48,10 +51,11 @@ export default {
   },
 
   mounted() {
-    console.log("マウンテッド" + this.getDischargeArray[104]);
     this.totalDead = this.getDateArray[this.getDateArray.length - 2].todayDead;
     //今日の死者数を処理したいが0
     this.yesterdayDead = this.getDateArray[this.getDateArray.length - 2].todayDead - this.getDateArray[this.getDateArray.length - 3].todayDead;
+    this.momono = this.$store.getters['infectedPeople/getcount'];
+    this.momoaction = this.$store.dispatch('infectedPeople/addcount');
   }
 };
 </script>

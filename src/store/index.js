@@ -4,11 +4,15 @@ import axios from "axios";
 import PREF_ARRAY from "../assets/js/prefecture";
 import AGE_ARRAY from "../assets/js/age";
 import GENDER_ARRAY from "../assets/js/gender";
+import infectedPeople from './modules/infectedPeople';
 
 Vue.use(Vuex);
 Vue.use(axios);
 
 export default new Vuex.Store({
+  modules: {
+    infectedPeople
+  },
   state: {
     masterData: [],
     is_loading: false
@@ -442,6 +446,4 @@ export default new Vuex.Store({
       return resultArray;
     }
   },
-
-  modules: {}
 });
