@@ -1,8 +1,8 @@
 <template>
   <v-card outlined>
     <v-card-text class="mx-2 mt-2">
-      <div class="title title-color mb-5">{{ title }}</div>
-      <div v-for="(c, i) in contents" :key="i" class="mb-5">
+      <div class="title title-color mb-4">{{ title }}</div>
+      <div v-for="(c, i) in contents" :key="i" class="mb-2">
         <div class="font-weight-black">
           {{ c.date }}
         </div>
