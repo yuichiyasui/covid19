@@ -8,12 +8,12 @@
     </div>
     <div class="mb-7">
       <div class="subtitle-1 title-color">回復者数</div>
-      <span class="font-weight-bold display-1">{{ totalDischarge }} </span>人
+      <span class="font-weight-bold display-1">{{ discharges[discharges.length - 2].totalDischarge }} </span>人
       <div class="body-2">
-        本日：+ {{ todayDischarge }} 人
+        本日：+ {{ discharges[discharges.length - 1].todayDischarge }} 人
       </div>
       <div class="body-2">
-        昨日：+ {{ yesterdayDischarge }} 人
+        昨日：+ {{ discharges[discharges.length - 2].todayDischarge }} 人
       </div>
     </div>
     <div>
@@ -35,30 +35,23 @@ export default {
     return {
       masterData: this.$store.state.masterData,
       dates: this.$store.getters.getDates,
+      discharges: this.$store.getters.getDischargeDates,
       totalDead: 0,
       todayDead: 0,
       yesterdayDead: 0,
-      todayDischarge: 0,
-      yesterdayDischarge: 0,
-      totalDischarge: 0,
     };
   },
   computed: {
     getDateArray: function() {
       return this.$store.getters.getDeadDates;
     },
-    getDischargeArray: function() {
-      return this.$store.getters.getDischargeDates;
-    }
   },
 
   mounted() {
+    console.log("マウンテッド" + this.getDischargeArray[104]);
     this.totalDead = this.getDateArray[this.getDateArray.length - 2].todayDead;
     //今日の死者数を処理したいが0
     this.yesterdayDead = this.getDateArray[this.getDateArray.length - 2].todayDead - this.getDateArray[this.getDateArray.length - 3].todayDead;
-    this.totalDischarge = this.getDischargeArray[this.getDischargeArray.length - 1].totalDischarge;
-    this.todayDischarge = this.getDischargeArray[this.getDischargeArray.length - 1].todayDischarge;
-    this.yesterdayDischarge = this.getDischargeArray[this.getDischargeArray.length - 2].todayDischarge;
   }
 };
 </script>

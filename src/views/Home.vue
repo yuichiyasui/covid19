@@ -12,7 +12,7 @@
       <v-col sm="6">
         <v-card outlined class="pa-3 mb-4">
           <v-card-text class="pa-0">
-            <v-card-title class="title-color">感染者推移グラフ</v-card-title>
+            <v-card-title class="title-color">感染者推移</v-card-title>
             <TransitionGraph>
               <date-person-chart></date-person-chart>
             </TransitionGraph>
