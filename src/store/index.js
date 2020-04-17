@@ -13,9 +13,6 @@ import genderGraph from './modules/genderGraph';
 import IndividualPrefectureGraph from './modules/IndividualPrefectureGraph';
 import infectedPeople from './modules/infectedPeople';
 import japanMap from './modules/japanMap';
-import list from './modules/list';
-import loading from './modules/loading';
-import navbar from './modules/navbar';
 import prefectureGraph from './modules/prefectureGraph';
 import totalDead from './modules/totalDead';
 import transitionDead from './modules/transitionDead';
@@ -36,9 +33,6 @@ export default new Vuex.Store({
     IndividualPrefectureGraph,
     infectedPeople,
     japanMap,
-    list,
-    loading,
-    navbar,
     prefectureGraph,
     totalDead,
     transitionDead,

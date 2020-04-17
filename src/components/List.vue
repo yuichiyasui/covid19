@@ -9,22 +9,20 @@
           <template v-slot:default>
             <thead>
               <tr class="table-header-color">
-                <th class="text-center">No</th>
-                <th class="text-center">年代</th>
-                <th class="text-center">性別</th>
                 <th class="text-center">確定日</th>
                 <th class="text-center">居住都道府県</th>
+                <th class="text-center">性別</th>
+                <th class="text-center">年代</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(d, i) in masterData" :key="i">
-                <td class="text-center">{{ d.num }}</td>
-                <td class="text-center">{{ d.age }}</td>
-                <td class="text-center">{{ d.gender }}</td>
                 <td class="text-center">
                   {{ $store.getters.dateToString(d.date) }}
                 </td>
                 <td class="text-center">{{ d.residence }}</td>
+                <td class="text-center">{{ d.gender }}</td>
+                <td class="text-center">{{ d.age }}</td>
               </tr>
             </tbody>
           </template>
