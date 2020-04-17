@@ -411,7 +411,6 @@ export default new Vuex.Store({
           name: ageArray[i],
           dateArray: dateArray,
         };
-        console.log("年代別" + age.dateArray);
         resultArray.push(age);
       }
 

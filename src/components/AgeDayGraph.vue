@@ -1,64 +1,45 @@
 <script>
-import { Line } from "vue-chartjs";
+import { Line, mixins } from "vue-chartjs";
 
 export default {
   name: "AgeDayGraph",
   extends: Line,
+  mixins: [mixins.reactiveData],
   data() {
     return {
-      date: [],
+      ageByDayChartData: [],
+      options: { responsive: true, display: true, maintainAspectRatio: false }
     };
   },
-  computed: {
-    //日付
-    getDate: function() {
-      var dateArray = [];
-      this.$store.getters.getDates.forEach((element) => {
-        dateArray.push(this.$store.getters.dateToString(element.date));
-      });
-      return dateArray;
-    },
-    //年代別の名前
-    getAgeName: function() {
-      var ageNameArray = [];
-      this.AgeByDay.forEach((element) => {
-        ageNameArray.push(element.name);
-      });
-      return ageNameArray;
-    },
-    //日別の感染者数
-    getCount: function() {
-      var countArray = [];
-      this.AgeDaydate.forEach((element) => {
-        element.dateArray.forEach((element) => {
-          countArray.push(element.count);
-        });
-      });
-      return countArray;
-    },
-  },
-  //mountのタイミング
-  mounted() {
-    var ageByDay = this.$store.getters.getAgeDay;
-    console.log(ageByDay);
-    console.log(ageByDay[0]);
-    console.log(ageByDay[1]);
-    this.renderChart(
-      {
-        labels: this.getDate,
+  methods: {
+    setChartData() {
+      var ageByDay = this.$store.getters.getAgeDay;
+      var labels = ageByDay[1].dateArray.map(item => this.$store.getters.dateToString(item.date))
+      
+      /** 検証用のカウントデータだから */
+      var testDataArray = [];
+      for(var i = 0; i < 108; i++){
+        testDataArray.push(i)
+      } 
+      
+      this.ageByDayChartData = {
+        labels: labels,
         datasets: [
           {
-            label: ageByDay[1].name,
-            data: this.AgeByDay[0].dateArray.map((date) => date.count),
+            label: ageByDay[1].name +"代の感染者数",
+            // data: ageByDay[0].dateArray.map(date => date.count),
+            data: testDataArray,  // 検証用データにしてるので変更してね！
             borderColor: "#f57c00",
             backgroundColor: "rgba(255, 130, 3, 0.2)",
-            radius: 3,
-          },
-        ],
-      },
-      { responsive: true, display: true, maintainAspectRatio: false }
-    );
+            radius: 3
+          }
+        ]
+      };
+    }
   },
-  methods: {},
+  mounted() {
+    this.setChartData();
+    this.renderChart(this.ageByDayChartData, this.options);
+  }
 };
 </script>
