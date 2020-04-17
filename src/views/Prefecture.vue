@@ -8,6 +8,7 @@
           label="表示する都道府県名を選択"
           color="orange"
           outlined
+          dense
         ></v-select>
         <v-btn @click="test()">console.log</v-btn>
         <individual-prefecture-graph
