@@ -380,37 +380,42 @@ export default new Vuex.Store({
       return dateArray;
     },
     getAgeDay(state) {
-      // 日別のデータを格納する配列
-      var dateArray = [];
-      /** 日付とカウンターをプロパティにした日付オブジェクトを2020年1月1日から今日の分まで生成して配列に格納 */
-      var preToday = new Date();
-      var today = new Date(
-        preToday.getFullYear(),
-        preToday.getMonth(),
-        preToday.getDate(),
-        0,
-        0
-      );
-      var startDate = new Date(2020, 0, 1, 0, 0);
-      var ms = today.getTime() - startDate.getTime();
-      var endCount = ms / (1000 * 60 * 60 * 24) + 1;
-      for (let i = 1; i <= endCount; i++) {
-        var date = new Date(2020, 0, i);
-        var dateObj = {
-          date: date,
-          count: 0
-        };
-        dateArray.push(dateObj);
-      }
-
       //年代別の配列
       var ageArray = AGE_ARRAY;
       //全ての結果の配列
       var resultArray = [];
       for (let i = 0; i < ageArray.length; i++) {
-        var age = { id: i, name: ageArray[i], date: dateArray };
+        // 日別のデータを格納する配列
+        var dateArray = [];
+        /** 日付とカウンターをプロパティにした日付オブジェクトを2020年1月1日から今日の分まで生成して配列に格納 */
+        var preToday = new Date();
+        var today = new Date(
+          preToday.getFullYear(),
+          preToday.getMonth(),
+          preToday.getDate(),
+          0,
+          0
+        );
+        var startDate = new Date(2020, 0, 1, 0, 0);
+        var ms = today.getTime() - startDate.getTime();
+        var endCount = ms / (1000 * 60 * 60 * 24) + 1;
+        for (let j = 1; j <= endCount; j++) {
+          var date = new Date(2020, 0, j);
+          var dateObj = {
+            date: date,
+            count: 0
+          };
+          dateArray.push(dateObj);
+        }
+
+        var age = {
+          id: i,
+          name: ageArray[i],
+          dateArray: dateArray
+        };
         resultArray.push(age);
       }
+
       var masterData = state.masterData;
       /** マスターデータを1行ずつみていく */
       for (let i = 0; i < masterData.length; i++) {
@@ -429,6 +434,7 @@ export default new Vuex.Store({
                   break;
                 }
               }
+              return dateArray;
             } catch (error) {
               console.error(
                 error.name +
@@ -466,6 +472,7 @@ export default new Vuex.Store({
                 break;
               }
             }
+            return dateArray;
           }
         }
       }
