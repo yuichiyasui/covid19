@@ -1,17 +1,21 @@
 <template>
   <v-col sm="8">
-    <v-card>
-      <v-card-text>
-        <v-select
-          v-model="selectedPref"
-          :items="items"
-          label="表示する都道府県名を選択"
-          color="orange"
-          outlined
-          dense
-        ></v-select>
-        <v-btn @click="test()">console.log</v-btn>
+    <v-card outlined class="pa-3 mb-4">
+      <v-card-text class="pa-0">
+        <v-card-title class="title-color">都道府県別感染者数</v-card-title>
+          <v-select
+            style="width:200px"
+            class="ml-auto"
+            v-model="selectedPref"
+            :items="items"
+            label="表示する都道府県名を選択"
+            color="orange"
+            @change="changed()"
+            outlined
+            dense
+          ></v-select>
         <individual-prefecture-graph
+          :selected-pref="selectedPref"
           :pref-chart-data="chartData"
           :options="options"
         />
@@ -32,19 +36,22 @@ export default {
       items: PREF_ARRAY,
       chartData: {
         labels: [],
-        // labels: this.createPrefData.map(item=>item.date),
         datasets: [
           {
             label: "感染者数",
-            data: [100,200,300,100,200,517],
-            // data: this.createPrefData.map(item=>item.count),
+            data: [],
             borderColor: "#f57c00",
             backgroundColor: "rgba(255, 130, 3, 0.2)",
             radius: 3
           }
         ]
       },
-      options: { responsive: true, display: true, maintainAspectRatio: false }
+      options: {
+        responsive: true,
+        display: true,
+        maintainAspectRatio: false,
+        scales: { yAxes: [{ ticks: { suggestedMax: 100 } }] }
+      }
     };
   },
   methods: {
@@ -101,14 +108,20 @@ export default {
       }
       return dateArray;
     },
-    test() {
-      console.log(this.selectedPref);
+    changed() {
+      var prefData = this.createPrefData();
+      this.chartData.datasets[0].data = prefData.map(item => item.count);
+      this.chartData.labels = prefData.map(item =>
+        item.date.toLocaleDateString()
+      );
     }
   },
   created() {
     var prefData = this.createPrefData();
     this.chartData.datasets[0].data = prefData.map(item => item.count);
-    this.chartData.labels = prefData.map(item => item.date.toLocaleString());
+    this.chartData.labels = prefData.map(item =>
+      item.date.toLocaleDateString()
+    );
   }
 };
 </script>
