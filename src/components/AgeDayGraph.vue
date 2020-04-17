@@ -12,18 +12,16 @@ export default {
   computed: {
     //日付
     getDate: function() {
-      var dateArray = [];
-      this.AgeDaydate.forEach(element => {
-        dateArray.push(
-          this.$store.getters.dateToString(element.date.dateArray)
-        );
+      var dateArrays = [];
+      this.AgeByDay.forEach(element => {
+        dateArrays.push(element.dateArray.date.toLocaleDateString());
       });
-      return dateArray;
+      return dateArrays;
     },
     //年代別の名前
     getAgeName: function() {
       var ageNameArray = [];
-      this.AgeDaydate.forEach(element => {
+      this.AgeByDay.forEach(element => {
         ageNameArray.push(element.name);
       });
       return ageNameArray;
@@ -32,14 +30,14 @@ export default {
     getCount: function() {
       var countArray = [];
       this.AgeDaydate.forEach(element => {
-        countArray.push(element.date.count);
+        countArray.push(element.dateArray.count);
       });
       return countArray;
     }
   },
   //mountのタイミング
   mounted() {
-    this.AgeDaydate = this.$store.getters.getAgeDay;
+    this.AgeByDay = this.$store.getters.getAgeDay;
     this.renderChart(
       {
         labels: this.getDate,
