@@ -68,6 +68,9 @@
         </v-card>
       </v-col>
       <v-col sm="4">
+        <Prefecture />
+      </v-col>
+      <v-col sm="4">
         <JapanMap />
       </v-col>
       <v-col sm="4">
@@ -78,7 +81,8 @@
 </template>
 
 <script>
-import PrefectureGraph from "@/components/PrefectureGraph";
+import PrefectureGraph from "@/components/prefecture/PrefectureGraph";
+import Prefecture from "@/components/prefecture/Prefecture";
 import JapanMap from "@/components/JapanMap";
 import List from "@/components/List.vue";
 import TransitionGraph from "@/components/TransitionGraph.vue";
@@ -99,7 +103,8 @@ export default {
     GenderGraph,
     AgeGraph,
     TransitionDead,
-    DischargeTransitionGraph
+    DischargeTransitionGraph,
+    Prefecture
   },
   async beforeRouteEnter(to, from, next) {
     await store.dispatch("fetchMasterData");

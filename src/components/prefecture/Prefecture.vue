@@ -1,19 +1,18 @@
 <template>
-  <v-col sm="8">
     <v-card outlined class="pa-3 mb-4">
       <v-card-text class="pa-0">
         <v-card-title class="title-color">都道府県別感染者数</v-card-title>
-          <v-select
-            style="width:200px"
-            class="ml-auto"
-            v-model="selectedPref"
-            :items="items"
-            label="表示する都道府県名を選択"
-            color="orange"
-            @change="changed()"
-            outlined
-            dense
-          ></v-select>
+        <v-select
+          style="width:200px"
+          class="ml-auto"
+          v-model="selectedPref"
+          :items="items"
+          label="表示する都道府県名を選択"
+          color="orange"
+          @change="changed()"
+          outlined
+          dense
+        ></v-select>
         <individual-prefecture-graph
           :selected-pref="selectedPref"
           :pref-chart-data="chartData"
@@ -21,11 +20,10 @@
         />
       </v-card-text>
     </v-card>
-  </v-col>
 </template>
 <script>
-import IndividualPrefectureGraph from "@/components/IndividualPrefectureGraph.vue";
-import PREF_ARRAY from "../assets/js/prefecture";
+import IndividualPrefectureGraph from "@/components/prefecture/IndividualPrefectureGraph.vue";
+import PREF_ARRAY from "@/assets/js/prefecture.js";
 export default {
   components: {
     IndividualPrefectureGraph

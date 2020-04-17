@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import Loading from "@/components/Loading";
-import Navbar from "@/components/Navbar";
+import Loading from "@/components/common/Loading";
+import Navbar from "@/components/common/Navbar";
 export default {
   name: "App",
   components: {
