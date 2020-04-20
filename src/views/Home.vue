@@ -20,6 +20,25 @@
         </v-card>
       </v-col>
       <v-col sm="4">
+        <List />
+      </v-col>
+      <v-col sm="4">
+        <v-card outlined class="pa-3 mb-4">
+          <v-card-text class="pa-0">
+            <v-card-title class="title-color">死亡者数推移</v-card-title>
+            <TransitionDead />
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col sm="4">
+        <v-card outlined class="pa-3 mb-4">
+          <v-card-text class="pa-0">
+            <v-card-title class="title-color">退院者数推移</v-card-title>
+            <DischargeTransitionGraph></DischargeTransitionGraph>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col sm="4">
         <GenderCard />
       </v-col>
       <v-col sm="4">
@@ -32,21 +51,13 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col sm="4">
+      <v-col sm="8">
         <v-card outlined class="pa-3 mb-4">
           <v-card-text class="pa-0">
-            <v-card-title class="title-color">死亡者数推移</v-card-title>
-            <TransitionDead>
-              <date-person-chart></date-person-chart>
-            </TransitionDead>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col sm="4">
-        <v-card outlined class="pa-3 mb-4">
-          <v-card-text class="pa-0">
-            <v-card-title class="title-color">退院者数推移</v-card-title>
-            <DischargeTransitionGraph></DischargeTransitionGraph>
+            <v-card-title class="title-color"
+              >年代別感染者推移グラフ</v-card-title
+            >
+            <AgeDayGraph><date-person-chart></date-person-chart></AgeDayGraph>
           </v-card-text>
         </v-card>
       </v-col>
@@ -67,19 +78,6 @@
       </v-col>
       <v-col sm="4">
         <JapanMap />
-      </v-col>
-      <v-col sm="4">
-        <List />
-      </v-col>
-      <v-col sm="6">
-        <v-card outlined class="pa-3 mb-4">
-          <v-card-text class="pa-0">
-            <v-card-title class="title-color"
-              >年代別感染者推移グラフ</v-card-title
-            >
-            <AgeDayGraph><date-person-chart></date-person-chart></AgeDayGraph>
-          </v-card-text>
-        </v-card>
       </v-col>
     </v-row>
   </v-col>
@@ -111,12 +109,12 @@ export default {
     TransitionDead,
     DischargeTransitionGraph,
     Prefecture,
-    AgeDayGraph,
+    AgeDayGraph
   },
   async beforeRouteEnter(to, from, next) {
     await store.dispatch("fetchMasterData");
     next();
-  },
+  }
 };
 </script>
 

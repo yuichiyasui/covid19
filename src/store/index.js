@@ -156,11 +156,6 @@ export default new Vuex.Store({
         date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate()
       );
     },
-    getDeadDeta(state) {
-      //配列の中から必要なdeadだけの配列を作成
-      const deadarray = state.masterData.map((x) => x.dead);
-      return Math.max.apply(null, deadarray);
-    },
     getDeadTransition(state) {
       //配列の中から死者数の値がある物を検出する
       var newDate = state.masterData.filter((item) => item.dead !== "");
@@ -209,10 +204,10 @@ export default new Vuex.Store({
           0,
           0
         );
-        var startDate = new Date(2020, 0, 1, 0, 0);
+        var startDate = new Date(2020, 0, 15, 0, 0);
         var ms = today.getTime() - startDate.getTime();
         var endCount = ms / (1000 * 60 * 60 * 24) + 1;
-        for (let j = 1; j <= endCount; j++) {
+        for (let j = 15; j <= endCount; j++) {
           var date = new Date(2020, 0, j);
           var dateObj = {
             date: date,

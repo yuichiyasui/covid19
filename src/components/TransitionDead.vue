@@ -1,15 +1,14 @@
 <script>
-import LineChart from "../assets/js/LineChart.js";
+import Line from "vue-chartjs";
 
 export default {
   name: "TransitionDead",
-  extends: LineChart,
+  extends: Line,
   data() {
     return {
       date: [],
     };
   },
-  //method
   computed: {
     //日付
     getDate: function() {
@@ -40,8 +39,10 @@ export default {
             data: this.getCount,
             borderColor: "#f57c00",
             backgroundColor: "rgba(255, 130, 3, 0.2)",
-
-            radius: 3,
+            radius: 0,
+            hitRadius: 2, // マウスポインタ検出のための円の半径
+            borderWidth: 1, // 線の太さ
+            tension: 0, // 曲線の滑らかさ
           },
         ],
       },

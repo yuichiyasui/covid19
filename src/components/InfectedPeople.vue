@@ -3,27 +3,27 @@
     <div class="mb-7">
       <div class="subtitle-1 title-color">感染者数</div>
       <span class="font-weight-bold display-1">{{ masterData.length.toLocaleString() }} </span>人
-      <div class="body-2">本日：+ {{ todayInfectedCount }} 人</div>
-      <div class="body-2">昨日：+ {{ yesterdayInfectedCount }} 人</div>
+      <div class="body-2">本日：+ {{ todayInfectedCount.toLocaleString() }} 人</div>
+      <div class="body-2">昨日：+ {{ yesterdayInfectedCount.toLocaleString() }} 人</div>
     </div>
     <div class="mb-7">
       <div class="subtitle-1 title-color">回復者数</div>
-      <span class="font-weight-bold display-1">{{ totalDischarge }} </span>人
+      <span class="font-weight-bold display-1">{{ totalDischarge.toLocaleString() }} </span>人
       <div class="body-2">
-        本日：+ {{ todayDischarge }} 人
+        本日：+ {{ todayDischarge.toLocaleString() }} 人
       </div>
       <div class="body-2">
-        昨日：+ {{ yesterdayDischarge }} 人
+        昨日：+ {{ yesterdayDischarge.toLocaleString() }} 人
       </div>
     </div>
     <div>
       <div class="subtitle-1 title-color">死亡者数</div>
-      <span class="font-weight-bold display-1">{{ totalDead }} </span>人
+      <span class="font-weight-bold display-1">{{ totalDead.toLocaleString() }} </span>人
       <div class="body-2">
-        本日：+ {{ todayDead }} 人
+        本日：+ {{ todayDead.toLocaleString() }} 人
       </div>
       <div class="body-2">
-        昨日：+ {{ yesterdayDead }} 人
+        昨日：+ {{ yesterdayDead.toLocaleString() }} 人
       </div>
     </div>
   </v-card-text>
