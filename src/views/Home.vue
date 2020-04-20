@@ -60,7 +60,9 @@
       <v-col sm="4">
         <v-card outlined class="pa-3 mb-4">
           <v-card-text class="pa-0">
-            <v-card-title class="title-color">都道府県別累積感染者数</v-card-title>
+            <v-card-title class="title-color"
+              >都道府県別累積感染者数</v-card-title
+            >
             <div id="prefecture-graph-frame">
               <PrefectureGraph style="width:1000px;"></PrefectureGraph>
             </div>
@@ -75,6 +77,16 @@
       </v-col>
       <v-col sm="4">
         <List />
+      </v-col>
+      <v-col sm="6">
+        <v-card outlined class="pa-3 mb-4">
+          <v-card-text class="pa-0">
+            <v-card-title class="title-color"
+              >年代別感染者推移グラフ</v-card-title
+            >
+            <AgeDayGraph><date-person-chart></date-person-chart></AgeDayGraph>
+          </v-card-text>
+        </v-card>
       </v-col>
     </v-row>
   </v-col>
@@ -91,6 +103,7 @@ import GenderGraph from "@/components/GenderGraph.vue";
 import AgeGraph from "@/components/AgeGraph.vue";
 import TransitionDead from "@/components/TransitionDead";
 import DischargeTransitionGraph from "@/components/DischargeTransitionGraph.vue";
+import AgeDayGraph from "@/components/AgeDayGraph.vue";
 import store from "../store";
 
 export default {
@@ -104,12 +117,13 @@ export default {
     AgeGraph,
     TransitionDead,
     DischargeTransitionGraph,
-    Prefecture
+    Prefecture,
+    AgeDayGraph,
   },
   async beforeRouteEnter(to, from, next) {
     await store.dispatch("fetchMasterData");
     next();
-  }
+  },
 };
 </script>
 
