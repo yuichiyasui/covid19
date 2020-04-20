@@ -1,9 +1,10 @@
 <script>
-import Line from "vue-chartjs";
+import { Line, mixins } from "vue-chartjs";
 
 export default {
   name: "TransitionDead",
   extends: Line,
+  mixins: [mixins.reactiveData],
   data() {
     return {
       date: [],

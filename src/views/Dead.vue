@@ -1,7 +1,7 @@
 <template>
   <v-col>
     <p class="display-1">感染者推移グラフ</p>
-    <TransitionDead />>
+    <TransitionDead />
   </v-col>
 </template>
 
