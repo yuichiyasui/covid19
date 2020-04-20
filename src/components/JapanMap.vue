@@ -32,7 +32,7 @@ export default {
         backgroundColor: "#e9e9e9",
         resolution: "provinces",
         displayMode: "regions",
-        colorAxis: { maxValue: 500, colors: ["white", "yellow", "red"] },
+        colorAxis: { maxValue: 1000, colors: ["white", "yellow", "red"] },
         keepAspectRatio: true
       }
     };

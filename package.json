@@ -11,6 +11,7 @@
     "@mdi/font": "^5.0.45",
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",
+    "chartjs-plugin-datalabels": "^0.7.0",
     "core-js": "^3.6.4",
     "firebase": "^7.14.0",
     "vue": "^2.6.11",

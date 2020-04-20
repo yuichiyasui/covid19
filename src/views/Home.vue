@@ -20,14 +20,7 @@
         </v-card>
       </v-col>
       <v-col sm="4">
-        <v-card outlined class="pa-3 mb-4">
-          <v-card-text class="pa-0">
-            <v-card-title class="title-color">男女別感染者グラフ</v-card-title>
-            <GenderGraph>
-              <doughnut-chart></doughnut-chart>
-            </GenderGraph>
-          </v-card-text>
-        </v-card>
+        <GenderCard />
       </v-col>
       <v-col sm="4">
         <v-card outlined class="pa-3 mb-4">
@@ -60,7 +53,9 @@
       <v-col sm="4">
         <v-card outlined class="pa-3 mb-4">
           <v-card-text class="pa-0">
-            <v-card-title class="title-color">都道府県別累積感染者数</v-card-title>
+            <v-card-title class="title-color"
+              >都道府県別累積感染者数</v-card-title
+            >
             <div id="prefecture-graph-frame">
               <PrefectureGraph style="width:1000px;"></PrefectureGraph>
             </div>
@@ -87,7 +82,7 @@ import JapanMap from "@/components/JapanMap";
 import List from "@/components/List.vue";
 import TransitionGraph from "@/components/TransitionGraph.vue";
 import InfectedPeople from "@/components/InfectedPeople.vue";
-import GenderGraph from "@/components/GenderGraph.vue";
+import GenderCard from "@/components/gender/GenderCard.vue";
 import AgeGraph from "@/components/AgeGraph.vue";
 import TransitionDead from "@/components/TransitionDead";
 import DischargeTransitionGraph from "@/components/DischargeTransitionGraph.vue";
@@ -100,7 +95,7 @@ export default {
     List,
     TransitionGraph,
     InfectedPeople,
-    GenderGraph,
+    GenderCard,
     AgeGraph,
     TransitionDead,
     DischargeTransitionGraph,
