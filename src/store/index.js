@@ -150,7 +150,6 @@ export default new Vuex.Store({
       }
       return resultArray;
     },
-
     dateToString: () => (date) => {
       return (
         date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate()

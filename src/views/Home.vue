@@ -23,12 +23,7 @@
         <List />
       </v-col>
       <v-col sm="4">
-        <v-card outlined class="pa-3 mb-4">
-          <v-card-text class="pa-0">
-            <v-card-title class="title-color">死亡者数推移</v-card-title>
-            <TransitionDead />
-          </v-card-text>
-        </v-card>
+        <transition-dead-card />
       </v-col>
       <v-col sm="4">
         <v-card outlined class="pa-3 mb-4">
@@ -92,7 +87,7 @@ import TransitionGraph from "@/components/TransitionGraph.vue";
 import InfectedPeople from "@/components/InfectedPeople.vue";
 import GenderCard from "@/components/gender/GenderCard.vue";
 import AgeGraph from "@/components/AgeGraph.vue";
-import TransitionDead from "@/components/TransitionDead";
+import TransitionDeadCard from "@/components/dead/TransitionDeadCard";
 import DischargeTransitionGraph from "@/components/DischargeTransitionGraph.vue";
 import AgeDayGraph from "@/components/AgeDayGraph.vue";
 import store from "../store";
@@ -106,7 +101,7 @@ export default {
     InfectedPeople,
     GenderCard,
     AgeGraph,
-    TransitionDead,
+    TransitionDeadCard,
     DischargeTransitionGraph,
     Prefecture,
     AgeDayGraph

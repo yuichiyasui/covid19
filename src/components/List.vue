@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     sortByDate: function() {
-      var dataArray = this.$store.state.masterData.sort(function(a, b) {
+      var dataArray = this.masterData.sort(function(a, b) {
         if (a.date < b.date) {
           return 1;
         } else {
@@ -52,7 +52,8 @@ export default {
     }
   },
   mounted() {
-    this.masterData = this.sortByDate();
+    this.masterData = this.$store.state.masterData;
+    this.sortByDate();
   }
 };
 </script>

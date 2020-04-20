@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import TransitionDead from "@/components/TransitionDead";
+import TransitionDead from "@/components/dead/TransitionDead";
 export default {
   components: {
     TransitionDead,
