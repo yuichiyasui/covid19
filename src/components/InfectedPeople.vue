@@ -57,14 +57,12 @@ export default {
       this.getDailyChangeData[this.getDailyChangeData.length - 1].infectedCount;
     this.yesterdayInfectedCount = 
       this.getDailyChangeData[this.getDailyChangeData.length - 2].infectedCount;
-    /**totalDeadtotalDischargeの値が取れない */
     this.totalDead = 
       this.getDailyChangeData[this.getDailyChangeData.length - 2].totalDeadCount;
     this.todayDead = 
       this.getDailyChangeData[this.getDailyChangeData.length - 1].deadCount
     this.yesterdayDead = 
-      this.getDailyChangeData[this.getDailyChangeData.length - 2].deadCount - 
-      this.getDailyChangeData[this.getDailyChangeData.length - 3].deadCount;
+      this.getDailyChangeData[this.getDailyChangeData.length - 2].deadCount;
     this.totalDischarge = 
       this.getDailyChangeData[this.getDailyChangeData.length - 2].totalDischargeCount;
     this.todayDischarge = 

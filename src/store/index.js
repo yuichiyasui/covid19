@@ -289,7 +289,7 @@ export default new Vuex.Store({
           }
         }
       }
-      console.log(resultArray);
+      
       return resultArray;
     },
     getDailyChangeData(state) {
@@ -328,10 +328,8 @@ export default new Vuex.Store({
             if (masterData[i].date.getTime() === dateArray[j].date.getTime()) {
               dateArray[j].infectedCount++;
               dateArray[j].deadCount =
-                Number(dateArray[j].deadCount) + Number(masterData[i].dead);
-              dateArray[j].totalDeadCount =
-                Number(dateArray[j - 1].totalDeadCount) +
-                Number(masterData[i].dead);
+                Number(masterData[i].dead) - Number(dateArray[j - 1].deadCount);
+              dateArray[j].totalDeadCount = masterData[i].dead;
               dateArray[j].dischargeCount =
                 Number(dateArray[j].dischargeCount) +
                 Number(masterData[i].discharge);
