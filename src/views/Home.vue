@@ -74,6 +74,14 @@
       <v-col sm="4">
         <JapanMap />
       </v-col>
+      <v-col sm="4">
+        <v-card outlined class="pa-3 mb-4">
+          <v-card-text class="pa-0">
+            <v-card-title class="title-color">PCR検査数推移</v-card-title>
+            <PcrTransitionGraph></PcrTransitionGraph>
+          </v-card-text>
+        </v-card>
+      </v-col>
     </v-row>
   </v-col>
 </template>
@@ -91,6 +99,7 @@ import TransitionDeadCard from "@/components/dead/TransitionDeadCard";
 import DischargeTransitionGraph from "@/components/DischargeTransitionGraph.vue";
 import AgeDayGraph from "@/components/AgeDayGraph.vue";
 import store from "../store";
+import PcrTransitionGraph from "@/components/PcrTransitionGraph.vue";
 
 export default {
   components: {
@@ -104,12 +113,13 @@ export default {
     TransitionDeadCard,
     DischargeTransitionGraph,
     Prefecture,
-    AgeDayGraph
+    AgeDayGraph,
+    PcrTransitionGraph,
   },
   async beforeRouteEnter(to, from, next) {
     await store.dispatch("fetchMasterData");
     next();
-  }
+  },
 };
 </script>
 
