@@ -1,6 +1,6 @@
 <template>
   <v-col>
-    <p class="display-1">年代・日別感染者グラフ</p>
+    <p class="display-1">年代別感染者推移グラフ</p>
     <AgeDayGraph></AgeDayGraph>
   </v-col>
 </template>
@@ -11,7 +11,7 @@ import AgeDayGraph from "@/components/AgeDayGraph.vue";
 export default {
   name: "Gender",
   components: {
-    AgeDayGraph
-  }
+    AgeDayGraph,
+  },
 };
 </script>

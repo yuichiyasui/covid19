@@ -71,6 +71,16 @@
       <v-col sm="4">
         <List />
       </v-col>
+      <v-col sm="6">
+        <v-card outlined class="pa-3 mb-4">
+          <v-card-text class="pa-0">
+            <v-card-title class="title-color"
+              >年代別感染者推移グラフ</v-card-title
+            >
+            <AgeDayGraph><date-person-chart></date-person-chart></AgeDayGraph>
+          </v-card-text>
+        </v-card>
+      </v-col>
     </v-row>
   </v-col>
 </template>
@@ -86,6 +96,7 @@ import GenderCard from "@/components/gender/GenderCard.vue";
 import AgeGraph from "@/components/AgeGraph.vue";
 import TransitionDead from "@/components/TransitionDead";
 import DischargeTransitionGraph from "@/components/DischargeTransitionGraph.vue";
+import AgeDayGraph from "@/components/AgeDayGraph.vue";
 import store from "../store";
 
 export default {
@@ -99,12 +110,13 @@ export default {
     AgeGraph,
     TransitionDead,
     DischargeTransitionGraph,
-    Prefecture
+    Prefecture,
+    AgeDayGraph,
   },
   async beforeRouteEnter(to, from, next) {
     await store.dispatch("fetchMasterData");
     next();
-  }
+  },
 };
 </script>
 
