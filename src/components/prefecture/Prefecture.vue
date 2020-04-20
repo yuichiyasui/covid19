@@ -1,25 +1,25 @@
 <template>
-    <v-card outlined class="pa-3 mb-4">
-      <v-card-text class="pa-0">
-        <v-card-title class="title-color">都道府県別感染者数</v-card-title>
-        <v-select
-          style="width:200px"
-          class="ml-auto"
-          v-model="selectedPref"
-          :items="items"
-          label="表示する都道府県名を選択"
-          color="orange"
-          @change="changed()"
-          outlined
-          dense
-        ></v-select>
-        <individual-prefecture-graph
-          :selected-pref="selectedPref"
-          :pref-chart-data="chartData"
-          :options="options"
-        />
-      </v-card-text>
-    </v-card>
+  <v-card outlined class="pa-3 mb-4">
+    <v-card-text class="pa-0">
+      <v-card-title class="title-color">各都道府県の日別感染者数推移</v-card-title>
+      <v-select
+        style="width:200px"
+        class="ml-auto"
+        v-model="selectedPref"
+        :items="items"
+        label="表示する都道府県名を選択"
+        color="orange"
+        @change="changed()"
+        outlined
+        dense
+      ></v-select>
+      <individual-prefecture-graph
+        :selected-pref="selectedPref"
+        :pref-chart-data="chartData"
+        :options="options"
+      />
+    </v-card-text>
+  </v-card>
 </template>
 <script>
 import IndividualPrefectureGraph from "@/components/prefecture/IndividualPrefectureGraph.vue";
@@ -40,7 +40,10 @@ export default {
             data: [],
             borderColor: "#f57c00",
             backgroundColor: "rgba(255, 130, 3, 0.2)",
-            radius: 3
+            radius: 0, // 点の半径
+            hitRadius: 2, // マウスポインタ検出のための円の半径
+            borderWidth: 1, // 線の太さ
+            tension: 0 // 曲線の滑らかさ
           }
         ]
       },
@@ -110,7 +113,7 @@ export default {
       var prefData = this.createPrefData();
       this.chartData.datasets[0].data = prefData.map(item => item.count);
       this.chartData.labels = prefData.map(item =>
-        item.date.toLocaleDateString()
+        item.date.toLocaleDateString().replace("2020/", "")
       );
     }
   },
@@ -118,7 +121,7 @@ export default {
     var prefData = this.createPrefData();
     this.chartData.datasets[0].data = prefData.map(item => item.count);
     this.chartData.labels = prefData.map(item =>
-      item.date.toLocaleDateString()
+      item.date.toLocaleDateString().replace("2020/", "")
     );
   }
 };

@@ -60,7 +60,7 @@
       <v-col sm="4">
         <v-card outlined class="pa-3 mb-4">
           <v-card-text class="pa-0">
-            <v-card-title class="title-color">都道府県別感染者数</v-card-title>
+            <v-card-title class="title-color">都道府県別累積感染者数</v-card-title>
             <div id="prefecture-graph-frame">
               <PrefectureGraph style="width:1000px;"></PrefectureGraph>
             </div>
