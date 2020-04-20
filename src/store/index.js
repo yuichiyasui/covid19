@@ -32,12 +32,12 @@ export default new Vuex.Store({
     prefectureGraph,
     totalDead,
     transitionDead,
-    transitionGraph
+    transitionGraph,
   },
   state: {
     masterData: [],
     dailyChangeData: [],
-    is_loading: false
+    is_loading: false,
   },
   mutations: {
     addMasterData(state, masterData) {
@@ -51,7 +51,7 @@ export default new Vuex.Store({
         "確定日",
         "居住都道府県",
         "死者合計",
-        "退院数"
+        "退院数",
       ];
       var colArray = bigArray[0].split(","); // 項目名だけを各項目ごとに分割して配列に格納
       var colIndexNumberArray = []; // 項目番号を格納する配列
@@ -75,7 +75,7 @@ export default new Vuex.Store({
             date: date, // 確定日
             residence: miniArray[colIndexNumberArray[4]], // 居住都道府県
             dead: miniArray[colIndexNumberArray[5]], // 死者合計
-            discharge: miniArray[colIndexNumberArray[6]] // 退院数
+            discharge: miniArray[colIndexNumberArray[6]], // 退院数
           };
           masterDataArray.push(rowData); // 加工した1行分のデータを配列に追加
         }
@@ -84,17 +84,17 @@ export default new Vuex.Store({
     },
     setIsLoading(state, isLoading) {
       state.is_loading = isLoading;
-    }
+    },
   },
   actions: {
     async fetchMasterData(context) {
       await axios
         .get("https://dl.dropboxusercontent.com/s/6mztoeb6xf78g5w/COVID-19.csv")
-        .then(response => context.commit("addMasterData", response))
-        .catch(e => {
+        .then((response) => context.commit("addMasterData", response))
+        .catch((e) => {
           alert(e);
         });
-    }
+    },
   },
   getters: {
     getPrefectureData(state) {
@@ -151,22 +151,22 @@ export default new Vuex.Store({
       return resultArray;
     },
 
-    dateToString: () => date => {
+    dateToString: () => (date) => {
       return (
         date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate()
       );
     },
     getDeadDeta(state) {
       //配列の中から必要なdeadだけの配列を作成
-      const deadarray = state.masterData.map(x => x.dead);
+      const deadarray = state.masterData.map((x) => x.dead);
       return Math.max.apply(null, deadarray);
     },
     getDeadTransition(state) {
       //配列の中から死者数の値がある物を検出する
-      var newDate = state.masterData.filter(item => item.dead !== "");
+      var newDate = state.masterData.filter((item) => item.dead !== "");
       //重複排除
       let values = [];
-      const deadTransition = newDate.filter(e => {
+      const deadTransition = newDate.filter((e) => {
         if (values.indexOf(e["dead"]) === -1) {
           values.push(e["dead"]);
           return e;
@@ -176,15 +176,15 @@ export default new Vuex.Store({
     },
     getDischarge(state) {
       //配列の中から必要なdeadだけの配列を作成
-      const dischargeArray = state.masterData.map(x => x.discharge);
+      const dischargeArray = state.masterData.map((x) => x.discharge);
       return Math.max.apply(null, dischargeArray);
     },
     getDischargeTransition(state) {
       //配列の中から死者数の値がある物を検出する
-      var newDate = state.masterData.filter(item => item.discharge !== "");
+      var newDate = state.masterData.filter((item) => item.discharge !== "");
       //重複排除
       let values = [];
-      const dischargeTransition = newDate.filter(e => {
+      const dischargeTransition = newDate.filter((e) => {
         if (values.indexOf(e["discharge"]) === -1) {
           values.push(e["discharge"]);
           return e;
@@ -216,7 +216,7 @@ export default new Vuex.Store({
           var date = new Date(2020, 0, j);
           var dateObj = {
             date: date,
-            count: 0
+            count: 0,
           };
           dateArray.push(dateObj);
         }
@@ -224,7 +224,7 @@ export default new Vuex.Store({
         var age = {
           id: i,
           name: ageArray[i],
-          dateArray: dateArray
+          dateArray: dateArray,
         };
         resultArray.push(age);
       }
@@ -315,7 +315,7 @@ export default new Vuex.Store({
           totalDeadCount: 0,
           deadCount: 0,
           dischargeCount: 0,
-          totalDischargeCount: 0
+          totalDischargeCount: 0,
         };
         dateArray.push(dateObj);
       }
@@ -352,6 +352,6 @@ export default new Vuex.Store({
         }
       }
       return dateArray;
-    }
-  }
+    },
+  },
 });
