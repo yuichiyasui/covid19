@@ -18,7 +18,7 @@
             >About</router-link
           ></v-btn
         >
-        <!-- <v-menu offset-y>
+        <v-menu offset-y>
           <template v-slot:activator="{ on }">
             <v-btn class="mr-2" text v-on="on"
               ><span class="title font-weight-light white--text">Data</span
@@ -40,7 +40,7 @@
               </v-list-item>
             </v-list-item-group>
           </v-list>
-        </v-menu> -->
+        </v-menu>
       </v-toolbar-items>
       <v-app-bar-nav-icon
         @click.stop="drawer = !drawer"
@@ -68,14 +68,14 @@
             <v-list-item-title>About</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <!-- <v-list-item v-for="(item, i) in items" :key="i" @click="click(i)">
+        <v-list-item v-for="(item, i) in items" :key="i" @click="click(i)">
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>{{ item.text }}</v-list-item-title>
           </v-list-item-content>
-        </v-list-item> -->
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
   </div>
