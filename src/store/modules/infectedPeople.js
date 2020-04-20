@@ -2,7 +2,8 @@ export default {
     //識別するために必要
     namespaced: true,
     state: {
-        count: 1
+        count: 1,
+        imaster: [{id: 1, day: 2}]
     },
     mutation: {
         update(state) {

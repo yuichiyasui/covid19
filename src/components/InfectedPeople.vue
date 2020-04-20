@@ -3,17 +3,17 @@
     <div class="mb-7">
       <div class="subtitle-1 title-color">感染者数</div>
       <span class="font-weight-bold display-1">{{ masterData.length.toLocaleString() }} </span>人
-      <div class="body-2">本日：+ {{ dates[dates.length - 1].count }} 人</div>
-      <div class="body-2">昨日：+ {{ dates[dates.length - 2].count }} 人</div>
+      <div class="body-2">本日：+ {{ todayInfectedCount }} 人</div>
+      <div class="body-2">昨日：+ {{ yesterdayInfectedCount }} 人</div>
     </div>
     <div class="mb-7">
       <div class="subtitle-1 title-color">回復者数</div>
-      <span class="font-weight-bold display-1">{{ discharges[discharges.length - 2].totalDischarge }} </span>人
+      <span class="font-weight-bold display-1">{{ totalDischarge }} </span>人
       <div class="body-2">
-        本日：+ {{ discharges[discharges.length - 1].todayDischarge }} 人
+        本日：+ {{ todayDischarge }} 人
       </div>
       <div class="body-2">
-        昨日：+ {{ discharges[discharges.length - 2].todayDischarge }} 人
+        昨日：+ {{ yesterdayDischarge }} 人
       </div>
     </div>
     <div>
@@ -34,28 +34,43 @@ export default {
   data() {
     return {
       masterData: this.$store.state.masterData,
-      dates: this.$store.getters.getDates,
-      discharges: this.$store.getters.getDischargeDates,
-      totalDead: 0,
-      todayDead: 0,
-      yesterdayDead: 0,
-      momo: this.$store.state.infectedPeople.count,
-      momono: 0,
-      momoaction: 0
+      dailyChangeData: this.$store.getters.getDailyChangeData,
+
+      todayInfectedCount: "集計中",
+      yesterdayInfectedCount: "集計中",
+      totalDead: "集計中",
+      todayDead: "集計中",
+      yesterdayDead: "集計中",
+      totalDischarge: "集計中",
+      todayDischarge: "集計中",
+      yesterdayDischarge: "集計中",
     };
   },
   computed: {
-    getDateArray: function() {
-      return this.$store.getters.getDeadDates;
+    getDailyChangeData: function() {
+      return this.$store.getters.getDailyChangeData;
     },
   },
 
   mounted() {
-    this.totalDead = this.getDateArray[this.getDateArray.length - 2].todayDead;
-    //今日の死者数を処理したいが0
-    this.yesterdayDead = this.getDateArray[this.getDateArray.length - 2].todayDead - this.getDateArray[this.getDateArray.length - 3].todayDead;
-    this.momono = this.$store.getters['infectedPeople/getcount'];
-    this.momoaction = this.$store.dispatch('infectedPeople/addcount');
+    this.todayInfectedCount = 
+      this.getDailyChangeData[this.getDailyChangeData.length - 1].infectedCount;
+    this.yesterdayInfectedCount = 
+      this.getDailyChangeData[this.getDailyChangeData.length - 2].infectedCount;
+    /**totalDeadtotalDischargeの値が取れない */
+    this.totalDead = 
+      this.getDailyChangeData[this.getDailyChangeData.length - 2].totalDeadCount;
+    this.todayDead = 
+      this.getDailyChangeData[this.getDailyChangeData.length - 1].deadCount
+    this.yesterdayDead = 
+      this.getDailyChangeData[this.getDailyChangeData.length - 2].deadCount - 
+      this.getDailyChangeData[this.getDailyChangeData.length - 3].deadCount;
+    this.totalDischarge = 
+      this.getDailyChangeData[this.getDailyChangeData.length - 2].totalDischargeCount;
+    this.todayDischarge = 
+      this.getDailyChangeData[this.getDailyChangeData.length - 1].dischargeCount;
+    this.yesterdayDischarge = 
+      this.getDailyChangeData[this.getDailyChangeData.length - 2].dischargeCount;
   }
 };
 </script>

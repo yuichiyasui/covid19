@@ -23,14 +23,14 @@ export default {
     getCount: function() {
       var countArray = [];
       this.date.forEach((element) => {
-        countArray.push(element.count);
+        countArray.push(element.infectedCount);
       });
       return countArray;
     },
   },
   //mountのタイミング
   mounted() {
-    this.date = this.$store.getters.getDates;
+    this.date = this.$store.getters.getDailyChangeData;
     this.renderChart(
       {
         labels: this.getDate,
