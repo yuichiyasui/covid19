@@ -52,6 +52,7 @@ export default new Vuex.Store({
         "居住都道府県",
         "死者合計",
         "退院数",
+        "PCR検査実施人数",
       ];
       var colArray = bigArray[0].split(","); // 項目名だけを各項目ごとに分割して配列に格納
       var colIndexNumberArray = []; // 項目番号を格納する配列
@@ -76,6 +77,7 @@ export default new Vuex.Store({
             residence: miniArray[colIndexNumberArray[4]], // 居住都道府県
             dead: miniArray[colIndexNumberArray[5]], // 死者合計
             discharge: miniArray[colIndexNumberArray[6]], // 退院数
+            pcr: miniArray[colIndexNumberArray[7]], // PCR検査数
           };
           masterDataArray.push(rowData); // 加工した1行分のデータを配列に追加
         }
@@ -283,7 +285,7 @@ export default new Vuex.Store({
           }
         }
       }
-      
+
       return resultArray;
     },
     getDailyChangeData(state) {
@@ -311,13 +313,15 @@ export default new Vuex.Store({
           deadCount: 0,
           dischargeCount: 0,
           totalDischargeCount: 0,
+          totalPcrCount: 0,
         };
         dateArray.push(dateObj);
       }
-      for(let i = 0; i < dateArray.length; i++){
-        for(let j = 0; j < filterDead.length; j++){
-          if(dateArray[i].date.getTime() === filterDead[j].date.getTime()){
-            dateArray[i].deadCount = Number(filterDead[j].dead) - Number(filterDead[j - 1].dead);
+      for (let i = 0; i < dateArray.length; i++) {
+        for (let j = 0; j < filterDead.length; j++) {
+          if (dateArray[i].date.getTime() === filterDead[j].date.getTime()) {
+            dateArray[i].deadCount =
+              Number(filterDead[j].dead) - Number(filterDead[j - 1].dead);
             break;
           }
           break;
@@ -333,8 +337,7 @@ export default new Vuex.Store({
             /** もしマッチしたらその日付のカウンターにプラス1してfor文を終了(マッチしない場合はスルーして次の日付へ) */
             if (masterData[i].date.getTime() === dateArray[j].date.getTime()) {
               dateArray[j].infectedCount++;
-              dateArray[j].deadCount =
-                Number(masterData[i].dead);
+              dateArray[j].deadCount = Number(masterData[i].dead);
               dateArray[j].totalDeadCount = Number(masterData[i].dead);
               dateArray[j].dischargeCount =
                 Number(dateArray[j].dischargeCount) +
@@ -342,6 +345,8 @@ export default new Vuex.Store({
               dateArray[j].totalDischargeCount =
                 Number(dateArray[j - 1].totalDischargeCount) +
                 Number(masterData[i].discharge);
+              dateArray[j].totalPcrCount =
+                Number(dateArray[j].totalPcrCount) + Number(masterData[i].pcr);
               break;
             }
           }
@@ -359,5 +364,11 @@ export default new Vuex.Store({
       }
       return dateArray;
     },
+    //pcr検査数関連
+    // getPcrTransition(state) {
+    //   var masterData = state.masterData;
+    //   var pcrData = masterData.filter((target) => target.pcr);
+    //   return pcrData;
+    // },
   },
 });
