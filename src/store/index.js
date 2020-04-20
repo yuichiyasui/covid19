@@ -329,7 +329,7 @@ export default new Vuex.Store({
               dateArray[j].infectedCount++;
               dateArray[j].deadCount =
                 Number(masterData[i].dead) - Number(dateArray[j - 1].deadCount);
-              dateArray[j].totalDeadCount = masterData[i].dead;
+              dateArray[j].totalDeadCount = Number(masterData[i].dead);
               dateArray[j].dischargeCount =
                 Number(dateArray[j].dischargeCount) +
                 Number(masterData[i].discharge);
