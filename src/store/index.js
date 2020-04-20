@@ -423,12 +423,13 @@ export default new Vuex.Store({
           if (ageData == Number(resultArray[j].name)) {
             isMatch = true; // マッチしたらtrue
             try {
-              for (let k = 0; dateArray.length; k++) {
+              for (let k = 0; resultArray[j].dateArray.length; k++) {
                 /** もしマッチしたらその日付のカウンターにプラス1してfor文を終了(マッチしない場合はスルーして次の日付へ) */
                 if (
-                  masterData[i].date.getTime() === dateArray[k].date.getTime()
+                  masterData[i].date.getTime() ===
+                  resultArray[j].dateArray[k].date.getTime()
                 ) {
-                  dateArray[k].count++;
+                  resultArray[j].dateArray[k].count++;
                   break;
                 }
               }
@@ -448,12 +449,13 @@ export default new Vuex.Store({
           if (isMatch === false) {
             if (ageData == resultArray[j].name) {
               try {
-                for (let k = 0; dateArray.length; k++) {
+                for (let k = 0; resultArray[j].dateArray.length; k++) {
                   /** もしマッチしたらその日付のカウンターにプラス1してfor文を終了(マッチしない場合はスルーして次の日付へ) */
                   if (
-                    masterData[i].date.getTime() === dateArray[k].date.getTime()
+                    masterData[i].date.getTime() ===
+                    resultArray[j].dateArray[k].date.getTime()
                   ) {
-                    dateArray[k].count++;
+                    resultArray[j].dateArray[k].count++;
                     break;
                   }
                 }
@@ -472,6 +474,7 @@ export default new Vuex.Store({
           }
         }
       }
+      console.log(resultArray);
       return resultArray;
     },
   },
