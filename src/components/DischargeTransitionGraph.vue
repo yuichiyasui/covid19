@@ -6,7 +6,7 @@ export default {
   extends: LineChart,
   data() {
     return {
-      data: [],
+      data: []
     };
   },
   computed: {
@@ -43,6 +43,6 @@ export default {
       },
       { responsive: true, display: true, maintainAspectRatio: false }
     );
-  },
+  }
 };
 </script>

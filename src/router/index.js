@@ -36,11 +36,6 @@ const routes = [
     name: "Dead",
     component: () => import("../views/Dead.vue")
   },
-  {
-    path: "/prefecture",
-    name: "Prefecture",
-    component: () => import("../views/Prefecture.vue")
-  }
 ];
 
 const router = new VueRouter({

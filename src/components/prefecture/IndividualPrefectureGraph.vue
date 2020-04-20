@@ -5,9 +5,14 @@ export default {
   name: "IndividualPrefectureGraph",
   extends: Line,
   mixins: [mixins.reactiveData],
-  props: ["prefChartData", "options"],
+  props: ["prefChartData", "options", "selectedPref"],
+  watch: {
+    selectedPref: function() {
+      this.renderChart(this.prefChartData, this.options);
+    }
+  },
   mounted() {
-    if(this.prefChartData){
+    if (this.prefChartData) {
       this.renderChart(this.prefChartData, this.options);
     }
   }
