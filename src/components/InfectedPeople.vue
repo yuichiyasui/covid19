@@ -48,7 +48,7 @@ export default {
   },
   computed: {
     getDailyChangeData: function() {
-      // var dailyChangeData = this.dailyChangeData;
+      var dailyChangeData = this.dailyChangeData;
       // console.log("前" + dailyChangeData);
       // for(let i = 0; i < dailyChangeData.length; i++){
       //   if(dailyChangeData[i].deadCount > 0){
@@ -56,7 +56,7 @@ export default {
       //   }
       // }
       // console.log(dailyChangeData);
-      return this.dailyChangeData;
+      return dailyChangeData;
     },
   },
 
