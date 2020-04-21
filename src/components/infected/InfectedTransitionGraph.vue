@@ -1,5 +1,5 @@
 <script>
-import LineChart from "../assets/js/LineChart.js";
+import LineChart from "@/assets/js/LineChart.js";
 
 export default {
   name: "TransitionGraph",
@@ -22,13 +22,13 @@ export default {
     getCount: function() {
       var countArray = [];
       this.date.forEach((element) => {
-        countArray.push(element.infectedCount);
+        countArray.push(element.count);
       });
       return countArray;
     },
   },
   mounted() {
-    this.date = this.$store.getters.getDailyChangeData;
+    this.date = this.$store.getters.getInfectedTransition;
     this.renderChart(
       {
         labels: this.getDate,

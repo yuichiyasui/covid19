@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import TransitionGraph from "@/components/TransitionGraph.vue";
+import TransitionGraph from "@/components/infected/InfectedTransitionGraph.vue";
 import InfectedPeople from "@/components/InfectedPeople.vue";
 
 export default {

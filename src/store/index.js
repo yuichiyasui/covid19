@@ -100,9 +100,10 @@ export default new Vuex.Store({
   },
   getters: {
     /**
+     * 日別感染者数推移の集計.
      * 国内の感染状況と感染者推移で使ってる
      */
-    getDailyChangeData(state) {
+    getInfectedTransition(state) {
       var masterData = state.masterData;
       var dateArray = []; // 日別の集計結果を格納する配列
       /** 日付とカウンターをプロパティにした日付オブジェクトを2020年1月1日から今日の分まで生成して配列に格納 */
@@ -117,30 +118,13 @@ export default new Vuex.Store({
       var startDate = new Date(2020, 0, 1, 0, 0);
       var ms = today.getTime() - startDate.getTime();
       var endCount = ms / (1000 * 60 * 60 * 24) + 1;
-      var filterDead = state.masterData.filter(item => item.dead !== "");
       for (let i = 1; i <= endCount; i++) {
         var date = new Date(2020, 0, i);
         var dateObj = {
           date: date,
-          infectedCount: 0,
-          totalDeadCount: 0,
-          deadCount: 0,
-          dischargeCount: 0,
-          totalDischargeCount: 0,
-          totalPcrCount: 0
+          count: 0
         };
         dateArray.push(dateObj);
-      }
-      for (let i = 0; i < dateArray.length; i++) {
-        for (let j = 0; j < filterDead.length; j++) {
-          if (dateArray[i].date.getTime() === filterDead[j].date.getTime()) {
-            dateArray[i].deadCount =
-              Number(filterDead[j].dead) - Number(filterDead[j - 1].dead);
-            break;
-          }
-          break;
-        }
-        break;
       }
       /** マスターデータを1行ずつみていく */
       for (let i = 0; i < masterData.length; i++) {
@@ -149,18 +133,7 @@ export default new Vuex.Store({
           for (let j = 0; dateArray.length; j++) {
             /** もしマッチしたらその日付のカウンターにプラス1してfor文を終了(マッチしない場合はスルーして次の日付へ) */
             if (masterData[i].date.getTime() === dateArray[j].date.getTime()) {
-              dateArray[j].infectedCount++;
-              dateArray[j].deadCount = Number(masterData[i].dead);
-              dateArray[j].totalDeadCount = Number(masterData[i].dead);
-              dateArray[j].dischargeCount =
-                Number(dateArray[j].dischargeCount) +
-                Number(masterData[i].discharge);
-              dateArray[j].totalDischargeCount =
-                Number(dateArray[j - 1].totalDischargeCount) +
-                Number(masterData[i].discharge);
-              dateArray[j].totalPcrCount =
-                Number(dateArray[j].totalPcrCount) + Number(masterData[i].pcr);
-
+              dateArray[j].count++;
               break;
             }
           }
@@ -179,6 +152,7 @@ export default new Vuex.Store({
       return dateArray;
     },
     /**
+     * 日別退院者数推移の集計.
      * 国内の感染状況、退院者数グラフで使ってる
      */
     getDischargeTransition(state) {
@@ -195,6 +169,7 @@ export default new Vuex.Store({
       return dischargeTransition;
     },
     /**
+     * 日別死者数推移の集計.
      * 国内の感染状況、死者数推移で使ってる
      */
     getDeadDataByDay(state) {
@@ -233,6 +208,19 @@ export default new Vuex.Store({
       }
       return resultArray;
     },
+    /** 
+     * 累計死者数推移の集計.
+     * 国内の感染状況、死者数推移で使ってる
+     */
+    getDeadDataByTotal(state) {
+      var masterData = state.masterData;
+      var deadData = masterData.filter(elm => elm.dead !== ""); // 死者合計の入った行だけ切り出し
+      var resultArray = deadData.map(function(elm) {
+        // 行から日付と死者合計だけを詰めたオブジェクトだけの配列に変換
+        return { date: elm.date, count: elm.dead };
+      });
+      return resultArray;
+    },
     /**
      * 各所で使っている日付→文字列の変換メソッド
      */
@@ -242,6 +230,7 @@ export default new Vuex.Store({
       );
     },
     /**
+     * 都道府県別累計感染者数の集計.
      * 都道府県、日本地図で使ってる
      */
     getPrefectureData(state) {
@@ -301,7 +290,7 @@ export default new Vuex.Store({
       return resultArray;
     },
     /**
-     * 退院者数グラフで使ってる
+     * 退院者数グラフで使ってる??
      */
     getDischarge(state) {
       //配列の中から必要なdeadだけの配列を作成
@@ -309,6 +298,7 @@ export default new Vuex.Store({
       return Math.max.apply(null, dischargeArray);
     },
     /**
+     * 年代別日別感染者数の集計.
      * 年代日別グラフで使ってる
      */
     getAgeDay(state) {

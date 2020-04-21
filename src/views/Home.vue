@@ -10,14 +10,7 @@
         </v-card>
       </v-col>
       <v-col sm="6">
-        <v-card outlined class="pa-3 mb-4">
-          <v-card-text class="pa-0">
-            <v-card-title class="title-color">感染者推移</v-card-title>
-            <TransitionGraph>
-              <date-person-chart></date-person-chart>
-            </TransitionGraph>
-          </v-card-text>
-        </v-card>
+        <InfectedTransitionGraphCard />
       </v-col>
       <v-col sm="4">
         <List />
@@ -82,7 +75,7 @@ import PrefectureGraphCard from "@/components/prefecture/PrefectureGraphCard";
 import IndividualPrefectureGraphCard from "@/components/prefecture/IndividualPrefectureGraphCard";
 import JapanMap from "@/components/JapanMap";
 import List from "@/components/List.vue";
-import TransitionGraph from "@/components/TransitionGraph.vue";
+import InfectedTransitionGraphCard from "@/components/infected/InfectedTransitionGraphCard.vue";
 import InfectedPeople from "@/components/InfectedPeople.vue";
 import GenderCard from "@/components/gender/GenderCard.vue";
 import AgeGraph from "@/components/AgeGraph.vue";
@@ -97,7 +90,7 @@ export default {
     PrefectureGraphCard,
     JapanMap,
     List,
-    TransitionGraph,
+    InfectedTransitionGraphCard,
     InfectedPeople,
     GenderCard,
     AgeGraph,
