@@ -57,19 +57,10 @@
         </v-card>
       </v-col>
       <v-col sm="4">
-        <v-card outlined class="pa-3 mb-4">
-          <v-card-text class="pa-0">
-            <v-card-title class="title-color"
-              >都道府県別累積感染者数</v-card-title
-            >
-            <div id="prefecture-graph-frame">
-              <PrefectureGraph style="width:1000px;"></PrefectureGraph>
-            </div>
-          </v-card-text>
-        </v-card>
+        <PrefectureGraphCard />
       </v-col>
       <v-col sm="4">
-        <Prefecture />
+        <IndividualPrefectureGraphCard />
       </v-col>
       <v-col sm="4">
         <JapanMap />
@@ -87,8 +78,8 @@
 </template>
 
 <script>
-import PrefectureGraph from "@/components/prefecture/PrefectureGraph";
-import Prefecture from "@/components/prefecture/Prefecture";
+import PrefectureGraphCard from "@/components/prefecture/PrefectureGraphCard";
+import IndividualPrefectureGraphCard from "@/components/prefecture/IndividualPrefectureGraphCard";
 import JapanMap from "@/components/JapanMap";
 import List from "@/components/List.vue";
 import TransitionGraph from "@/components/TransitionGraph.vue";
@@ -103,7 +94,7 @@ import PcrTransitionGraph from "@/components/PcrTransitionGraph.vue";
 
 export default {
   components: {
-    PrefectureGraph,
+    PrefectureGraphCard,
     JapanMap,
     List,
     TransitionGraph,
@@ -112,14 +103,14 @@ export default {
     AgeGraph,
     TransitionDeadCard,
     DischargeTransitionGraph,
-    Prefecture,
+    IndividualPrefectureGraphCard,
     AgeDayGraph,
-    PcrTransitionGraph,
+    PcrTransitionGraph
   },
   async beforeRouteEnter(to, from, next) {
     await store.dispatch("fetchMasterData");
     next();
-  },
+  }
 };
 </script>
 

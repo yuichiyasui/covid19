@@ -62,7 +62,6 @@ export default {
         this.$store.getters.dateToString(elm.date)
       );
       this.deadChartData.datasets[0].data = data.map(elm => elm.deadCount);
-      console.log(data);
     },
   },
   created() {
