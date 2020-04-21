@@ -5,24 +5,24 @@
         感染データ一覧
       </v-card-title>
       <div id="list-frame">
-        <v-simple-table fixed-header height="50vh" style="min-width:440px;">
+        <v-simple-table fixed-header height="50vh">
           <template v-slot:default>
             <thead>
               <tr class="table-header-color">
-                <th class="text-center">確定日</th>
-                <th class="text-center">居住都道府県</th>
-                <th class="text-center">性別</th>
-                <th class="text-center">年代</th>
+                <th class="text-center px-1">確定日</th>
+                <th class="text-center px-1">年代</th>
+                <th class="text-center px-1">性別</th>
+                <th class="text-center px-1">居住都道府県</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(d, i) in masterData" :key="i">
-                <td class="text-center">
+                <td class="text-center px-1">
                   {{ $store.getters.dateToString(d.date) }}
                 </td>
-                <td class="text-center">{{ d.residence }}</td>
-                <td class="text-center">{{ d.gender }}</td>
-                <td class="text-center">{{ d.age }}</td>
+                <td class="text-center px-1">{{ d.age }}</td>
+                <td class="text-center px-1">{{ d.gender }}</td>
+                <td class="text-center px-1">{{ d.residence }}</td>
               </tr>
             </tbody>
           </template>
