@@ -48,7 +48,15 @@ export default {
   },
   computed: {
     getDailyChangeData: function() {
-      return this.$store.getters.getDailyChangeData;
+      // var dailyChangeData = this.dailyChangeData;
+      // console.log("前" + dailyChangeData);
+      // for(let i = 0; i < dailyChangeData.length; i++){
+      //   if(dailyChangeData[i].deadCount > 0){
+      //     dailyChangeData[i].deadCount = dailyChangeData[i].deadCount - dailyChangeData[i -1].deadCount;
+      //   }
+      // }
+      // console.log(dailyChangeData);
+      return this.dailyChangeData;
     },
   },
 
@@ -59,10 +67,8 @@ export default {
       this.getDailyChangeData[this.getDailyChangeData.length - 2].infectedCount;
     this.totalDead = 
       this.getDailyChangeData[this.getDailyChangeData.length - 2].totalDeadCount;
-    this.todayDead = 
-      this.getDailyChangeData[this.getDailyChangeData.length - 1].deadCount
-    this.yesterdayDead = 
-      this.getDailyChangeData[this.getDailyChangeData.length - 2].deadCount;
+    this.todayDead = this.dailyChangeData[this.dailyChangeData.length - 1].deadCount;
+    this.yesterdayDead = this.dailyChangeData[this.dailyChangeData.length - 2].deadCount;
     this.totalDischarge = 
       this.getDailyChangeData[this.getDailyChangeData.length - 2].totalDischargeCount;
     this.todayDischarge = 

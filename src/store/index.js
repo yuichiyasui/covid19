@@ -303,7 +303,6 @@ export default new Vuex.Store({
       var startDate = new Date(2020, 0, 1, 0, 0);
       var ms = today.getTime() - startDate.getTime();
       var endCount = ms / (1000 * 60 * 60 * 24) + 1;
-      var filterDead = state.masterData.filter((item) => item.dead !== "");
       for (let i = 1; i <= endCount; i++) {
         var date = new Date(2020, 0, i);
         var dateObj = {
@@ -317,18 +316,6 @@ export default new Vuex.Store({
         };
         dateArray.push(dateObj);
       }
-      for (let i = 0; i < dateArray.length; i++) {
-        for (let j = 0; j < filterDead.length; j++) {
-          if (dateArray[i].date.getTime() === filterDead[j].date.getTime()) {
-            dateArray[i].deadCount =
-              Number(filterDead[j].dead) - Number(filterDead[j - 1].dead);
-            break;
-          }
-          break;
-        }
-        break;
-      }
-      console.log(dateArray);
       /** マスターデータを1行ずつみていく */
       for (let i = 0; i < masterData.length; i++) {
         /** マスターデータの日付が日付オブジェクトのいずれかの日付とマッチするかみていく(絶対にどこかでマッチする) */

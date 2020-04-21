@@ -52,11 +52,17 @@ export default {
   },
   methods: {
     setDeadData() {
-      var data = this.$store.getters.getDeadTransition;
+      var data = this.$store.getters.getDailyChangeData;
+      for(let i = 0; i < data.length; i++){
+        if(data[i].deadCount > 0){
+          data[i].deadCount = data[i].deadCount - data[i -1].deadCount;
+        }
+      }
       this.deadChartData.labels = data.map(elm =>
         this.$store.getters.dateToString(elm.date)
       );
-      this.deadChartData.datasets[0].data = data.map(elm => elm.dead);
+      this.deadChartData.datasets[0].data = data.map(elm => elm.deadCount);
+      console.log(data);
     },
   },
   created() {
