@@ -32,12 +32,12 @@ export default new Vuex.Store({
     prefectureGraph,
     totalDead,
     transitionDead,
-    transitionGraph,
+    transitionGraph
   },
   state: {
     masterData: [],
     dailyChangeData: [],
-    is_loading: false,
+    is_loading: false
   },
   mutations: {
     addMasterData(state, masterData) {
@@ -52,7 +52,7 @@ export default new Vuex.Store({
         "居住都道府県",
         "死者合計",
         "退院数",
-        "PCR検査実施人数",
+        "PCR検査実施人数"
       ];
       var colArray = bigArray[0].split(","); // 項目名だけを各項目ごとに分割して配列に格納
       var colIndexNumberArray = []; // 項目番号を格納する配列
@@ -77,7 +77,7 @@ export default new Vuex.Store({
             residence: miniArray[colIndexNumberArray[4]], // 居住都道府県
             dead: miniArray[colIndexNumberArray[5]], // 死者合計
             discharge: miniArray[colIndexNumberArray[6]], // 退院数
-            pcr: miniArray[colIndexNumberArray[7]], // PCR検査数
+            pcr: miniArray[colIndexNumberArray[7]] // PCR検査数
           };
           masterDataArray.push(rowData); // 加工した1行分のデータを配列に追加
         }
@@ -86,19 +86,164 @@ export default new Vuex.Store({
     },
     setIsLoading(state, isLoading) {
       state.is_loading = isLoading;
-    },
+    }
   },
   actions: {
     async fetchMasterData(context) {
       await axios
         .get("https://dl.dropboxusercontent.com/s/6mztoeb6xf78g5w/COVID-19.csv")
-        .then((response) => context.commit("addMasterData", response))
-        .catch((e) => {
+        .then(response => context.commit("addMasterData", response))
+        .catch(e => {
           alert(e);
         });
-    },
+    }
   },
   getters: {
+    /**
+     * 国内の感染状況と感染者推移で使ってる
+     */
+    getDailyChangeData(state) {
+      var masterData = state.masterData;
+      var dateArray = []; // 日別の集計結果を格納する配列
+      /** 日付とカウンターをプロパティにした日付オブジェクトを2020年1月1日から今日の分まで生成して配列に格納 */
+      var preToday = new Date();
+      var today = new Date(
+        preToday.getFullYear(),
+        preToday.getMonth(),
+        preToday.getDate(),
+        0,
+        0
+      );
+      var startDate = new Date(2020, 0, 1, 0, 0);
+      var ms = today.getTime() - startDate.getTime();
+      var endCount = ms / (1000 * 60 * 60 * 24) + 1;
+      var filterDead = state.masterData.filter(item => item.dead !== "");
+      for (let i = 1; i <= endCount; i++) {
+        var date = new Date(2020, 0, i);
+        var dateObj = {
+          date: date,
+          infectedCount: 0,
+          totalDeadCount: 0,
+          deadCount: 0,
+          dischargeCount: 0,
+          totalDischargeCount: 0,
+          totalPcrCount: 0
+        };
+        dateArray.push(dateObj);
+      }
+      for (let i = 0; i < dateArray.length; i++) {
+        for (let j = 0; j < filterDead.length; j++) {
+          if (dateArray[i].date.getTime() === filterDead[j].date.getTime()) {
+            dateArray[i].deadCount =
+              Number(filterDead[j].dead) - Number(filterDead[j - 1].dead);
+            break;
+          }
+          break;
+        }
+        break;
+      }
+      /** マスターデータを1行ずつみていく */
+      for (let i = 0; i < masterData.length; i++) {
+        /** マスターデータの日付が日付オブジェクトのいずれかの日付とマッチするかみていく(絶対にどこかでマッチする) */
+        try {
+          for (let j = 0; dateArray.length; j++) {
+            /** もしマッチしたらその日付のカウンターにプラス1してfor文を終了(マッチしない場合はスルーして次の日付へ) */
+            if (masterData[i].date.getTime() === dateArray[j].date.getTime()) {
+              dateArray[j].infectedCount++;
+              dateArray[j].deadCount = Number(masterData[i].dead);
+              dateArray[j].totalDeadCount = Number(masterData[i].dead);
+              dateArray[j].dischargeCount =
+                Number(dateArray[j].dischargeCount) +
+                Number(masterData[i].discharge);
+              dateArray[j].totalDischargeCount =
+                Number(dateArray[j - 1].totalDischargeCount) +
+                Number(masterData[i].discharge);
+              dateArray[j].totalPcrCount =
+                Number(dateArray[j].totalPcrCount) + Number(masterData[i].pcr);
+
+              break;
+            }
+          }
+        } catch (error) {
+          console.error(
+            error.name +
+              ": " +
+              error.message +
+              "[this date: " +
+              masterData[i].date +
+              "]"
+          );
+          break;
+        }
+      }
+      return dateArray;
+    },
+    /**
+     * 国内の感染状況、退院者数グラフで使ってる
+     */
+    getDischargeTransition(state) {
+      //配列の中から死者数の値がある物を検出する
+      var newDate = state.masterData.filter(item => item.discharge !== "");
+      //重複排除
+      let values = [];
+      const dischargeTransition = newDate.filter(e => {
+        if (values.indexOf(e["discharge"]) === -1) {
+          values.push(e["discharge"]);
+          return e;
+        }
+      });
+      return dischargeTransition;
+    },
+    /**
+     * 国内の感染状況、死者数推移で使ってる
+     */
+    getDeadDataByDay(state) {
+      var masterData = state.masterData;
+      var deadData = masterData.filter(elm => elm.dead !== ""); // 死者合計の入った行だけ切り出し
+      deadData = deadData.map(function(elm) {
+        // 行から日付と死者合計だけを詰めたオブジェクトだけの配列に変換
+        return { date: elm.date, dead: elm.dead };
+      });
+      var resultArray = [];
+      for (let i = 0; i < deadData.length; i++) {
+        if (i === 0) {
+          // 1回目は比較する前日がないためそのままpush
+          let result = {
+            date: deadData[i].date,
+            count: Number(deadData[i].dead)
+          };
+          resultArray.push(result); // 文字列になって格納されるためNumberで数値型に変換
+        } else {
+          if (deadData[i].dead === deadData[i - 1].dead) {
+            // 当日と前日が同じ場合0をpush
+            let result = {
+              date: deadData[i].date,
+              count: 0
+            };
+            resultArray.push(result);
+          } else {
+            // 前日より死者数が増加していれば、差分をpush
+            let result = {
+              date: deadData[i].date,
+              count: deadData[i].dead - deadData[i - 1].dead
+            };
+            resultArray.push(result);
+          }
+        }
+      }
+      return resultArray;
+    },
+    /**
+     * 各所で使っている日付→文字列の変換メソッド
+     */
+    dateToString: () => date => {
+      return (
+        date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate()
+      );
+    },
+    /**
+     * 都道府県、日本地図で使ってる
+     */
     getPrefectureData(state) {
       var prefArray = PREF_ARRAY;
       var resultArray = [];
@@ -124,6 +269,9 @@ export default new Vuex.Store({
       }
       return resultArray;
     },
+    /**
+     * 年代別グラフで使ってる
+     */
     getAgeData(state) {
       var ageArray = AGE_ARRAY;
       var resultArray = [];
@@ -152,48 +300,17 @@ export default new Vuex.Store({
       }
       return resultArray;
     },
-
-    dateToString: () => (date) => {
-      return (
-        date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate()
-      );
-    },
-    getDeadDeta(state) {
-      //配列の中から必要なdeadだけの配列を作成
-      const deadarray = state.masterData.map((x) => x.dead);
-      return Math.max.apply(null, deadarray);
-    },
-    getDeadTransition(state) {
-      //配列の中から死者数の値がある物を検出する
-      var newDate = state.masterData.filter((item) => item.dead !== "");
-      //重複排除
-      let values = [];
-      const deadTransition = newDate.filter((e) => {
-        if (values.indexOf(e["dead"]) === -1) {
-          values.push(e["dead"]);
-          return e;
-        }
-      });
-      return deadTransition;
-    },
+    /**
+     * 退院者数グラフで使ってる
+     */
     getDischarge(state) {
       //配列の中から必要なdeadだけの配列を作成
-      const dischargeArray = state.masterData.map((x) => x.discharge);
+      const dischargeArray = state.masterData.map(x => x.discharge);
       return Math.max.apply(null, dischargeArray);
     },
-    getDischargeTransition(state) {
-      //配列の中から死者数の値がある物を検出する
-      var newDate = state.masterData.filter((item) => item.discharge !== "");
-      //重複排除
-      let values = [];
-      const dischargeTransition = newDate.filter((e) => {
-        if (values.indexOf(e["discharge"]) === -1) {
-          values.push(e["discharge"]);
-          return e;
-        }
-      });
-      return dischargeTransition;
-    },
+    /**
+     * 年代日別グラフで使ってる
+     */
     getAgeDay(state) {
       //年代別の配列
       var ageArray = AGE_ARRAY;
@@ -218,19 +335,17 @@ export default new Vuex.Store({
           var date = new Date(2020, 0, j);
           var dateObj = {
             date: date,
-            count: 0,
+            count: 0
           };
           dateArray.push(dateObj);
         }
-
         var age = {
           id: i,
           name: ageArray[i],
-          dateArray: dateArray,
+          dateArray: dateArray
         };
         resultArray.push(age);
       }
-
       var masterData = state.masterData;
       /** マスターデータを1行ずつみていく */
       for (let i = 0; i < masterData.length; i++) {
@@ -292,91 +407,13 @@ export default new Vuex.Store({
           }
         }
       }
-
       return resultArray;
-    },
-    getDailyChangeData(state) {
-      var masterData = state.masterData;
-      var dateArray = []; // 日別の集計結果を格納する配列
-      /** 日付とカウンターをプロパティにした日付オブジェクトを2020年1月1日から今日の分まで生成して配列に格納 */
-      var preToday = new Date();
-      var today = new Date(
-        preToday.getFullYear(),
-        preToday.getMonth(),
-        preToday.getDate(),
-        0,
-        0
-      );
-      var startDate = new Date(2020, 0, 1, 0, 0);
-      var ms = today.getTime() - startDate.getTime();
-      var endCount = ms / (1000 * 60 * 60 * 24) + 1;
-      var filterDead = state.masterData.filter((item) => item.dead !== "");
-      for (let i = 1; i <= endCount; i++) {
-        var date = new Date(2020, 0, i);
-        var dateObj = {
-          date: date,
-          infectedCount: 0,
-          totalDeadCount: 0,
-          deadCount: 0,
-          dischargeCount: 0,
-          totalDischargeCount: 0,
-          totalPcrCount: 0,
-        };
-        dateArray.push(dateObj);
-      }
-      for (let i = 0; i < dateArray.length; i++) {
-        for (let j = 0; j < filterDead.length; j++) {
-          if (dateArray[i].date.getTime() === filterDead[j].date.getTime()) {
-            dateArray[i].deadCount =
-              Number(filterDead[j].dead) - Number(filterDead[j - 1].dead);
-            break;
-          }
-          break;
-        }
-        break;
-      }
-
-      /** マスターデータを1行ずつみていく */
-      for (let i = 0; i < masterData.length; i++) {
-        /** マスターデータの日付が日付オブジェクトのいずれかの日付とマッチするかみていく(絶対にどこかでマッチする) */
-        try {
-          for (let j = 0; dateArray.length; j++) {
-            /** もしマッチしたらその日付のカウンターにプラス1してfor文を終了(マッチしない場合はスルーして次の日付へ) */
-            if (masterData[i].date.getTime() === dateArray[j].date.getTime()) {
-              dateArray[j].infectedCount++;
-              dateArray[j].deadCount = Number(masterData[i].dead);
-              dateArray[j].totalDeadCount = Number(masterData[i].dead);
-              dateArray[j].dischargeCount =
-                Number(dateArray[j].dischargeCount) +
-                Number(masterData[i].discharge);
-              dateArray[j].totalDischargeCount =
-                Number(dateArray[j - 1].totalDischargeCount) +
-                Number(masterData[i].discharge);
-              dateArray[j].totalPcrCount =
-                Number(dateArray[j].totalPcrCount) + Number(masterData[i].pcr);
-
-              break;
-            }
-          }
-        } catch (error) {
-          console.error(
-            error.name +
-              ": " +
-              error.message +
-              "[this date: " +
-              masterData[i].date +
-              "]"
-          );
-          break;
-        }
-      }
-      return dateArray;
-    },
+    }
     //pcr検査数関連
     // getPcrTransition(state) {
     //   var masterData = state.masterData;
     //   var pcrData = masterData.filter((target) => target.pcr);
     //   return pcrData;
     // },
-  },
+  }
 });

@@ -35,7 +35,6 @@ export default {
     return {
       masterData: this.$store.state.masterData,
       dailyChangeData: this.$store.getters.getDailyChangeData,
-
       todayInfectedCount: "集計中",
       yesterdayInfectedCount: "集計中",
       totalDead: "集計中",

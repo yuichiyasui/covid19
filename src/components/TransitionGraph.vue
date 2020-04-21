@@ -9,7 +9,6 @@ export default {
       date: [],
     };
   },
-  //method
   computed: {
     //日付
     getDate: function() {
@@ -28,7 +27,6 @@ export default {
       return countArray;
     },
   },
-  //mountのタイミング
   mounted() {
     this.date = this.$store.getters.getDailyChangeData;
     this.renderChart(
