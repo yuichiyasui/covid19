@@ -2,7 +2,25 @@
   <v-card outlined class="pa-3 mb-4">
     <v-card-text class="pa-0">
       <v-card-title class="title-color">死亡者数推移</v-card-title>
-      <TransitionDead :dead-chart-data="deadChartData" :options="options" />
+      <v-row align="center" justify="center">
+        <v-btn-toggle
+          v-model="toggle_exclusive"
+          mandatory
+          class="ml-auto mr-5"
+          dense
+        >
+          <v-btn :disabled="byDayButton" @click="switchGraph()">
+            日別
+          </v-btn>
+          <v-btn :disabled="totalButton" @click="switchGraph()">
+            累計
+          </v-btn>
+        </v-btn-toggle>
+      </v-row>
+      <TransitionDead :dead-chart-data="deadChartData" :options="options" :selected="selected" />
+      <div class="pa-2 overline">
+        ※ 上記データは最初に事例が確認された日を起点にしています
+      </div>
     </v-card-text>
   </v-card>
 </template>
@@ -14,6 +32,10 @@ export default {
   },
   data() {
     return {
+      toggle_exclusive: undefined,
+      byDayButton: true, // ボタンのdisabled
+      totalButton: false, // ボタンのdisabled
+      selected: "日別",
       deadChartData: {
         labels: ["4/1", "4/2", "4/3"],
         datasets: [
@@ -33,6 +55,15 @@ export default {
     };
   },
   methods: {
+    setDeadDataByTotal() {
+      var masterData = this.$store.state.masterData;
+      var deadData = masterData.filter(elm => elm.dead !== ""); // 死者合計の入った行だけ切り出し
+      var resultArray = deadData.map(function(elm) {
+        // 行から日付と死者合計だけを詰めたオブジェクトだけの配列に変換
+        return { date: elm.date, count: elm.dead };
+      });
+      return resultArray;
+    },
     setDeadDataByDay() {
       var masterData = this.$store.state.masterData;
       var deadData = masterData.filter(elm => elm.dead !== ""); // 死者合計の入った行だけ切り出し
@@ -69,16 +100,31 @@ export default {
       }
       return resultArray;
     },
-    setChartData(deadDataArray){
+    setChartData(deadDataArray) {
       this.deadChartData.labels = deadDataArray.map(elm =>
         this.$store.getters.dateToString(elm.date)
       );
       this.deadChartData.datasets[0].data = deadDataArray.map(elm => elm.count);
+    },
+    switchGraph() {
+      if (this.byDayButton === true) {
+        // 累計ボタンが押された時
+        this.setChartData(this.setDeadDataByTotal());
+        this.selected = "累計"
+        this.byDayButton = false;
+        this.totalButton = true;
+      } else {
+        // 日別ボタンが押された時
+        this.setChartData(this.setDeadDataByDay());
+        this.selected = "日別"
+        this.byDayButton = true;
+        this.totalButton = false;
+      }
     }
   },
   created() {
     var deadDataArray = this.setDeadDataByDay();
-    this.setChartData(deadDataArray)
+    this.setChartData(deadDataArray);
   }
 };
 </script>
