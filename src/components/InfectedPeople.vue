@@ -5,15 +5,13 @@
       <span class="font-weight-bold display-1"
         >{{ totalInfected.toLocaleString() }} </span
       >人
-      <div class="body-2">
-        本日：+ {{ todayInfected.toLocaleString() }} 人
-      </div>
+      <div class="body-2">本日：+ {{ todayInfected.toLocaleString() }} 人</div>
       <div class="body-2">
         昨日：+ {{ yesterdayInfected.toLocaleString() }} 人
       </div>
     </div>
     <div class="mb-7">
-      <div class="subtitle-1 title-color">回復者数</div>
+      <div class="subtitle-1 title-color">退院者数</div>
       <span class="font-weight-bold display-1"
         >{{ totalDischarge.toLocaleString() }} </span
       >人
@@ -50,22 +48,28 @@ export default {
   },
   methods: {
     setData() {
-      /** 感染者数 */ 
+      /** 感染者数 */
       this.totalInfected = this.$store.state.masterData.length;
       var infectedArray = this.$store.getters.getInfectedTransition;
       this.todayInfected = infectedArray[infectedArray.length - 1].count;
       this.yesterdayInfected = infectedArray[infectedArray.length - 2].count;
       /** 退院数 */
-      
+      var dischargeTotalArray = this.$store.getters.getDischargeTotal;
+      this.totalDischarge = Number(
+        dischargeTotalArray[dischargeTotalArray.length - 1].count
+      );
+      var dischargeArray = this.$store.getters.getDischargeTransition;
+      this.todayDischarge = 0;
+      this.todayDischarge = dischargeArray[dischargeArray.length - 1].count;
+      this.yesterdayDischarge = dischargeArray[dischargeArray.length - 2].count;
       /** 死者数 */
-      var deadTotalArray = this.$store.getters.getDeadDataByTotal
-      this.totalDead = deadTotalArray[deadTotalArray.length -1].count;
+      var deadTotalArray = this.$store.getters.getDeadDataByTotal;
+      this.totalDead = deadTotalArray[deadTotalArray.length - 1].count;
       var deadArray = this.$store.getters.getDeadDataByDay;
-      this.todayDead = deadArray[deadArray.length - 1 ].count;
-      this.yesterdayDead = deadArray[deadArray.length - 2 ].count;
+      this.todayDead = deadArray[deadArray.length - 1].count;
+      this.yesterdayDead = deadArray[deadArray.length - 2].count;
     }
   },
-
   mounted() {
     this.setData();
   }

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import DischargeTransitionGraph from "@/components/DischargeTransitionGraph.vue";
+import DischargeTransitionGraph from "@/components/discharge/DischargeTransitionGraph.vue";
 
 export default {
   components: {

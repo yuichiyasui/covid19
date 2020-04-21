@@ -51,6 +51,7 @@ export default new Vuex.Store({
         "確定日",
         "居住都道府県",
         "死者合計",
+        "退院数累計",
         "退院数",
         "PCR検査実施人数"
       ];
@@ -76,8 +77,9 @@ export default new Vuex.Store({
             date: date, // 確定日
             residence: miniArray[colIndexNumberArray[4]], // 居住都道府県
             dead: miniArray[colIndexNumberArray[5]], // 死者合計
-            discharge: miniArray[colIndexNumberArray[6]], // 退院数
-            pcr: miniArray[colIndexNumberArray[7]] // PCR検査数
+            dischargeTotal: miniArray[colIndexNumberArray[6]], // 退院数累計
+            discharge: miniArray[colIndexNumberArray[7]], // 退院数
+            pcr: miniArray[colIndexNumberArray[8]] // PCR検査数
           };
           masterDataArray.push(rowData); // 加工した1行分のデータを配列に追加
         }
@@ -156,24 +158,128 @@ export default new Vuex.Store({
      * 国内の感染状況、退院者数グラフで使ってる
      */
     getDischargeTransition(state) {
-      //配列の中から死者数の値がある物を検出する
-      var newDate = state.masterData.filter(item => item.discharge !== "");
-      //重複排除
-      let values = [];
-      const dischargeTransition = newDate.filter(e => {
-        if (values.indexOf(e["discharge"]) === -1) {
-          values.push(e["discharge"]);
-          return e;
-        }
+      var masterData = Array.from(state.masterData);
+      var dischargeData = masterData.filter(elm => elm.discharge !== ""); // 退院数の記載がある行のみを切り出し
+      dischargeData = dischargeData.map(function(elm) {
+        // 行から日付と退院数だけを詰めたオブジェクトだけの配列に変換
+        return { date: elm.date, discharge: elm.discharge };
       });
-      return dischargeTransition;
+      console.log(dischargeData)
+      var dateArray = []; // 日別の集計結果を格納する配列
+      /** 日付とカウンターをプロパティにした日付オブジェクトを2020年1月1日から今日の分まで生成して配列に格納 */
+      var preToday = new Date();
+      var today = new Date(
+        preToday.getFullYear(),
+        preToday.getMonth(),
+        preToday.getDate(),
+        0,
+        0
+      );
+      var startDate = new Date(2020, 0, 1, 0, 0);
+      var ms = today.getTime() - startDate.getTime();
+      var endCount = ms / (1000 * 60 * 60 * 24) + 1;
+      for (let i = 1; i <= endCount; i++) {
+        var date = new Date(2020, 0, i);
+        var dateObj = {
+          date: date,
+          count: 0
+        };
+        dateArray.push(dateObj);
+      }
+      /** 退院数データを1行ずつみていく */
+      for (let i = 0; i < dischargeData.length; i++) {
+        /** 退院数データの日付が日付オブジェクトのいずれかの日付とマッチするかみていく(絶対にどこかでマッチする) */
+        try {
+          for (let j = 0; dateArray.length; j++) {
+            /** もしマッチしたらその日付のカウンターに退院数を代入してfor文を終了(マッチしない場合はスルーして次の日付へ) */
+            if (
+              dischargeData[i].date.getTime() === dateArray[j].date.getTime()
+            ) {
+              dateArray[j].count += Number(dischargeData[i].discharge);
+              break;
+            }
+          }
+        } catch (error) {
+          console.error(
+            error.name +
+              ": " +
+              error.message +
+              "[this date: " +
+              masterData[i].date +
+              "]"
+          );
+          break;
+        }
+      }
+      return dateArray;
+    },
+    /**
+     * 累計退院数の推移を集計.
+     * 国内の感染状況、退院数グラフで使ってる
+     */
+    getDischargeTotal(state) {
+      var masterData = Array.from(state.masterData);
+      var dischargeData = masterData.filter(elm => elm.dischargeTotal !== ""); // 退院数の記載がある行のみを切り出し
+      dischargeData = dischargeData.map(function(elm) {
+        // 行から日付と退院数だけを詰めたオブジェクトだけの配列に変換
+        return { date: elm.date, count: elm.dischargeTotal };
+      });
+      return dischargeData // 前日から退院数の増加がない行は現状除かれている
+      // var dateArray = []; // 日別の集計結果を格納する配列
+      // /** 日付とカウンターをプロパティにした日付オブジェクトを2020年1月1日から今日の分まで生成して配列に格納 */
+      // var preToday = new Date();
+      // var today = new Date(
+      //   preToday.getFullYear(),
+      //   preToday.getMonth(),
+      //   preToday.getDate(),
+      //   0,
+      //   0
+      // );
+      // var startDate = new Date(2020, 0, 1, 0, 0);
+      // var ms = today.getTime() - startDate.getTime();
+      // var endCount = ms / (1000 * 60 * 60 * 24) + 1;
+      // for (let i = 1; i <= endCount; i++) {
+      //   var date = new Date(2020, 0, i);
+      //   var dateObj = {
+      //     date: date,
+      //     count: 0
+      //   };
+      //   dateArray.push(dateObj);
+      // }
+      // /** 退院数データを1行ずつみていく */
+      // for (let i = 0; i < dischargeData.length; i++) {
+      //   /** 退院数データの日付が日付オブジェクトのいずれかの日付とマッチするかみていく(絶対にどこかでマッチする) */
+      //   if(dischargeData[i] > 0)
+      //   try {
+      //     for (let j = 0; dateArray.length; j++) {
+      //       /** もしマッチしたらその日付のカウンターに退院数を代入してfor文を終了(マッチしない場合はスルーして次の日付へ) */
+      //       if (
+      //         dischargeData[i].date.getTime() === dateArray[j].date.getTime()
+      //       ) {
+      //         dateArray[j].count = dischargeData[i].discharge;
+      //         break;
+      //       }
+      //     }
+      //   } catch (error) {
+      //     console.error(
+      //       error.name +
+      //         ": " +
+      //         error.message +
+      //         "[this date: " +
+      //         masterData[i].date +
+      //         "]"
+      //     );
+      //     break;
+      //   }
+      // }
+      // return dateArray;
     },
     /**
      * 日別死者数推移の集計.
      * 国内の感染状況、死者数推移で使ってる
      */
     getDeadDataByDay(state) {
-      var masterData = state.masterData;
+      var masterData = Array.from(state.masterData);
       var deadData = masterData.filter(elm => elm.dead !== ""); // 死者合計の入った行だけ切り出し
       deadData = deadData.map(function(elm) {
         // 行から日付と死者合計だけを詰めたオブジェクトだけの配列に変換
@@ -208,12 +314,12 @@ export default new Vuex.Store({
       }
       return resultArray;
     },
-    /** 
+    /**
      * 累計死者数推移の集計.
      * 国内の感染状況、死者数推移で使ってる
      */
     getDeadDataByTotal(state) {
-      var masterData = state.masterData;
+      var masterData = Array.from(state.masterData);
       var deadData = masterData.filter(elm => elm.dead !== ""); // 死者合計の入った行だけ切り出し
       var resultArray = deadData.map(function(elm) {
         // 行から日付と死者合計だけを詰めたオブジェクトだけの配列に変換

@@ -19,12 +19,7 @@
         <transition-dead-card />
       </v-col>
       <v-col sm="4">
-        <v-card outlined class="pa-3 mb-4">
-          <v-card-text class="pa-0">
-            <v-card-title class="title-color">退院者数推移</v-card-title>
-            <DischargeTransitionGraph></DischargeTransitionGraph>
-          </v-card-text>
-        </v-card>
+        <DischargeTransitionGraphCard />
       </v-col>
       <v-col sm="4">
         <GenderCard />
@@ -80,10 +75,10 @@ import InfectedPeople from "@/components/InfectedPeople.vue";
 import GenderCard from "@/components/gender/GenderCard.vue";
 import AgeGraph from "@/components/AgeGraph.vue";
 import TransitionDeadCard from "@/components/dead/TransitionDeadCard";
-import DischargeTransitionGraph from "@/components/DischargeTransitionGraph.vue";
+import DischargeTransitionGraphCard from "@/components/discharge/DischargeTransitionGraphCard.vue";
 import AgeDayGraph from "@/components/AgeDayGraph.vue";
-import store from "../store";
 import PcrTransitionGraph from "@/components/PcrTransitionGraph.vue";
+import store from "../store";
 
 export default {
   components: {
@@ -95,10 +90,10 @@ export default {
     GenderCard,
     AgeGraph,
     TransitionDeadCard,
-    DischargeTransitionGraph,
     IndividualPrefectureGraphCard,
     AgeDayGraph,
-    PcrTransitionGraph
+    PcrTransitionGraph,
+    DischargeTransitionGraphCard
   },
   async beforeRouteEnter(to, from, next) {
     await store.dispatch("fetchMasterData");
