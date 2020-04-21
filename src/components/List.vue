@@ -5,7 +5,7 @@
         感染データ一覧
       </v-card-title>
       <div id="list-frame">
-        <v-simple-table fixed-header height="50vh">
+        <v-simple-table fixed-header height="78vh">
           <template v-slot:default>
             <thead>
               <tr class="table-header-color">
@@ -36,7 +36,7 @@
 export default {
   data() {
     return {
-      masterData: []
+      masterData: [],
     };
   },
   methods: {
@@ -49,12 +49,12 @@ export default {
         }
       });
       return dataArray;
-    }
+    },
   },
   mounted() {
     this.masterData = this.$store.state.masterData;
     this.sortByDate();
-  }
+  },
 };
 </script>
 
@@ -65,6 +65,6 @@ export default {
 }
 #list-frame {
   overflow: auto;
-  width:100%;
+  width: 100%;
 }
 </style>
