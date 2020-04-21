@@ -52,7 +52,6 @@ export default new Vuex.Store({
         "居住都道府県",
         "死者合計",
         "退院数",
-        "PCR検査実施人数",
       ];
       var colArray = bigArray[0].split(","); // 項目名だけを各項目ごとに分割して配列に格納
       var colIndexNumberArray = []; // 項目番号を格納する配列
@@ -77,7 +76,6 @@ export default new Vuex.Store({
             residence: miniArray[colIndexNumberArray[4]], // 居住都道府県
             dead: miniArray[colIndexNumberArray[5]], // 死者合計
             discharge: miniArray[colIndexNumberArray[6]], // 退院数
-            pcr: miniArray[colIndexNumberArray[7]], // PCR検査数
           };
           masterDataArray.push(rowData); // 加工した1行分のデータを配列に追加
         }
@@ -152,10 +150,16 @@ export default new Vuex.Store({
       }
       return resultArray;
     },
+
     dateToString: () => (date) => {
       return (
         date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate()
       );
+    },
+    getDeadDeta(state) {
+      //配列の中から必要なdeadだけの配列を作成
+      const deadarray = state.masterData.map((x) => x.dead);
+      return Math.max.apply(null, deadarray);
     },
     getDeadTransition(state) {
       //配列の中から死者数の値がある物を検出する
@@ -205,7 +209,7 @@ export default new Vuex.Store({
           0,
           0
         );
-        var startDate = new Date(2020, 0, 15, 0, 0);
+        var startDate = new Date(2020, 0, 1, 0, 0);
         var ms = today.getTime() - startDate.getTime();
         var endCount = ms / (1000 * 60 * 60 * 24) + 1;
         for (let j = 15; j <= endCount; j++) {
@@ -241,6 +245,7 @@ export default new Vuex.Store({
                   resultArray[j].dateArray[k].date.getTime()
                 ) {
                   resultArray[j].dateArray[k].count++;
+
                   break;
                 }
               }
@@ -303,7 +308,6 @@ export default new Vuex.Store({
       var startDate = new Date(2020, 0, 1, 0, 0);
       var ms = today.getTime() - startDate.getTime();
       var endCount = ms / (1000 * 60 * 60 * 24) + 1;
-      var filterDead = state.masterData.filter((item) => item.dead !== "");
       for (let i = 1; i <= endCount; i++) {
         var date = new Date(2020, 0, i);
         var dateObj = {
@@ -313,22 +317,9 @@ export default new Vuex.Store({
           deadCount: 0,
           dischargeCount: 0,
           totalDischargeCount: 0,
-          totalPcrCount: 0,
         };
         dateArray.push(dateObj);
       }
-      for (let i = 0; i < dateArray.length; i++) {
-        for (let j = 0; j < filterDead.length; j++) {
-          if (dateArray[i].date.getTime() === filterDead[j].date.getTime()) {
-            dateArray[i].deadCount =
-              Number(filterDead[j].dead) - Number(filterDead[j - 1].dead);
-            break;
-          }
-          break;
-        }
-        break;
-      }
-      console.log(dateArray);
       /** マスターデータを1行ずつみていく */
       for (let i = 0; i < masterData.length; i++) {
         /** マスターデータの日付が日付オブジェクトのいずれかの日付とマッチするかみていく(絶対にどこかでマッチする) */
@@ -337,7 +328,8 @@ export default new Vuex.Store({
             /** もしマッチしたらその日付のカウンターにプラス1してfor文を終了(マッチしない場合はスルーして次の日付へ) */
             if (masterData[i].date.getTime() === dateArray[j].date.getTime()) {
               dateArray[j].infectedCount++;
-              dateArray[j].deadCount = Number(masterData[i].dead);
+              dateArray[j].deadCount =
+                Number(masterData[i].dead) - Number(dateArray[j - 1].deadCount);
               dateArray[j].totalDeadCount = Number(masterData[i].dead);
               dateArray[j].dischargeCount =
                 Number(dateArray[j].dischargeCount) +
@@ -345,8 +337,6 @@ export default new Vuex.Store({
               dateArray[j].totalDischargeCount =
                 Number(dateArray[j - 1].totalDischargeCount) +
                 Number(masterData[i].discharge);
-              dateArray[j].totalPcrCount =
-                Number(dateArray[j].totalPcrCount) + Number(masterData[i].pcr);
               break;
             }
           }
@@ -364,11 +354,5 @@ export default new Vuex.Store({
       }
       return dateArray;
     },
-    //pcr検査数関連
-    // getPcrTransition(state) {
-    //   var masterData = state.masterData;
-    //   var pcrData = masterData.filter((target) => target.pcr);
-    //   return pcrData;
-    // },
   },
 });

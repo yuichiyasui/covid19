@@ -40,7 +40,7 @@ export default {
             label: ageByDay[2].name + "代",
             data: ageByDay[2].dateArray.map((date) => date.count),
             backgroundColor: "rgba(0,0,0,0)",
-            borderColor: "#e6f029",
+            borderColor: "#DAA520",
             radius: 1,
             borderWidth: 1,
           },
