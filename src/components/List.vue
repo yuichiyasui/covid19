@@ -52,7 +52,7 @@ export default {
     },
   },
   mounted() {
-    this.masterData = this.$store.state.masterData;
+    this.masterData = Array.from(this.$store.state.masterData);
     this.sortByDate();
   },
 };

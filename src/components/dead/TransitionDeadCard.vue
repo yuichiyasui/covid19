@@ -32,40 +32,53 @@ export default {
       options: { responsive: true, display: true, maintainAspectRatio: false }
     };
   },
-  computed: {
-    //日付
-    getDate: function() {
-      var dateArray = [];
-      this.data.forEach(element => {
-        dateArray.push(this.$store.getters.dateToString(element.date));
-      });
-      return dateArray;
-    },
-    //日別の死者数
-    getCount: function() {
-      var countArray = [];
-      this.data.forEach(element => {
-        countArray.push(element.deadCount);
-      });
-      return countArray;
-    }
-  },
   methods: {
-    setDeadData() {
-      var data = this.$store.getters.getDailyChangeData;
-      for(let i = 0; i < data.length; i++){
-        if(data[i].deadCount > 0){
-          data[i].deadCount = data[i].deadCount - data[i -1].deadCount;
+    setDeadDataByDay() {
+      var masterData = this.$store.state.masterData;
+      var deadData = masterData.filter(elm => elm.dead !== ""); // 死者合計の入った行だけ切り出し
+      deadData = deadData.map(function(elm) {
+        // 行から日付と死者合計だけを詰めたオブジェクトだけの配列に変換
+        return { date: elm.date, dead: elm.dead };
+      });
+      var resultArray = [];
+      for (let i = 0; i < deadData.length; i++) {
+        if (i === 0) {
+          // 1回目は比較する前日がないためそのままpush
+          let result = {
+            date: deadData[i].date,
+            count: Number(deadData[i].dead)
+          };
+          resultArray.push(result); // 文字列になって格納されるためNumberで数値型に変換
+        } else {
+          if (deadData[i].dead === deadData[i - 1].dead) {
+            // 当日と前日が同じ場合0をpush
+            let result = {
+              date: deadData[i].date,
+              count: 0
+            };
+            resultArray.push(result);
+          } else {
+            // 前日より死者数が増加していれば、差分をpush
+            let result = {
+              date: deadData[i].date,
+              count: deadData[i].dead - deadData[i - 1].dead
+            };
+            resultArray.push(result);
+          }
         }
       }
-      this.deadChartData.labels = data.map(elm =>
+      return resultArray;
+    },
+    setChartData(deadDataArray){
+      this.deadChartData.labels = deadDataArray.map(elm =>
         this.$store.getters.dateToString(elm.date)
       );
-      this.deadChartData.datasets[0].data = data.map(elm => elm.deadCount);
-    },
+      this.deadChartData.datasets[0].data = deadDataArray.map(elm => elm.count);
+    }
   },
   created() {
-    this.setDeadData();
+    var deadDataArray = this.setDeadDataByDay();
+    this.setChartData(deadDataArray)
   }
 };
 </script>
