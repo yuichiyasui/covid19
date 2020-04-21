@@ -48,7 +48,7 @@
         right
       ></v-app-bar-nav-icon>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" absolute temporary light>
+    <v-navigation-drawer height="100vh" v-model="drawer" temporary light fixed>
       <v-subheader>Menu</v-subheader>
       <v-divider></v-divider>
       <v-list dense>
