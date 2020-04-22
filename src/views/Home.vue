@@ -25,14 +25,7 @@
         <GenderCard />
       </v-col>
       <v-col sm="4">
-        <v-card outlined class="pa-3 mb-4">
-          <v-card-text class="pa-0">
-            <v-card-title class="title-color">年代別感染者グラフ</v-card-title>
-            <AgeGraph>
-              <bar-chart></bar-chart>
-            </AgeGraph>
-          </v-card-text>
-        </v-card>
+        <AgeCard></AgeCard>
       </v-col>
       <v-col sm="8">
         <v-card outlined class="pa-3 mb-4">
@@ -73,7 +66,7 @@ import List from "@/components/List.vue";
 import InfectedTransitionGraphCard from "@/components/infected/InfectedTransitionGraphCard.vue";
 import InfectedPeople from "@/components/InfectedPeople.vue";
 import GenderCard from "@/components/gender/GenderCard.vue";
-import AgeGraph from "@/components/AgeGraph.vue";
+import AgeCard from "@/components/age/AgeCard.vue";
 import TransitionDeadCard from "@/components/dead/TransitionDeadCard";
 import DischargeTransitionGraphCard from "@/components/discharge/DischargeTransitionGraphCard.vue";
 import AgeDayGraph from "@/components/AgeDayGraph.vue";
@@ -88,17 +81,17 @@ export default {
     InfectedTransitionGraphCard,
     InfectedPeople,
     GenderCard,
-    AgeGraph,
+    AgeCard,
     TransitionDeadCard,
     IndividualPrefectureGraphCard,
     AgeDayGraph,
     PcrTransitionGraph,
-    DischargeTransitionGraphCard
+    DischargeTransitionGraphCard,
   },
   async beforeRouteEnter(to, from, next) {
     await store.dispatch("fetchMasterData");
     next();
-  }
+  },
 };
 </script>
 

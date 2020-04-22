@@ -32,12 +32,12 @@ export default new Vuex.Store({
     prefectureGraph,
     totalDead,
     transitionDead,
-    transitionGraph
+    transitionGraph,
   },
   state: {
     masterData: [],
     dailyChangeData: [],
-    is_loading: false
+    is_loading: false,
   },
   mutations: {
     addMasterData(state, masterData) {
@@ -53,7 +53,7 @@ export default new Vuex.Store({
         "死者合計",
         "退院数累計",
         "退院数",
-        "PCR検査実施人数"
+        "PCR検査実施人数",
       ];
       var colArray = bigArray[0].split(","); // 項目名だけを各項目ごとに分割して配列に格納
       var colIndexNumberArray = []; // 項目番号を格納する配列
@@ -79,7 +79,7 @@ export default new Vuex.Store({
             dead: miniArray[colIndexNumberArray[5]], // 死者合計
             dischargeTotal: miniArray[colIndexNumberArray[6]], // 退院数累計
             discharge: miniArray[colIndexNumberArray[7]], // 退院数
-            pcr: miniArray[colIndexNumberArray[8]] // PCR検査数
+            pcr: miniArray[colIndexNumberArray[8]], // PCR検査数
           };
           masterDataArray.push(rowData); // 加工した1行分のデータを配列に追加
         }
@@ -88,17 +88,17 @@ export default new Vuex.Store({
     },
     setIsLoading(state, isLoading) {
       state.is_loading = isLoading;
-    }
+    },
   },
   actions: {
     async fetchMasterData(context) {
       await axios
         .get("https://dl.dropboxusercontent.com/s/6mztoeb6xf78g5w/COVID-19.csv")
-        .then(response => context.commit("addMasterData", response))
-        .catch(e => {
+        .then((response) => context.commit("addMasterData", response))
+        .catch((e) => {
           alert(e);
         });
-    }
+    },
   },
   getters: {
     /**
@@ -120,11 +120,11 @@ export default new Vuex.Store({
       var startDate = new Date(2020, 0, 1, 0, 0);
       var ms = today.getTime() - startDate.getTime();
       var endCount = ms / (1000 * 60 * 60 * 24) + 1;
-      for (let i = 1; i <= endCount; i++) {
+      for (let i = 15; i <= endCount; i++) {
         var date = new Date(2020, 0, i);
         var dateObj = {
           date: date,
-          count: 0
+          count: 0,
         };
         dateArray.push(dateObj);
       }
@@ -159,12 +159,12 @@ export default new Vuex.Store({
      */
     getDischargeTransition(state) {
       var masterData = Array.from(state.masterData);
-      var dischargeData = masterData.filter(elm => elm.discharge !== ""); // 退院数の記載がある行のみを切り出し
+      var dischargeData = masterData.filter((elm) => elm.discharge !== ""); // 退院数の記載がある行のみを切り出し
       dischargeData = dischargeData.map(function(elm) {
         // 行から日付と退院数だけを詰めたオブジェクトだけの配列に変換
         return { date: elm.date, discharge: elm.discharge };
       });
-      console.log(dischargeData)
+      console.log(dischargeData);
       var dateArray = []; // 日別の集計結果を格納する配列
       /** 日付とカウンターをプロパティにした日付オブジェクトを2020年1月1日から今日の分まで生成して配列に格納 */
       var preToday = new Date();
@@ -178,11 +178,11 @@ export default new Vuex.Store({
       var startDate = new Date(2020, 0, 1, 0, 0);
       var ms = today.getTime() - startDate.getTime();
       var endCount = ms / (1000 * 60 * 60 * 24) + 1;
-      for (let i = 1; i <= endCount; i++) {
+      for (let i = 15; i <= endCount; i++) {
         var date = new Date(2020, 0, i);
         var dateObj = {
           date: date,
-          count: 0
+          count: 0,
         };
         dateArray.push(dateObj);
       }
@@ -219,12 +219,12 @@ export default new Vuex.Store({
      */
     getDischargeTotal(state) {
       var masterData = Array.from(state.masterData);
-      var dischargeData = masterData.filter(elm => elm.dischargeTotal !== ""); // 退院数の記載がある行のみを切り出し
+      var dischargeData = masterData.filter((elm) => elm.dischargeTotal !== ""); // 退院数の記載がある行のみを切り出し
       dischargeData = dischargeData.map(function(elm) {
         // 行から日付と退院数だけを詰めたオブジェクトだけの配列に変換
         return { date: elm.date, count: elm.dischargeTotal };
       });
-      return dischargeData // 前日から退院数の増加がない行は現状除かれている
+      return dischargeData; // 前日から退院数の増加がない行は現状除かれている
       // var dateArray = []; // 日別の集計結果を格納する配列
       // /** 日付とカウンターをプロパティにした日付オブジェクトを2020年1月1日から今日の分まで生成して配列に格納 */
       // var preToday = new Date();
@@ -238,7 +238,7 @@ export default new Vuex.Store({
       // var startDate = new Date(2020, 0, 1, 0, 0);
       // var ms = today.getTime() - startDate.getTime();
       // var endCount = ms / (1000 * 60 * 60 * 24) + 1;
-      // for (let i = 1; i <= endCount; i++) {
+      // for (let i = 15; i <= endCount; i++) {
       //   var date = new Date(2020, 0, i);
       //   var dateObj = {
       //     date: date,
@@ -280,7 +280,7 @@ export default new Vuex.Store({
      */
     getDeadDataByDay(state) {
       var masterData = Array.from(state.masterData);
-      var deadData = masterData.filter(elm => elm.dead !== ""); // 死者合計の入った行だけ切り出し
+      var deadData = masterData.filter((elm) => elm.dead !== ""); // 死者合計の入った行だけ切り出し
       deadData = deadData.map(function(elm) {
         // 行から日付と死者合計だけを詰めたオブジェクトだけの配列に変換
         return { date: elm.date, dead: elm.dead };
@@ -291,7 +291,7 @@ export default new Vuex.Store({
           // 1回目は比較する前日がないためそのままpush
           let result = {
             date: deadData[i].date,
-            count: Number(deadData[i].dead)
+            count: Number(deadData[i].dead),
           };
           resultArray.push(result); // 文字列になって格納されるためNumberで数値型に変換
         } else {
@@ -299,14 +299,14 @@ export default new Vuex.Store({
             // 当日と前日が同じ場合0をpush
             let result = {
               date: deadData[i].date,
-              count: 0
+              count: 0,
             };
             resultArray.push(result);
           } else {
             // 前日より死者数が増加していれば、差分をpush
             let result = {
               date: deadData[i].date,
-              count: deadData[i].dead - deadData[i - 1].dead
+              count: deadData[i].dead - deadData[i - 1].dead,
             };
             resultArray.push(result);
           }
@@ -320,7 +320,7 @@ export default new Vuex.Store({
      */
     getDeadDataByTotal(state) {
       var masterData = Array.from(state.masterData);
-      var deadData = masterData.filter(elm => elm.dead !== ""); // 死者合計の入った行だけ切り出し
+      var deadData = masterData.filter((elm) => elm.dead !== ""); // 死者合計の入った行だけ切り出し
       var resultArray = deadData.map(function(elm) {
         // 行から日付と死者合計だけを詰めたオブジェクトだけの配列に変換
         return { date: elm.date, count: elm.dead };
@@ -330,7 +330,7 @@ export default new Vuex.Store({
     /**
      * 各所で使っている日付→文字列の変換メソッド
      */
-    dateToString: () => date => {
+    dateToString: () => (date) => {
       return (
         date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate()
       );
@@ -364,43 +364,13 @@ export default new Vuex.Store({
       }
       return resultArray;
     },
-    /**
-     * 年代別グラフで使ってる
-     */
-    getAgeData(state) {
-      var ageArray = AGE_ARRAY;
-      var resultArray = [];
-      var masterData = state.masterData;
-      for (let i = 0; i < ageArray.length; i++) {
-        var age = { id: i, name: ageArray[i], count: 0 };
-        resultArray.push(age);
-      }
-      for (let j = 0; j < masterData.length; j++) {
-        var ageData = masterData[j].age;
-        var isMatch = false; // マッチしてなかったらfalse
-        for (let i = 0; i < ageArray.length; i++) {
-          if (ageData == Number(resultArray[i].name)) {
-            resultArray[i].count++;
-            isMatch = true; // マッチしたらtrue
-            break;
-          }
-          // "1-10,不明"
-          if (isMatch === false) {
-            if (ageData == resultArray[i].name) {
-              resultArray[i].count++;
-              break;
-            }
-          }
-        }
-      }
-      return resultArray;
-    },
+
     /**
      * 退院者数グラフで使ってる??
      */
     getDischarge(state) {
       //配列の中から必要なdeadだけの配列を作成
-      const dischargeArray = state.masterData.map(x => x.discharge);
+      const dischargeArray = state.masterData.map((x) => x.discharge);
       return Math.max.apply(null, dischargeArray);
     },
     /**
@@ -431,14 +401,14 @@ export default new Vuex.Store({
           var date = new Date(2020, 0, j);
           var dateObj = {
             date: date,
-            count: 0
+            count: 0,
           };
           dateArray.push(dateObj);
         }
         var age = {
           id: i,
           name: ageArray[i],
-          dateArray: dateArray
+          dateArray: dateArray,
         };
         resultArray.push(age);
       }
@@ -504,12 +474,12 @@ export default new Vuex.Store({
         }
       }
       return resultArray;
-    }
+    },
     //pcr検査数関連
     // getPcrTransition(state) {
     //   var masterData = state.masterData;
     //   var pcrData = masterData.filter((target) => target.pcr);
     //   return pcrData;
     // },
-  }
+  },
 });

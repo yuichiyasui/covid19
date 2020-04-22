@@ -100,14 +100,14 @@ export default {
             radius: 1,
             borderWidth: 1,
           },
-          {
-            label: ageByDay[10].name + "",
-            data: ageByDay[10].dateArray.map((date) => date.count),
-            backgroundColor: "rgba(0,0,0,0)",
-            borderColor: "#c4c0c0",
-            radius: 1,
-            borderWidth: 1,
-          },
+          // {
+          //   label: ageByDay[10].name + "",
+          //   data: ageByDay[10].dateArray.map((date) => date.count),
+          //   backgroundColor: "rgba(0,0,0,0)",
+          //   borderColor: "#c4c0c0",
+          //   radius: 1,
+          //   borderWidth: 1,
+          // },
         ],
       };
     },
