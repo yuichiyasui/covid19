@@ -3,37 +3,11 @@ import Vuex from "vuex";
 import axios from "axios";
 import PREF_ARRAY from "../assets/js/prefecture";
 import AGE_ARRAY from "../assets/js/age";
-import InfectedPeople from "./modules/infectedPeople";
-import ageGraph from "./modules/ageGraph";
-import ageDayGraph from "./modules/ageDayGraph";
-import chart from "./modules/chart";
-import dischargeTransitionGraph from "./modules/dischargeTransitionGraph";
-import IndividualPrefectureGraph from "./modules/IndividualPrefectureGraph";
-import infectedPeople from "./modules/infectedPeople";
-import japanMap from "./modules/japanMap";
-import prefectureGraph from "./modules/prefectureGraph";
-import totalDead from "./modules/totalDead";
-import transitionDead from "./modules/transitionDead";
-import transitionGraph from "./modules/transitionGraph";
 
 Vue.use(Vuex);
 Vue.use(axios);
 
 export default new Vuex.Store({
-  modules: {
-    InfectedPeople,
-    ageGraph,
-    ageDayGraph,
-    chart,
-    dischargeTransitionGraph,
-    IndividualPrefectureGraph,
-    infectedPeople,
-    japanMap,
-    prefectureGraph,
-    totalDead,
-    transitionDead,
-    transitionGraph
-  },
   state: {
     masterData: [],
     dailyChangeData: [],
