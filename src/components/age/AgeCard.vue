@@ -13,7 +13,7 @@
 import AgeGraph from "@/components/age/AgeGraph.vue";
 export default {
   components: {
-    AgeGraph,
+    AgeGraph
   },
   data() {
     return {
@@ -30,7 +30,7 @@ export default {
           "70",
           "80",
           "90",
-          "不明",
+          "不明"
         ],
         datasets: [
           {
@@ -39,9 +39,9 @@ export default {
             borderColor: "#f57c00",
             borderWidth: 1,
 
-            data: [],
-          },
-        ],
+            data: []
+          }
+        ]
       },
 
       options: {
@@ -57,27 +57,27 @@ export default {
                 //軸ラベル設定
                 display: true, //表示設定
                 labelString: "感染者数", //ラベル
-                fontSize: 12, //フォントサイズ
+                fontSize: 12 //フォントサイズ
               },
               ticks: {
                 //最大値最小値設定
                 min: 0, //最小値
                 // max: 1500, //最大値
                 fontSize: 12, //フォントサイズ
-                stepSize: 100, //軸間隔
-              },
-            },
+                stepSize: 100 //軸間隔
+              }
+            }
           ],
           xAxes: [
             {
               scaleLabel: {
                 display: true,
-                labelString: "年代",
-              },
-            },
-          ],
-        },
-      },
+                labelString: "年代"
+              }
+            }
+          ]
+        }
+      }
     };
   },
   methods: {
@@ -96,7 +96,7 @@ export default {
         "70",
         "80",
         "90",
-        "不明",
+        "不明"
       ];
       var resultArray = [];
       var masterData = this.$store.state.masterData;
@@ -123,11 +123,11 @@ export default {
         }
       }
       this.ageData = resultArray;
-      this.chartData.datasets[0].data = resultArray.map((elm) => elm.count);
-    },
+      this.chartData.datasets[0].data = resultArray.map(elm => elm.count);
+    }
   },
   created() {
     this.setAgeData();
-  },
+  }
 };
 </script>

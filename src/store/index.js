@@ -164,7 +164,6 @@ export default new Vuex.Store({
         // 行から日付と退院数だけを詰めたオブジェクトだけの配列に変換
         return { date: elm.date, discharge: elm.discharge };
       });
-      console.log(dischargeData);
       var dateArray = []; // 日別の集計結果を格納する配列
       /** 日付とカウンターをプロパティにした日付オブジェクトを2020年1月1日から今日の分まで生成して配列に格納 */
       var preToday = new Date();

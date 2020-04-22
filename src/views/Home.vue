@@ -25,7 +25,7 @@
         <GenderCard />
       </v-col>
       <v-col sm="4">
-        <AgeCard></AgeCard>
+        <AgeCard />
       </v-col>
       <v-col sm="8">
         <v-card outlined class="pa-3 mb-4">
@@ -33,7 +33,7 @@
             <v-card-title class="title-color"
               >年代別感染者推移グラフ</v-card-title
             >
-            <AgeDayGraph><date-person-chart></date-person-chart></AgeDayGraph>
+            <AgeDayGraph></AgeDayGraph>
           </v-card-text>
         </v-card>
       </v-col>
