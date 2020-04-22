@@ -15,7 +15,7 @@ export default {
     setChartData() {
       var ageByDay = this.$store.getters.getAgeDay;
       var labels = ageByDay[0].dateArray.map((item) =>
-        this.$store.getters.dateToString(item.date)
+        this.$store.getters.dateToString(item.date).replace("2020/", "")
       );
       this.ageByDayChartData = {
         labels: labels,

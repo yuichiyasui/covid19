@@ -1,7 +1,7 @@
 <template>
   <v-col>
     <v-row>
-      <v-col sm="2">
+      <v-col sm="4">
         <v-card outlined class="pa-3 mb-4">
           <v-card-text class="pa-0">
             <v-card-title class="title-color">日本国内の状況</v-card-title>
@@ -9,17 +9,17 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col sm="6">
-        <InfectedTransitionGraphCard />
-      </v-col>
       <v-col sm="4">
-        <List />
+        <InfectedTransitionGraphCard />
       </v-col>
       <v-col sm="4">
         <transition-dead-card />
       </v-col>
       <v-col sm="4">
         <DischargeTransitionGraphCard />
+      </v-col>
+      <v-col sm="4">
+        <PcrTransitionGraphCard />
       </v-col>
       <v-col sm="4">
         <GenderCard />
@@ -47,7 +47,7 @@
         <JapanMap />
       </v-col>
       <v-col sm="4">
-        <PcrTransitionGraphCard />
+        <List />
       </v-col>
     </v-row>
   </v-col>

@@ -34,6 +34,9 @@
       <div style="width:80%" class="mx-auto">
         <gender-graph :gender-chart-data="chartData" :options="options" />
       </div>
+      <div class="pa-2 pt-6 overline">
+        ※ 不明とは自治体により公表されていない場合などが該当します
+      </div>
     </v-card-text>
   </v-card>
 </template>

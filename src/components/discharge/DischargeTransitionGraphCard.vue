@@ -46,9 +46,8 @@ export default {
             borderColor: "#f57c00",
             backgroundColor: "rgba(255, 130, 3, 0.2)",
             radius: 0,
-            hitRadius: 2, // マウスポインタ検出のための円の半径
-            borderWidth: 1, // 線の太さ
-            tension: 0 // 曲線の滑らかさ
+            hitRadius: 4, // マウスポインタ検出のための円の半径
+            borderWidth: 2, // 線の太さ
           }
         ]
       },
@@ -66,7 +65,7 @@ export default {
   methods: {
     setChartData(dischargeDataArray) {
       this.dischargeChartData.labels = dischargeDataArray.map(elm =>
-        this.$store.getters.dateToString(elm.date)
+        this.$store.getters.dateToString(elm.date).replace("2020/", "")
       );
       this.dischargeChartData.datasets[0].data = dischargeDataArray.map(
         elm => elm.count

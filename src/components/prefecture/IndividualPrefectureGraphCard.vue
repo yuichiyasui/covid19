@@ -28,7 +28,7 @@ import IndividualPrefectureGraph from "@/components/prefecture/IndividualPrefect
 import PREF_ARRAY from "@/assets/js/prefecture.js";
 export default {
   components: {
-    IndividualPrefectureGraph,
+    IndividualPrefectureGraph
   },
   data() {
     return {
@@ -42,25 +42,24 @@ export default {
             data: [],
             borderColor: "#f57c00",
             backgroundColor: "rgba(255, 130, 3, 0.2)",
-            radius: 0, // 点の半径
-            hitRadius: 2, // マウスポインタ検出のための円の半径
-            borderWidth: 1, // 線の太さ
-            tension: 0, // 曲線の滑らかさ
-          },
-        ],
+            radius: 0,
+            hitRadius: 4, // マウスポインタ検出のための円の半径
+            borderWidth: 2 // 線の太さ
+          }
+        ]
       },
       options: {
         responsive: true,
         display: true,
         maintainAspectRatio: false,
-        scales: { yAxes: [{ ticks: { suggestedMax: 100 } }] },
-      },
+        scales: { yAxes: [{ ticks: { suggestedMax: 100 } }] }
+      }
     };
   },
   methods: {
     createPrefData: function() {
       var onlySelectedPrefData = this.$store.state.masterData.filter(
-        (data) => data.residence === this.selectedPref
+        data => data.residence === this.selectedPref
       );
       var dateArray = []; // 日別感染者数の集計結果を格納する配列
       /** 日付とカウンターをプロパティにした日付オブジェクトを2020年1月1日から今日の分まで生成して配列に格納 */
@@ -79,7 +78,7 @@ export default {
         var date = new Date(2020, 0, i);
         var dateObj = {
           date: date,
-          count: 0,
+          count: 0
         };
         dateArray.push(dateObj);
       }
@@ -113,18 +112,18 @@ export default {
     },
     changed() {
       var prefData = this.createPrefData();
-      this.chartData.datasets[0].data = prefData.map((item) => item.count);
-      this.chartData.labels = prefData.map((item) =>
+      this.chartData.datasets[0].data = prefData.map(item => item.count);
+      this.chartData.labels = prefData.map(item =>
         item.date.toLocaleDateString().replace("2020/", "")
       );
-    },
+    }
   },
   created() {
     var prefData = this.createPrefData();
-    this.chartData.datasets[0].data = prefData.map((item) => item.count);
-    this.chartData.labels = prefData.map((item) =>
+    this.chartData.datasets[0].data = prefData.map(item => item.count);
+    this.chartData.labels = prefData.map(item =>
       item.date.toLocaleDateString().replace("2020/", "")
     );
-  },
+  }
 };
 </script>

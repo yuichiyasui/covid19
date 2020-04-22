@@ -1,7 +1,7 @@
 <template>
   <v-card outlined class="pa-3 mb-4">
     <v-card-text class="pa-0">
-      <v-card-title class="title-color">感染者推移</v-card-title>
+      <v-card-title class="title-color">感染者数推移</v-card-title>
       <v-row align="center" justify="center">
         <v-btn-toggle
           v-model="toggle_exclusive"
@@ -45,7 +45,9 @@ export default {
             data: ["100", "300", "500"],
             borderColor: "#f57c00",
             backgroundColor: "rgba(255, 130, 3, 0.2)",
-            radius: 3
+            radius: 0,
+            hitRadius: 4, // マウスポインタ検出のための円の半径
+            borderWidth: 2, // 線の太さ
           }
         ]
       },
@@ -63,7 +65,7 @@ export default {
   methods: {
     setChartData(infectedDataArray) {
       this.chartData.labels = infectedDataArray.map(elm =>
-        this.$store.getters.dateToString(elm.date)
+        this.$store.getters.dateToString(elm.date).replace("2020/", "")
       );
       this.chartData.datasets[0].data = infectedDataArray.map(elm => elm.count);
     },

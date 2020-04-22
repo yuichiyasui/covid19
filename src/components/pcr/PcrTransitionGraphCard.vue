@@ -22,6 +22,9 @@
         :options="options"
         :selected="selected"
       />
+      <div class="pa-2 overline">
+        ※ 上記グラフは最初にデータ上の事例が確認された日を起点にしています
+      </div>
     </v-card-text>
   </v-card>
 </template>
@@ -45,14 +48,13 @@ export default {
             borderColor: "#f57c00",
             backgroundColor: "rgba(255, 130, 3, 0.2)",
             radius: 0,
-            hitRadius: 2, // マウスポインタ検出のための円の半径
-            borderWidth: 1, // 線の太さ
-            tension: 0 // 曲線の滑らかさ
+            hitRadius: 4, // マウスポインタ検出のための円の半径
+            borderWidth: 2 // 線の太さ
           }
         ]
       },
       options: { responsive: true, display: true, maintainAspectRatio: false },
-      selected: "累計"
+      selected: "日別"
     };
   },
   computed: {
@@ -66,7 +68,7 @@ export default {
   methods: {
     setChartData(pcrDataArray) {
       this.chartData.labels = pcrDataArray.map(elm =>
-        this.$store.getters.dateToString(elm.date)
+        this.$store.getters.dateToString(elm.date).replace("2020/", "")
       );
       this.chartData.datasets[0].data = pcrDataArray.map(elm => elm.count);
     },

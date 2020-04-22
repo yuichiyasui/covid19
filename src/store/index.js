@@ -535,9 +535,7 @@ export default new Vuex.Store({
       });
       return resultArray;
     },
-    getPcrByDay() {
-
-    },
+    getPcrByDay() {},
     /**
      * PCR検査数の日別推移グラフの集計.
      */
@@ -571,11 +569,15 @@ export default new Vuex.Store({
               date: pcrData[i].date,
               count: pcrData[i].pcr - pcrData[i - 1].pcr
             };
+            if (result.count < 0) {
+              // 元データが不正で前日との差分がマイナスになる場合、0にする
+              result.count = 0;
+            }
             resultArray.push(result);
           }
         }
       }
       return resultArray;
-    },
+    }
   }
 });
