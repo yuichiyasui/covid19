@@ -7,13 +7,14 @@ export default {
   data() {
     return {
       date: [],
+      dayBytotal: []
     };
   },
   computed: {
     //日付
     getDate: function() {
       var dateArray = [];
-      this.date.forEach((element) => {
+      this.dayBytotal.forEach((element) => {
         dateArray.push(this.$store.getters.dateToString(element.date));
       });
       return dateArray;
@@ -21,7 +22,7 @@ export default {
     //日別の感染者数
     getCount: function() {
       var countArray = [];
-      this.date.forEach((element) => {
+      this.dayBytotal.forEach((element) => {
         countArray.push(element.count);
       });
       return countArray;
@@ -29,6 +30,7 @@ export default {
   },
   mounted() {
     this.date = this.$store.getters.getInfectedTransition;
+    this.dayBytotal = this.$store.getters.getInfectedByDayTotal;
     this.renderChart(
       {
         labels: this.getDate,
