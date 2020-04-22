@@ -16,26 +16,6 @@ const routes = [
     name: "About",
     component: () => import("../views/About.vue")
   },
-  {
-    path: "/graph",
-    name: "Graph",
-    component: () => import("../views/Graph.vue")
-  },
-  {
-    path: "/gender",
-    name: "Gender",
-    component: () => import("../views/Gender.vue")
-  },
-  {
-    path: "/discharge",
-    name: "Discharge",
-    component: () => import("../views/Discharge.vue")
-  },
-  {
-    path: "/dead",
-    name: "Dead",
-    component: () => import("../views/Dead.vue")
-  },
 ];
 
 const router = new VueRouter({
