@@ -474,6 +474,81 @@ export default new Vuex.Store({
       }
       return resultArray;
     },
+    getInfectedByDayTotal(state) {
+      var masterData = state.masterData;
+      var dateArray = []; // 日別の集計結果を格納する配列
+      /** 日付とカウンターをプロパティにした日付オブジェクトを2020年1月1日から今日の分まで生成して配列に格納 */
+      var preToday = new Date();
+      var today = new Date(
+        preToday.getFullYear(),
+        preToday.getMonth(),
+        preToday.getDate(),
+        0,
+        0
+      );
+      var startDate = new Date(2020, 0, 1, 0, 0);
+      var ms = today.getTime() - startDate.getTime();
+      var endCount = ms / (1000 * 60 * 60 * 24) + 1;
+      for (let i = 1; i <= endCount; i++) {
+        var date = new Date(2020, 0, i);
+        var dateObj = {
+          date: date,
+          count: 0,
+        };
+        dateArray.push(dateObj);
+      }
+      /** マスターデータを1行ずつみていく */
+      for (let i = 0; i < masterData.length; i++) {
+        /** マスターデータの日付が日付オブジェクトのいずれかの日付とマッチするかみていく(絶対にどこかでマッチする) */
+        try {
+          for (let j = 0; dateArray.length; j++) {
+            /** もしマッチしたらその日付のカウンターにプラス1してfor文を終了(マッチしない場合はスルーして次の日付へ) */
+            if (masterData[i].date.getTime() === dateArray[j].date.getTime()) {
+              dateArray[j].count++;
+              break;
+            }
+          }
+        } catch (error) {
+          console.error(
+            error.name +
+              ": " +
+              error.message +
+              "[this date: " +
+              masterData[i].date +
+              "]"
+          );
+          break;
+        }
+      }
+      var resultArray = [];
+      for (let i = 0; i < dateArray.length; i++) {
+        if (i === 0) {
+          // 1回目は比較する前日がないためそのままpush
+          let result = {
+            date: dateArray[i].date,
+            count: dateArray[i].count
+          };
+          resultArray.push(result); // 文字列になって格納されるためNumberで数値型に変換
+        } else {
+          if (dateArray[i].count === dateArray[i - 1].count) {
+            // 当日と前日が同じ場合0をpush
+            let result = {
+              date: dateArray[i].date,
+              count: resultArray[i - 1].count
+            };
+            resultArray.push(result);
+          } else {
+            // 前日より増加していれば、差分をpush
+            let result = {
+              date: dateArray[i].date,
+              count: dateArray[i].count + resultArray[i - 1].count
+            };
+            resultArray.push(result);
+          }
+        }
+      }
+      return resultArray;
+    },
     //pcr検査数関連
     // getPcrTransition(state) {
     //   var masterData = state.masterData;
