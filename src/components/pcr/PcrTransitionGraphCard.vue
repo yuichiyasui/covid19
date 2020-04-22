@@ -1,7 +1,7 @@
 <template>
   <v-card outlined class="pa-3 mb-4">
     <v-card-text class="pa-0">
-      <v-card-title class="title-color">退院者数推移</v-card-title>
+      <v-card-title class="title-color">PCR検査数推移</v-card-title>
       <v-row align="center" justify="center">
         <v-btn-toggle
           v-model="toggle_exclusive"
@@ -17,8 +17,8 @@
           </v-btn>
         </v-btn-toggle>
       </v-row>
-      <DischargeTransitionGraph
-        :discharge-chart-data="dischargeChartData"
+      <PcrTransitionGraph
+        :pcr-chart-data="chartData"
         :options="options"
         :selected="selected"
       />
@@ -26,23 +26,22 @@
   </v-card>
 </template>
 <script>
-import DischargeTransitionGraph from "@/components/discharge/DischargeTransitionGraph.vue";
+import PcrTransitionGraph from "@/components/pcr/PcrTransitionGraph.vue";
 export default {
   components: {
-    DischargeTransitionGraph
+    PcrTransitionGraph
   },
   data() {
     return {
       toggle_exclusive: undefined,
       byDayButton: true, // ボタンのdisabled
       totalButton: false, // ボタンのdisabled
-      selected: "日別",
-      dischargeChartData: {
+      chartData: {
         labels: ["4/1", "4/2", "4/3"],
         datasets: [
           {
-            label: "退院者数",
-            data: [10, 20, 30],
+            label: "PCR検査数",
+            data: [100, 200, 400],
             borderColor: "#f57c00",
             backgroundColor: "rgba(255, 130, 3, 0.2)",
             radius: 0,
@@ -52,33 +51,44 @@ export default {
           }
         ]
       },
-      options: { responsive: true, display: true, maintainAspectRatio: false }
+      options: { responsive: true, display: true, maintainAspectRatio: false },
+      selected: "累計"
     };
   },
   computed: {
-    getDischargeByDay() { // 日別
-      return this.$store.getters.getDischargeTransition;
+    getPcrTotal() {
+      return this.$store.getters.getPcrTransition;
     },
-    getDischargeTotal(){  // 累計
-      return ""
+    getPcrByDay() {
+      return this.$store.getters.getPcrDataByDay;
     }
   },
   methods: {
-    setChartData(dischargeDataArray) {
-      this.dischargeChartData.labels = dischargeDataArray.map(elm =>
+    setChartData(pcrDataArray) {
+      this.chartData.labels = pcrDataArray.map(elm =>
         this.$store.getters.dateToString(elm.date)
       );
-      this.dischargeChartData.datasets[0].data = dischargeDataArray.map(
-        elm => elm.count
-      );
+      this.chartData.datasets[0].data = pcrDataArray.map(elm => elm.count);
     },
     switchGraph() {
-      alert("切り替えはまだ実装できてません！");
+      if (this.byDayButton === true) {
+        // 累計ボタンが押された時
+        this.setChartData(this.getPcrTotal);
+        this.selected = "累計";
+        this.byDayButton = false;
+        this.totalButton = true;
+      } else {
+        // 日別ボタンが押された時
+        this.setChartData(this.getPcrByDay);
+        this.selected = "日別";
+        this.byDayButton = true;
+        this.totalButton = false;
+      }
     }
   },
   created() {
-    var dischargeDataArray = this.getDischargeByDay;
-    this.setChartData(dischargeDataArray);
+    var pcrDataArray = this.getPcrByDay; // 最初は日別にする
+    this.setChartData(pcrDataArray);
   }
 };
 </script>
