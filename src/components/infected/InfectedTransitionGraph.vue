@@ -14,7 +14,7 @@ export default {
     //日付
     getDate: function() {
       var dateArray = [];
-      this.dayBytotal.forEach((element) => {
+      this.date.forEach((element) => {
         dateArray.push(this.$store.getters.dateToString(element.date));
       });
       return dateArray;
@@ -22,7 +22,7 @@ export default {
     //日別の感染者数
     getCount: function() {
       var countArray = [];
-      this.dayBytotal.forEach((element) => {
+      this.date.forEach((element) => {
         countArray.push(element.count);
       });
       return countArray;

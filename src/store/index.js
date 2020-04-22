@@ -535,7 +535,7 @@ export default new Vuex.Store({
             // 当日と前日が同じ場合0をpush
             let result = {
               date: dateArray[i].date,
-              count: resultArray[i - 1].count
+              count: resultArray[i - 1].count + dateArray[i].count //1 === 1などの時に足す
             };
             resultArray.push(result);
           } else {
