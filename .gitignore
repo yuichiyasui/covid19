@@ -6,8 +6,8 @@
 # yarn-error.log*
 # firebase-debug.log*
 
-# # Firebase cache
-# .firebase/
+# Firebase cache
+.firebase/
 
 # # Firebase config
 
@@ -59,21 +59,22 @@
 # # Yarn Integrity file
 # .yarn-integrity
 
-# # dotenv environment variables file
-# .env
+# dotenv environment variables file
+.env
 
-# # local env files
-# .env.local
-# .env.*.local
+# local env files
+.env.local
+.env.*.local
 
-# # Editor directories and files
-# .idea
-# .vscode
-# *.suo
-# *.ntvs*
-# *.njsproj
-# *.sln
-# *.sw?
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
-# .DS_Store
-# /dist
+.DS_Store
+/dist
+node_modules
