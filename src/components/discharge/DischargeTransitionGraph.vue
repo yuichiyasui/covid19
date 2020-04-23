@@ -8,8 +8,7 @@ export default {
   props: ["dischargeChartData", "options", "selected"],
   watch:{
     selected:function(){
-      alert("日別or累計が切り替わりました！")
-    // this.renderChart(this.dischargeChartData, this.options);
+     this.renderChart(this.dischargeChartData, this.options);
     }
   },
   mounted() {

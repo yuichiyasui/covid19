@@ -59,7 +59,7 @@ export default {
       return this.$store.getters.getDischargeTransition;
     },
     getDischargeTotal(){  // 累計
-      return ""
+      return this.$store.getters.getDischergeByDayTotal;
     }
   },
   methods: {
@@ -72,7 +72,19 @@ export default {
       );
     },
     switchGraph() {
-      alert("切り替えはまだ実装できてません！");
+      if (this.byDayButton === true) {
+        // 累計ボタンが押された時
+        this.setChartData(this.getDischargeByDay);
+        this.selected = "累計";
+        this.byDayButton = false;
+        this.totalButton = true;
+      } else {
+        // 日別ボタンが押された時
+        this.setChartData(this.getDischargeTotal);
+        this.selected = "日別";
+        this.byDayButton = true;
+        this.totalButton = false;
+      }
     }
   },
   created() {
