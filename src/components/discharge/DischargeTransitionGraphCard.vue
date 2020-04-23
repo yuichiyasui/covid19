@@ -74,13 +74,13 @@ export default {
     switchGraph() {
       if (this.byDayButton === true) {
         // 累計ボタンが押された時
-        this.setChartData(this.getDischargeByDay);
+        this.setChartData(this.getDischargeTotal);
         this.selected = "累計";
         this.byDayButton = false;
         this.totalButton = true;
       } else {
         // 日別ボタンが押された時
-        this.setChartData(this.getDischargeTotal);
+        this.setChartData(this.getDischargeByDay);
         this.selected = "日別";
         this.byDayButton = true;
         this.totalButton = false;
