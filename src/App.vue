@@ -1,10 +1,11 @@
 <template>
   <v-app>
-    <v-content>
+    <v-content id="main">
       <Navbar />
-      <v-container>
-        <v-row justify="center" align-content="center">
-          <router-view></router-view>
+      <v-container fluid fill-height class="px-3">
+        <v-row justify="center">
+          <Loading v-show="is_loading"></Loading>
+          <router-view v-show="!is_loading"></router-view>
         </v-row>
       </v-container>
     </v-content>
@@ -12,15 +13,23 @@
 </template>
 
 <script>
-import Navbar from "./components/Navbar";
-
+import Loading from "@/components/common/Loading";
+import Navbar from "@/components/common/Navbar";
 export default {
   name: "App",
-
   components: {
-    Navbar
+    Navbar,
+    Loading
   },
-
-  data: () => ({})
+  computed: {
+    is_loading() {
+      return this.$store.state.is_loading;
+    }
+  }
 };
 </script>
+<style scoped>
+#main {
+  background-color: #fff7ef;
+}
+</style>
