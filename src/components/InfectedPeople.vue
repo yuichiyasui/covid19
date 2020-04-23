@@ -101,10 +101,9 @@ export default {
       this.todayInfected = infectedArray[infectedArray.length - 2].count;
       this.yesterdayInfected = infectedArray[infectedArray.length - 3].count;
       /** 退院数 */
-      var dischargeTotalArray = this.$store.getters.getDischargeTotal;
-      this.totalDischarge = Number(
-        dischargeTotalArray[dischargeTotalArray.length - 1].count
-      );
+      var dischargeTotalArray = this.$store.getters.getDischergeByDayTotal;
+      this.totalDischarge = dischargeTotalArray[dischargeTotalArray.length - 1].count
+      ;
       var dischargeArray = this.$store.getters.getDischargeTransition;
       this.todayDischarge = 0;
       this.todayDischarge = dischargeArray[dischargeArray.length - 2].count;
