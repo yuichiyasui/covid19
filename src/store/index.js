@@ -187,67 +187,6 @@ export default new Vuex.Store({
       return dateArray;
     },
     /**
-     * 累計退院数の推移を集計.
-     * 国内の感染状況、退院数グラフで使ってる
-     */
-    getDischargeTotal(state) {
-      var masterData = Array.from(state.masterData);
-      var dischargeData = masterData.filter(elm => elm.dischargeTotal !== ""); // 退院数の記載がある行のみを切り出し
-      dischargeData = dischargeData.map(function(elm) {
-        // 行から日付と退院数だけを詰めたオブジェクトだけの配列に変換
-        return { date: elm.date, count: elm.dischargeTotal };
-      });
-      return dischargeData; // 前日から退院数の増加がない行は現状除かれている
-      // var dateArray = []; // 日別の集計結果を格納する配列
-      // /** 日付とカウンターをプロパティにした日付オブジェクトを2020年1月1日から今日の分まで生成して配列に格納 */
-      // var preToday = new Date();
-      // var today = new Date(
-      //   preToday.getFullYear(),
-      //   preToday.getMonth(),
-      //   preToday.getDate(),
-      //   0,
-      //   0
-      // );
-      // var startDate = new Date(2020, 0, 1, 0, 0);
-      // var ms = today.getTime() - startDate.getTime();
-      // var endCount = ms / (1000 * 60 * 60 * 24) + 1;
-      // for (let i = 15; i <= endCount; i++) {
-      //   var date = new Date(2020, 0, i);
-      //   var dateObj = {
-      //     date: date,
-      //     count: 0
-      //   };
-      //   dateArray.push(dateObj);
-      // }
-      // /** 退院数データを1行ずつみていく */
-      // for (let i = 0; i < dischargeData.length; i++) {
-      //   /** 退院数データの日付が日付オブジェクトのいずれかの日付とマッチするかみていく(絶対にどこかでマッチする) */
-      //   if(dischargeData[i] > 0)
-      //   try {
-      //     for (let j = 0; dateArray.length; j++) {
-      //       /** もしマッチしたらその日付のカウンターに退院数を代入してfor文を終了(マッチしない場合はスルーして次の日付へ) */
-      //       if (
-      //         dischargeData[i].date.getTime() === dateArray[j].date.getTime()
-      //       ) {
-      //         dateArray[j].count = dischargeData[i].discharge;
-      //         break;
-      //       }
-      //     }
-      //   } catch (error) {
-      //     console.error(
-      //       error.name +
-      //         ": " +
-      //         error.message +
-      //         "[this date: " +
-      //         masterData[i].date +
-      //         "]"
-      //     );
-      //     break;
-      //   }
-      // }
-      // return dateArray;
-    },
-    /**
      * 日別死者数推移の集計.
      * 国内の感染状況、死者数推移で使ってる
      */
@@ -579,6 +518,10 @@ export default new Vuex.Store({
       }
       return resultArray;
     },
+    /**
+     * 累計退院数の推移を集計.
+     * 国内の感染状況、退院数グラフで使ってる
+     */
     getDischergeByDayTotal(state){
       var masterData = state.masterData;
       var dateArray = []; // 日別の集計結果を格納する配列
@@ -625,7 +568,6 @@ export default new Vuex.Store({
           break;
         }
       }
-      console.log(dateArray[98]);
       var resultArray = [];
       for (let i = 0; i < dateArray.length; i++) {
         if (i === 0) {
