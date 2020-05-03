@@ -108,6 +108,10 @@ export default {
           /** 男児だった場合は男性に変換 */
           genderData = "男性";
         }
+        if(genderData === ""){
+          /** データが空文字だった場合不明に変換 */
+          genderData = "不明"
+        }
         var isMatch = false; // マッチしてなかったらfalse
         for (let k = 0; k < genderArray.length; k++) {
           if (genderData === resultArray[k].name) {
