@@ -44,11 +44,15 @@
 import GenderGraph from "@/components/gender/GenderGraph.vue";
 export default {
   components: {
-    GenderGraph
+    GenderGraph,
   },
   data() {
     return {
-      genderData: [],
+      genderData: [
+        { id: 1, name: "男性", count: 0 },
+        { id: 2, name: "女性", count: 0 },
+        { id: 3, name: "不明", count: 0 },
+      ],
       chartData: {
         labels: ["男性", "女性", "不明"],
         datasets: [
@@ -57,23 +61,23 @@ export default {
             backgroundColor: [
               "rgba(7, 12, 250, 0.2)",
               "rgba(400, 5, 3, 0.2)",
-              "rgba(255, 130, 3, 0.2)"
+              "rgba(255, 130, 3, 0.2)",
             ],
             borderColor: ["#3407fa", "#fc0331", "#f57c00"],
             borderWidth: 1,
             datalabels: {
               // ここにchartjs-data-labelsのオプションを定義
               font: {
-                size: "20"
-              }
-            }
-          }
-        ]
+                size: "20",
+              },
+            },
+          },
+        ],
       },
       options: {
         responsive: true,
         legend: {
-          display: false
+          display: false,
         },
         plugins: {
           // ここにchartjs-data-labelsのオプションを定義
@@ -87,10 +91,10 @@ export default {
                 data.datasets[0].data[tooltipItem.index] +
                 " %"
               ); // 単位を付ける
-            }
-          }
-        }
-      }
+            },
+          },
+        },
+      },
     };
   },
   methods: {
@@ -104,14 +108,6 @@ export default {
       }
       for (let j = 0; j < masterData.length; j++) {
         var genderData = masterData[j].gender;
-        if (genderData === "男児") {
-          /** 男児だった場合は男性に変換 */
-          genderData = "男性";
-        }
-        if(genderData === ""){
-          /** データが空文字だった場合不明に変換 */
-          genderData = "不明"
-        }
         var isMatch = false; // マッチしてなかったらfalse
         for (let k = 0; k < genderArray.length; k++) {
           if (genderData === resultArray[k].name) {
@@ -122,19 +118,19 @@ export default {
         }
         if (isMatch === false) {
           // いずれにもマッチしなかった場合不明に追加
-          resultArray[3].count++;
+          resultArray[2].count++;
         }
       }
       this.genderData = resultArray;
       const reducer = (sum, currentValue) => sum + currentValue;
-      var sum = resultArray.map(elm => elm.count).reduce(reducer);
+      var sum = resultArray.map((elm) => elm.count).reduce(reducer);
       this.chartData.datasets[0].data = resultArray
-        .map(elm => elm.count)
-        .map(elm => Math.round((elm / sum) * 100));
-    }
+        .map((elm) => elm.count)
+        .map((elm) => Math.round((elm / sum) * 100));
+    },
   },
   created() {
     this.setGenderData();
-  }
+  },
 };
 </script>
