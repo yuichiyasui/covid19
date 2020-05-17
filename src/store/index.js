@@ -5,13 +5,12 @@ import PREF_ARRAY from "../assets/js/prefecture";
 import AGE_ARRAY from "../assets/js/age";
 
 Vue.use(Vuex);
-Vue.use(axios);
 
 export default new Vuex.Store({
   state: {
     masterData: [],
     dailyChangeData: [],
-    is_loading: false
+    loading: true
   },
   mutations: {
     addMasterData(state, masterData) {
@@ -61,7 +60,7 @@ export default new Vuex.Store({
       state.masterData = masterDataArray; // 加工したデータ配列でstateを上書き
     },
     setIsLoading(state, isLoading) {
-      state.is_loading = isLoading;
+      state.loading = isLoading;
     }
   },
   actions: {

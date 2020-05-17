@@ -12,7 +12,6 @@ export default {
     }
   },
   mounted() {
-    this.date = this.$store.getters.getDailyChangeData;
     this.renderChart(this.dischargeChartData, this.options);
   }
 };

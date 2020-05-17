@@ -4,8 +4,8 @@
       <Navbar />
       <v-container fluid fill-height class="px-3">
         <v-row justify="center">
-          <Loading v-show="is_loading"></Loading>
-          <router-view v-show="!is_loading"></router-view>
+          <Loading v-show="loading"></Loading>
+          <router-view v-show="!loading"></router-view>
         </v-row>
       </v-container>
     </v-content>
@@ -19,13 +19,13 @@ export default {
   name: "App",
   components: {
     Navbar,
-    Loading
+    Loading,
   },
   computed: {
-    is_loading() {
-      return this.$store.state.is_loading;
-    }
-  }
+    loading() {
+      return this.$store.state.loading;
+    },
+  },
 };
 </script>
 <style scoped>

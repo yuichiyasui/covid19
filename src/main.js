@@ -5,7 +5,7 @@ import store from "./store";
 import vuetify from "./plugins/vuetify";
 import axios from "axios";
 import VueAxios from "vue-axios";
-import firebase from "firebase";
+import firebase from "firebase/app";
 
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
@@ -23,7 +23,6 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
 
 new Vue({
   router,

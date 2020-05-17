@@ -2,11 +2,12 @@
 import { Bar, mixins } from "vue-chartjs";
 
 export default {
+  name:"AgeGraph",
   extends: Bar,
-  props: ["ageChartData", "options"],
   mixins: [mixins.reactiveProp],
+  props: ["chartData", "options"],
   mounted() {
-    this.renderChart(this.ageChartData, this.options);
+    this.renderChart(this.chartData, this.options);
   },
 };
 </script>
