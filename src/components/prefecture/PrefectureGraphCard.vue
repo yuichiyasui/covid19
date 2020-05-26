@@ -1,5 +1,5 @@
 <template>
-  <v-card outlined class="pa-3 mb-4">
+  <v-card height="100%" outlined class="pa-3 mb-4">
     <v-card-text class="pa-0">
       <v-card-title class="title-color">都道府県別累積感染者数</v-card-title>
       <div id="prefecture-graph-frame">

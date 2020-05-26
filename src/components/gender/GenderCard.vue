@@ -1,8 +1,8 @@
 <template>
-  <v-card outlined class="pa-3 mb-4">
+  <v-card outlined height="100%" class="pa-3 mb-4">
     <v-card-text class="pa-0">
       <v-card-title class="title-color">男女別感染者数</v-card-title>
-      <v-row class="text-center" justify="center">
+      <v-row class="text-center mb-3" justify="center">
         <v-col>
           <v-icon class="pb-2" style="color:#3407fa;">
             mdi-human-male
@@ -31,7 +31,7 @@
           人
         </v-col>
       </v-row>
-      <div style="width:80%" class="mx-auto">
+      <div style="max-width:300px;" class="mx-auto">
         <gender-graph :gender-chart-data="chartData" :options="options" />
       </div>
       <div class="pa-2 pt-6 overline">

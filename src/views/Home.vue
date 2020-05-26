@@ -1,6 +1,6 @@
 <template>
   <v-col>
-    <v-row>
+    <v-row align-v="center" align-h="center">
       <v-col sm="4">
         <v-card outlined class="pa-3 mb-4">
           <v-card-text class="pa-0">

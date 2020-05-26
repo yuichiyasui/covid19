@@ -1,5 +1,5 @@
 <template>
-  <v-card outlined class="pa-3 mb-4">
+  <v-card outlined height="100%" class="pa-3 mb-4">
     <v-card-text class="pa-0">
       <v-card-title class="title-color">PCR検査数推移</v-card-title>
       <v-row align="center" justify="center">

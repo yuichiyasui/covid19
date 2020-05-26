@@ -5,7 +5,7 @@
         感染データ一覧
       </v-card-title>
       <div id="list-frame">
-        <v-simple-table fixed-header height="78vh">
+        <v-simple-table fixed-header height="50vh">
           <template v-slot:default>
             <thead>
               <tr class="table-header-color">
