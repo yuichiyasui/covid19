@@ -2,14 +2,14 @@
 
 新型コロナウイルス感染症 (COVID-19)に関する情報サイトのプロジェクト
 
+https://covid19-307d1.firebaseapp.com/
 
-# メンバーへのクローン時の情報共有
+# クローン時の起動手順
 
 * developブランチをクローンしてください。
-* node_modulesをgitignoreしているのでクローン後にnpm installしてください。
+* 下記を実施(事前にnodeを入れておいてください)
 
 ```
-git clone -b develop https://github.com/yuichiyasui/covid19.git
 npm install
 npm run serve
 ```
