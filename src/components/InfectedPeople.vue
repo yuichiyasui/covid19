@@ -56,7 +56,7 @@
       </v-col>
       <v-col>
         <div class="text-center">
-          <div class="subtitle-1 title-color">PCR検査受信者数</div>
+          <div class="subtitle-1 title-color">PCR検査受診者数</div>
           <div class="py-2">
             <span class="font-weight-bold display-1"
               >{{ Number(totalPcr).toLocaleString() }} </span

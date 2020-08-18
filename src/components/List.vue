@@ -1,11 +1,11 @@
 <template>
-  <v-card outlined class="pa-3 mb-4">
+  <v-card height="100%" outlined class="pa-3 mb-4">
     <v-card-text class="pa-0">
       <v-card-title class="title-color">
         感染データ一覧
       </v-card-title>
       <div id="list-frame">
-        <v-simple-table fixed-header height="50vh">
+        <v-simple-table fixed-header height="60vh">
           <template v-slot:default>
             <thead>
               <tr class="table-header-color">

@@ -43,9 +43,10 @@
       <v-col sm="4">
         <IndividualPrefectureGraphCard />
       </v-col>
-      <v-col sm="4">
+      <!-- エラーのため非表示 2020.08.19 by yasui
+        <v-col sm="4">
         <JapanMap />
-      </v-col>
+      </v-col> -->
       <v-col sm="4">
         <List />
       </v-col>
@@ -56,7 +57,7 @@
 <script>
 import PrefectureGraphCard from "@/components/prefecture/PrefectureGraphCard";
 import IndividualPrefectureGraphCard from "@/components/prefecture/IndividualPrefectureGraphCard";
-import JapanMap from "@/components/JapanMap";
+// import JapanMap from "@/components/JapanMap";
 import List from "@/components/List.vue";
 import InfectedTransitionGraphCard from "@/components/infected/InfectedTransitionGraphCard.vue";
 import InfectedPeople from "@/components/InfectedPeople.vue";
@@ -71,7 +72,7 @@ import store from "../store";
 export default {
   components: {
     PrefectureGraphCard,
-    JapanMap,
+    // JapanMap,
     List,
     InfectedTransitionGraphCard,
     InfectedPeople,
@@ -81,12 +82,12 @@ export default {
     IndividualPrefectureGraphCard,
     AgeDayGraph,
     PcrTransitionGraphCard,
-    DischargeTransitionGraphCard
+    DischargeTransitionGraphCard,
   },
   async beforeRouteEnter(to, from, next) {
     await store.dispatch("fetchMasterData");
     next();
-  }
+  },
 };
 </script>
 
